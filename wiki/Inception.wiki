@@ -10,18 +10,8 @@ WAYF prod setup: auth proc filter for specific SP's calls generic attritbute col
 
 Connectors: (Re)use what you already have, send specification to WAYF, who will write a connector. SAML2 or modern web + JSON/XML, SOAP or LDAP is recommended.
 
+http://jakob.googlecode.com/files/basic-design.png
+
 *Web-based admin interface*
 
 Fødereret login, baseret på entitlement (for at delegere administration til IdP'erne)
-
-Version 0.1: statiske regler, administreret via webinterface af WAYF
-
-Version 0.2: redundans, (som ved BIRK, -> afhængighed til BIRK-projekt)
-
-Version 0.3: statiske regler, administreret via webinterface af IdP'erne
-
-Version 0.4 : Dynamiske regler baseret på svar fra et attribut store.
-
-Version 0.5 : statistik over hvilke attributter der leveres fra hvilke IdP'er og attribut-stores
-
-Version 0.6:  Errorhåndtering: Visning i samtykke-dialog, hvor påkrævede attributter ikke blev leveret fra. Giver afhængighed til samtykkemodul.

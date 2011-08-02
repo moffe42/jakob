@@ -1,0 +1,27 @@
+#summary Initial thoughts
+SLAGPLAG, ATTRIBUT COLLECTOR, JAKOB
+
+Skrive connectorer til fagsystemerne (i stedet for SAML2), traffik er back-channel
+SSP-filter kalder extern service (JAKOB).
+
+Att-store (AS) skubber LoA-krav mv. til JACOB-config, så AS alene modtager requests, som opfylder kravene (enforces af JAKOB), og kan svare på samtlige requests.
+
+WAYF prod setup: auth proc filter for specific SP's calls generic attritbute collector (JAKOB),  SP-tag is configured in JANUS.
+
+Connectors: (Re)use what you already have, send specification to WAYF, who will write a connector. SAML2 or modern web + JSON/XML, SOAP or LDAP is recommended.
+
+*Web-based admin interface*
+
+Fødereret login, baseret på entitlement (for at delegere administration til IdP'erne)
+
+Version 0.1: statiske regler, administreret via webinterface af WAYF
+
+Version 0.2: redundans, (som ved BIRK, -> afhængighed til BIRK-projekt)
+
+Version 0.3: statiske regler, administreret via webinterface af IdP'erne
+
+Version 0.4 : Dynamiske regler baseret på svar fra et attribut store.
+
+Version 0.5 : statistik over hvilke attributter der leveres fra hvilke IdP'er og attribut-stores
+
+Version 0.6:  Errorhåndtering: Visning i samtykke-dialog, hvor påkrævede attributter ikke blev leveret fra. Giver afhængighed til samtykkemodul.

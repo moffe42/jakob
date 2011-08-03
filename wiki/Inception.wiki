@@ -1,10 +1,14 @@
 #summary Initial thoughts
-SLAGPLAG, ATTRIBUT COLLECTOR, JAKOB
 
-Skrive connectorer til fagsystemerne (i stedet for SAML2), traffik er back-channel
-SSP-filter kalder extern service (JAKOB).
+=ATTRIBUTE COLLECTOR, JAKOB=
 
-Att-store (AS) skubber LoA-krav mv. til JACOB-config, så AS alene modtager requests, som opfylder kravene (enforces af JAKOB), og kan svare på samtlige requests.
+Work only back channel.
+
+Write connectors to the different systems (custom, SAML2 attribute query etc.)
+
+SSP filter calls the extern JAKOB service.
+
+Att-store (AS) delegates the LoA requirement etc. to JAKOB-config, so AS only receives requests that adhere to the LoA requirement (enforced by JAKOB), so all AS can reply to all requests.
 
 WAYF prod setup: auth proc filter for specific SP's calls generic attritbute collector (JAKOB),  SP-tag is configured in JANUS.
 
@@ -14,4 +18,4 @@ http://jakob.googlecode.com/files/basic-design.png
 
 *Web-based admin interface*
 
-Fødereret login, baseret på entitlement (for at delegere administration til IdP'erne)
+Federated login, based on entitlement (for delegating administration to the different IdP´s)

@@ -5,6 +5,7 @@ Here you can see all the different user stories created for JAKOB. If you would 
 
   * As a *User* I want to collect attributes from different sources so the I can pass on more attributes to a service.
   * As an *Administrator* I want to easily set up a new attribute collection so that I do not have to code.
+  * As an *Administrator* I want to easily change the configuration of an attribute collection to accomodate for changes in an external data source.
 
 =User roles=
 

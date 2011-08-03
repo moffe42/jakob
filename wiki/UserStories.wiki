@@ -1,6 +1,6 @@
 #summary User stories for JAKOB
 
-Here you can see all the different user stories created for JAKOB. If you would like to create additional user stories, please read the [How_to_create_user_stories] section first.
+Here you can see all the different user stories created for JAKOB. If you would like to create additional user stories, please read the [UserStories#How_to_create_user_stories] section first.
 =User stories=
 
   * As a *User* I want to collect attributes from different sources so the I can pass on more attributes to a service.

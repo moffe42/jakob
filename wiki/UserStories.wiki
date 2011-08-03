@@ -1,11 +1,25 @@
 #summary User stories for JAKOB
 
-Here you can see all the different user stories created for JAKOB. If you would like to create additional user stories, please read the [UserStories#How_to_create_user_stories] section first.
+Here you can see all the different user stories created for JAKOB. If you would like to create additional user stories, please read the [UserStories#How_to_create_user_stories "How to create user stories"] section first.
 =User stories=
 
   * As a *User* I want to collect attributes from different sources so the I can pass on more attributes to a service.
   * As an *Administrator* I want to easily set up a new attribute collection so that I do not have to code.
 
+=User roles=
+
+|| *User roles* ||
+|| User ||
+|| Administrator ||
+
 =How to create user stories=
 
+All user tories should be on the form:
+
 _As a `[`user role`]` I want to `[`goal`]` so that `[`benefit`]`
+
+Please set the user role in bold and capitalise it.
+
+Keep the user stories as short as possible.
+
+If you introduce a new user role please ad it to the [UserStories#User_roles "User roles"] section.

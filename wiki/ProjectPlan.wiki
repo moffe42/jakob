@@ -1,5 +1,7 @@
 #summary Rough project plan
 
+The plan below outlining the different version are preliminary and will be corrected as the project moves along.
+
 Version 0.1: statiske regler, administreret via webinterface af WAYF
 
 Version 0.2: redundans, (som ved BIRK, -> afhængighed til BIRK-projekt)

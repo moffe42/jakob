@@ -1,5 +1,7 @@
 #summary Menu page
 
-* [Inception]
+* [Inception Inception]
 
-* ProjectPlan
+* [UserStories User stories]
+
+* [ProjectPlan Project plan]

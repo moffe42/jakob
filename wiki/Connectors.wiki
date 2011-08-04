@@ -1,0 +1,22 @@
+#summary Connector design
+
+=How to write a JConnector=
+Here the interfaces defined will be describeed.
+
+=Example=
+Below is a proposed example output of an external datasource, to be delivered back to a connector
+{{{
+{
+    "id" : "v4j23h5vj5h3425v",
+    "version" : "1.0",
+    "userid" : "999999-8888",
+    "attributes" : {
+        "attributekey1" : "attributevalue",
+        "attributekey2" : [
+            "attributevalue1",
+            "attributevalue2"
+        ],
+        "attributekey3" : "attributevalue"
+    } 
+}
+}}}

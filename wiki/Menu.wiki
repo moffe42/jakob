@@ -1,7 +1,12 @@
 #summary Menu page
 
+===Project===
 * [Inception Initial thoughts]
 
 * [UserStories User stories]
 
 * [ProjectPlan Project plan]
+
+===Documentation===
+
+* [Connectors Connectors]

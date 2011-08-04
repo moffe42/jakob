@@ -1,6 +1,6 @@
 #summary Menu page
 
-* [Inception Inception]
+* [Inception Initial thoughts]
 
 * [UserStories User stories]
 

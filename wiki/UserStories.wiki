@@ -18,7 +18,7 @@ Here you can see all the different user stories created for JAKOB. If you would 
 
 All user tories should be on the form:
 
-_As a `[`user role`]` I want to `[`goal`]` so that `[`benefit`]`
+_As a *`[`user role`]`* I want to *`[`goal`]`* so that *`[`benefit`]`*
 
 Please set the user role in bold and capitalise it.
 

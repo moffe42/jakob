@@ -29,7 +29,6 @@ use WAYF\Logger;
  * all logging to disc.
  *
  * @author Jacob Christiansen <jach@wayf.dk>
- * @uses   WAYF\Logger
  */
 class FileLogger implements Logger
 {

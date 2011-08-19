@@ -1,33 +1,76 @@
 <?php
 /**
- * SplClassLoader implementation that implements the technical interoperability
- * standards for PHP 5.3 namespaces and class names.
+ * JAKOB
  *
- * http://groups.google.com/group/php-standards/web/psr-0-final-proposal
- *
- *     // Example which loads classes for the Doctrine Common package in the
- *     // Doctrine\Common namespace.
- *     $classLoader = new SplClassLoader('Doctrine\Common', '/path/to/doctrine');
- *     $classLoader->register();
- *
- * @author Jonathan H. Wage <jonwage@gmail.com>
- * @author Roman S. Borschel <roman@code-factory.org>
- * @author Matthew Weier O'Phinney <matthew@zend.com>
- * @author Kris Wallsmith <kris.wallsmith@gmail.com>
- * @author Fabien Potencier <fabien.potencier@symfony-project.org>
+ * @category   WAYF
+ * @package    JAKOB
+ * @subpackage Utilities
+ * @author     Jonathan H. Wage <jonwage@gmail.com>
+ * @author     Roman S. Borschel <roman@code-factory.org>
+ * @author     Matthew Weier O'Phinney <matthew@zend.com>
+ * @author     Kris Wallsmith <kris.wallsmith@gmail.com>
+ * @author     Fabien Potencier <fabien.potencier@symfony-project.org>
+ * @version    $Id$
+ * @link       $URL$
  */
-class SplClassLoader
+
+/**
+ * @namespace
+ */
+namespace WAYF;
+
+/**
+ * SPL Class Loader
+ *
+ * AutoLoader implementation that implements the technical interoperability
+ * standards for PHP 5.3 namespaces and class names.
+ * <br /><br /><b>Example:</b><br /><br />
+ *
+ * <pre>
+ * // Example which loads classes from the WAYF package
+ * $classLoader = new AutoLoader('WAYF', '/path/to/WAYF');
+ * $classLoader->register();
+ * </pre>
+ *
+ * @author   Jonathan H. Wage <jonwage@gmail.com>
+ * @author   Roman S. Borschel <roman@code-factory.org>
+ * @author   Matthew Weier O'Phinney <matthew@zend.com>
+ * @author   Kris Wallsmith <kris.wallsmith@gmail.com>
+ * @author   Fabien Potencier <fabien.potencier@symfony-project.org>
+ * @link     http://groups.google.com/group/php-standards/web/psr-0-final-proposal
+ */
+class AutoLoader
 {
+    /**
+     * Extension used for files
+     * @var string
+     */
     private $_fileExtension = '.php';
+    
+    /**
+     * Namespace loaded
+     * @var string
+     */
     private $_namespace;
+    
+    /**
+     * Includepath loaded
+     * @var string
+     */
     private $_includePath;
+    
+    /**
+     * Namespace seperator used
+     * @var string
+     */
     private $_namespaceSeparator = '\\';
 
     /**
      * Creates a new <tt>SplClassLoader</tt> that loads classes of the
      * specified namespace.
      * 
-     * @param string $ns The namespace to use.
+     * @param string $ns          The namespace to use.
+     * @param string $includePath The include path to use.
      */
     public function __construct($ns = null, $includePath = null)
     {
@@ -48,7 +91,7 @@ class SplClassLoader
     /**
      * Gets the namespace seperator used by classes in the namespace of this class loader.
      *
-     * @return void
+     * @return string The namespace
      */
     public function getNamespaceSeparator()
     {
@@ -68,7 +111,7 @@ class SplClassLoader
     /**
      * Gets the base include path for all class files in the namespace of this class loader.
      *
-     * @return string $includePath
+     * @return string The include path
      */
     public function getIncludePath()
     {
@@ -88,7 +131,7 @@ class SplClassLoader
     /**
      * Gets the file extension of class files in the namespace of this class loader.
      *
-     * @return string $fileExtension
+     * @return string The file extension usedn
      */
     public function getFileExtension()
     {
@@ -115,7 +158,6 @@ class SplClassLoader
      * Loads the given class or interface.
      *
      * @param string $className The name of the class to load.
-     * @return void
      */
     public function loadClass($className)
     {

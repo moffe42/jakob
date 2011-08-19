@@ -1,0 +1,18 @@
+#summary Notes on how to gode etc.
+
+= Coding standard =
+All code in JAKOB should conform to the [http://framework.zend.com/manual/en/coding-standard.overview.html Zend Coding Standard]. As a minimum the code should pass a run with [http://pear.php.net/package/PHP_CodeSniffer PHP_codesniffer] with standard set to `zend`.
+{{{
+phpcs --standard=zend file
+}}}
+
+= Documentation =
+All PHP library files (places in the lib directory) should contain inline documentation of the same quality describet [http://framework.zend.com/manual/en/coding-standard.coding-style.html here]. (See paragraph _Inline Documentation_). Both a file level and a class level docblock is required.
+
+Files placed in the www directory should have at least a file level docblock
+
+= Misc =
+Remember to set the svn:keywords property on all newly created files to `id` and `URL`.
+{{{
+svn propset svn:keywords "Id" filename
+}}}

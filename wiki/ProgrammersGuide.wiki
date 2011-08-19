@@ -3,7 +3,7 @@
 = Coding standard =
 All code in JAKOB should conform to the [http://framework.zend.com/manual/en/coding-standard.overview.html Zend Coding Standard]. As a minimum the code should pass a run with [http://pear.php.net/package/PHP_CodeSniffer PHP_codesniffer] with standard set to `zend`.
 {{{
-phpcs --standard=zend file
+phpcs --standard=zend filename
 }}}
 
 = Documentation =

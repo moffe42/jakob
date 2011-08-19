@@ -29,8 +29,8 @@ switch (STATUS) {
 }
 
 // Include the autoloader
-include ROOT . 'lib' . DIRECTORY_SEPARATOR . 'SplClassLoader.php';
+include ROOT . 'lib' . DIRECTORY_SEPARATOR . 'WAYF' . DIRECTORY_SEPARATOR . 'AutoLoader.php';
 
 // Register all classes under WAYF
-$classLoader = new SplClassLoader('WAYF', ROOT . 'lib');
+$classLoader = new WAYF\AutoLoader('WAYF', ROOT . 'lib');
 $classLoader->register();

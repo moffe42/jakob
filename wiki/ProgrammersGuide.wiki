@@ -12,7 +12,7 @@ All PHP library files (places in the lib directory) should contain inline docume
 Files placed in the www directory should have at least a file level docblock
 
 = Misc =
-Remember to set the svn:keywords property on all newly created files to `id` and `URL`.
+Remember to set the svn:keywords property on all newly created files to `Id URL`.
 {{{
-svn propset svn:keywords "Id" filename
+svn propset svn:keywords "Id URL" filename
 }}}

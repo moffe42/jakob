@@ -42,6 +42,6 @@ class Configuration
      */
     public function loadConfig($config)
     {
-
+        return true;
     }
 }

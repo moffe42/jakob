@@ -10,3 +10,5 @@
 ===Documentation===
 
 * [Connectors Connectors]
+
+* [ProgrammersGuide Programmers Guide]

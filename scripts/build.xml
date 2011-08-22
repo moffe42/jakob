@@ -32,7 +32,8 @@
    </sequential>
    <antcall target="phpcpd"/>
    <antcall target="phpcs"/>
-   <antcall target="phpdoc"/>
+   <!--<antcall target="phpdoc"/>-->
+   <antcall target="docblox"/>
    <antcall target="phploc"/>
   </parallel>
  </target>
@@ -79,6 +80,12 @@
  <target name="phpdoc" description="Generate API documentation using PHPDocumentor">
   <exec executable="phpdoc">
    <arg line="-d ${source} -t ${basedir}/build/api" />
+  </exec>
+ </target>
+ 
+ <target name="docblox" description="Generate API documentation using DocBlox">
+  <exec executable="docblox">
+   <arg line="-d ${source} -t ${basedir}/build/api --title JAKOB" />
   </exec>
  </target>
 

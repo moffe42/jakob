@@ -7,3 +7,8 @@ $logger = new \WAYF\Logger\FileLogger();
 $logger->log(1,'dd');
 
 var_dump($_REQUEST);
+
+
+$signer = new \WAYF\Security\Signer\GetRequestSigner();
+$signer->setUp('test', array('test' => 'dd', 'test2' => 'ff'), array('glue' => '|'));
+$signer->sign();

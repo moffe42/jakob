@@ -85,7 +85,7 @@
  
  <target name="docblox" description="Generate API documentation using DocBlox">
   <exec executable="docblox">
-   <arg line="-d ${source} -t ${basedir}/build/api --title JAKOB" />
+   <arg line="-d ${source} -t ${basedir}/build/api --title &#34;JAKOB API&#34;" />
   </exec>
  </target>
 

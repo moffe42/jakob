@@ -46,4 +46,13 @@ interface Signer
      * @return string A valid signature for the document
      */
     public function sign();
+
+    /**
+     * Validate signature
+     *
+     * This method should return true if the signature is valid
+     *
+     * @return bool True if signature is valid othervise false
+     */
+    public function validate($signature);
 }

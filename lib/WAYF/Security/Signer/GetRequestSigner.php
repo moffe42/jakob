@@ -94,7 +94,6 @@ class GetRequestSigner implements Signer
      */
     public function sign()
     {
-
         ksort($this->_params);
 
         $glued_params = Array();
@@ -103,11 +102,33 @@ class GetRequestSigner implements Signer
         }
 
         $glued_params = implode($this->_glue, $glued_params);
-        var_dump($glued_params);
         
         $message = $this->_key . $glued_params;
         $signature = hash('sha512', $message);
 
         return $signature;
+    }
+
+    /**
+     * Validate the signature
+     *
+     * Validates the parsed signature against the key and parameters supplied 
+     * via the setUp method.
+     *
+     * @param string $signature Signature string
+     *
+     * @return bool True if signature is valid othervise false
+     */
+    public function validate($signature)
+    {
+        if (!is_string($signature)) {
+            return false;
+        }
+
+        if (is_null($this->_params)) {
+            return false;
+        }
+
+        return ($signature == $this->sign());
     }
 }

@@ -20,3 +20,4 @@ Below is a proposed example output of an external datasource, to be delivered ba
     } 
 }
 }}}
+JAKOB are using the above format internally between workers and clients. This means that the Job implemented must saveed the result to memcache in this format.

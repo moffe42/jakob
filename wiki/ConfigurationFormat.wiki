@@ -8,26 +8,26 @@ This is the initial proposal for a internal configuration format used in JAKOB, 
     <jc:connector ID="CPR" name="CPR connector">
       <jc:options>
         <jc:option name="uid">ndlksvfv</jc:option>
-      </jc:options>   
-    </jc:connector>
+      </jc:options>
+    </jc:connector>                             
   </jc:task>
-  <jc:batch order="2">
+  <jc:batch order="2">                                    
     <jc:task>
-      <jc:connector ID="VIP", name="VIP connector">
+      <jc:connector ID="VIP" name="VIP connector">
         <jc:options>
           <jc:option name="uid">ndlksvfv</jc:option>
-        </jc:options>   
+        </jc:options>
       </jc:connector>
     </jc:task>
-    <jc:task>
+    <jc:task>   
       <jc:connector ID="CLUR" name="CLUR connecor">
-        <jc:options>
-          <jc:option name="uid">ndlksvfv</jc:option>
-        </jc:options>   
+        <jc:options>                                                                                            
+          <jc:option name="uid">ndlksvfv</jc:option>                                                                
+        </jc:options>
       </jc:connector>
     </jc:task>
   </jc:batch>
-</jc:job>
+</jc:job>  
 }}}
 
 = Elements = 

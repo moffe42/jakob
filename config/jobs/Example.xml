@@ -1,25 +1,26 @@
-<job ID="Example" name="Hent attributter">
-    <task order="1" >
-        <connector name="CPR">
-            <options>
-                <option name="uid">ndlksvfv</option>
-            </options>   
-        </connector>
-    </task>
-    <batch order="2" >
-        <task>
-            <connector name="VIP">
-                <options>
-                    <option name="uid">ndlksvfv</option>
-                </options>   
-            </connector>
-        </task>
-        <task>
-            <connector name="CLUR">
-                <options>
-                    <option name="uid">ndlksvfv</option>
-                </options>   
-            </connector>
-        </task>
-    </batch>
-</job>
+<?xml version="1.0"?>
+<jc:job xmlns:jc="http://www.wayf.dk/namespace/jakob/config/V1" ID="cdsfvvwedv" name="Hent attributter">
+  <jc:task order="1">
+    <jc:connector ID="CPR" name="CPR connector">
+      <jc:options>
+        <jc:option name="uid">ndlksvfv</jc:option>
+      </jc:options>
+    </jc:connector>
+  </jc:task>
+  <jc:batch order="2">
+    <jc:task>
+      <jc:connector ID="VIP" name="VIP connector">
+        <jc:options>
+          <jc:option name="uid">ndlksvfv</jc:option>
+        </jc:options>
+      </jc:connector>
+    </jc:task>
+    <jc:task>
+      <jc:connector ID="CLUR" name="CLUR connecor">
+        <jc:options>
+          <jc:option name="uid">ndlksvfv</jc:option>
+        </jc:options>
+      </jc:connector>
+    </jc:task>
+  </jc:batch>
+</jc:job>

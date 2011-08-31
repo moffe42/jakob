@@ -3,31 +3,31 @@
 This is the initial proposal for a internal configuration format used in JAKOB, in  order to get attributes from different sources
 = Example =
 {{{
-<job ID="cdsfvvwedv" name="Hent attributter">
-  <task order="1" >
-    <connector name="CPR">
-      <options>
-        <option name="uid">ndlksvfv</option>
-      </options>   
-    </connector>
-  </task>
-  <batch order="2" >
-    <task>
-      <connector name="VIP">
-        <options>
-          <option name="uid">ndlksvfv</option>
-        </options>   
-      </connector>
-    </task>
-    <task>
-      <connector name="CLUR">
-        <options>
-          <option name="uid">ndlksvfv</option>
-        </options>   
-      </connector>
-    </task>
-  </batch>
-</job>
+<job xmlns:jc="http://www.wayf.dk/namespace/jakob/config/V1" ID="cdsfvvwedv" name="Hent attributter">
+  <jc:task order="1" >
+    <jc:connector name="CPR">
+      <jc:options>
+        <jc:option name="uid">ndlksvfv</option>
+      </jc:options>   
+    </jc:connector>
+  </jc:task>
+  <jc:batch order="2" >
+    <jc:task>
+      <jc:connector name="VIP">
+        <jc:options>
+          <jc:option name="uid">ndlksvfv</option>
+        </jc:options>   
+      </jc:connector>
+    </jc:task>
+    <jc:task>
+      <jc:connector name="CLUR">
+        <jc:options>
+          <jc:option name="uid">ndlksvfv</option>
+        </jc:options>   
+      </jc:connector>
+    </jc:task>
+  </jc:batch>
+</jc:job>
 }}}
 
 = Elements = 

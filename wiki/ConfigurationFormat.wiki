@@ -3,7 +3,7 @@
 This is the initial proposal for a internal configuration format used in JAKOB, in  order to get attributes from different sources
 = Example =
 {{{
-<job xmlns:jc="http://www.wayf.dk/namespace/jakob/config/V1" ID="cdsfvvwedv" name="Hent attributter">
+<jc:job xmlns:jc="http://www.wayf.dk/namespace/jakob/config/V1" ID="cdsfvvwedv" name="Hent attributter">
   <jc:task order="1" >
     <jc:connector name="CPR">
       <jc:options>

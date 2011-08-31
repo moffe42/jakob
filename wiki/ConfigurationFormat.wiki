@@ -4,14 +4,14 @@ This is the initial proposal for a internal configuration format used in JAKOB, 
 = Example =
 {{{
 <jc:job xmlns:jc="http://www.wayf.dk/namespace/jakob/config/V1" ID="cdsfvvwedv" name="Hent attributter">
-  <jc:task order="1" >
+  <jc:task order="1">
     <jc:connector ID="CPR" name="CPR connector">
       <jc:options>
         <jc:option name="uid">ndlksvfv</jc:option>
       </jc:options>   
     </jc:connector>
   </jc:task>
-  <jc:batch order="2" >
+  <jc:batch order="2">
     <jc:task>
       <jc:connector ID="VIP", name="VIP connector">
         <jc:options>

@@ -1,0 +1,94 @@
+#summary Describes the configuration format
+
+This is the initial proposal for a internal configuration format used in JAKOB, in  order to get attributes from different sources
+= Example =
+{{{
+<job ID="cdsfvvwedv" name="Hent attributter">
+  <task order="1" >
+    <connector name="CPR">
+      <options>
+        <option name="uid">ndlksvfv</option>
+      </options>   
+    </connector>
+  </task>
+  <batch order="2" >
+    <task>
+      <connector name="VIP">
+        <options>
+          <option name="uid">ndlksvfv</option>
+        </options>   
+      </connector>
+    </task>
+    <task>
+      <connector name="CLUR">
+        <options>
+          <option name="uid">ndlksvfv</option>
+        </options>   
+      </connector>
+    </task>
+  </batch>
+</job>
+}}}
+
+= Elements = 
+
+----
+== Job ==
+`<job>` is the outer element of the configuration file
+
+There are two elements allowed in `<job>`: `<task>` and `<batch>`
+
+`ID` (Required)
+ ID of the job. Used to uniquely identity the job
+
+`name` (Optional)
+ An optional friendly name for the job
+
+`<task>` or `<batch>` (One or more)
+ Contains description of the different task the job should perform.
+
+----
+== Task ==
+`<task>` are the definition of single connection to an external source.
+
+`order` (Optional)
+ Defines the order in which the different tasks are performed.
+
+`<connector>` (Required)
+ Describes the connector used for the task.
+
+----
+== Batch ==
+`<batch>` is the container for multiple `<task>` elements that are to be executed simultaneous.
+
+`order` (Optional)
+ Defines the order in which the batched tasks should be performed compared to the other `<task>` elements.
+
+`<task>` (One or more)
+ The tasks that should be executed simultaneous.
+
+----
+== Connector ==
+`<connector>` defines how to connect to the external source.
+
+`name` (Required)
+ The name of the connector
+
+ `<options>` (Optional)
+ Defines options for the connector.
+
+----
+== Options ==
+ The `<options>` element defines all options that is needed for a connector to run successfully.
+
+`<option>` (One or more)
+ A single option for a connector.
+
+----
+== Option ==
+The `<option>` element contains data for a single option used by a connector.
+
+`name` (Required)
+ Name of the option
+
+----

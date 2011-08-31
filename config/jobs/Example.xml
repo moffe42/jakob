@@ -1,0 +1,25 @@
+<job ID="Example" name="Hent attributter">
+    <task order="1" >
+        <connector name="CPR">
+            <options>
+                <option name="uid">ndlksvfv</option>
+            </options>   
+        </connector>
+    </task>
+    <batch order="2" >
+        <task>
+            <connector name="VIP">
+                <options>
+                    <option name="uid">ndlksvfv</option>
+                </options>   
+            </connector>
+        </task>
+        <task>
+            <connector name="CLUR">
+                <options>
+                    <option name="uid">ndlksvfv</option>
+                </options>   
+            </connector>
+        </task>
+    </batch>
+</job>

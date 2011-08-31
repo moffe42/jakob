@@ -12,3 +12,5 @@
 * [Connectors Connectors]
 
 * [ProgrammersGuide Programmers Guide]
+
+* [ConfigurationFormat Configuration Format]

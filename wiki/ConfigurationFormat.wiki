@@ -30,6 +30,54 @@ This is the initial proposal for a internal configuration format used in JAKOB, 
 </jc:job>  
 }}}
 
+This can be done in JSON as well
+
+{{{
+{
+    "ID": "cdsfvvwedv",
+    "name": "Hent attributter",
+    "tasks": [
+        {
+            "type": "task",
+            "order": 1,
+            "connector": {
+                "ID": "CPR",
+                "name": "CPR connector",
+                "options": {
+                    "uid": "ndlksvfv"
+                }
+            }
+        },
+        {
+            "type": "batch",
+            "order": 2,
+            "tasks": [
+                {
+                    "type": "task",
+                    "connector": {
+                        "ID": "VIP",
+                        "name": "VIP connector",
+                        "options": {
+                            "uid": "ndlksvfv"
+                        }
+                    }
+                },
+                {
+                    "type": "task",
+                    "connector": {
+                        "ID": "CLUR",
+                        "name": "CLUR connector",
+                        "options": {
+                            "uid": "ndlksvfv"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
+}}}
+
 = Elements = 
 
 ----

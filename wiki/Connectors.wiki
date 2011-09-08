@@ -1,7 +1,9 @@
 #summary Connector design
 
-=How to write a JConnector=
-Here the interfaces defined will be describeed.
+=How to write a Connector=
+When designing an API for a JAKOB connector to access, it is importent to make the interchange format as light weight as possible. The smaller and easier it is to parse, the quicker JAKOb will respond to a request.
+
+the following is an example of an interchange format that is light weight and easy to parse.
 
 =Example=
 Below is a proposed example output of an external datasource, to be delivered back to a connector
@@ -20,4 +22,3 @@ Below is a proposed example output of an external datasource, to be delivered ba
     } 
 }
 }}}
-JAKOB are using the above format internally between workers and clients. This means that the Job implemented must saveed the result to memcache in this format.

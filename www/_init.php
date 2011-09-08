@@ -1,6 +1,7 @@
 <?php
 // Define the root path of JAKOB 
 define('ROOT', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
+define('CONFIGROOT', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR);
 
 // System status
 define('STATUS', 'development');
@@ -32,5 +33,5 @@ switch (STATUS) {
 include ROOT . 'lib' . DIRECTORY_SEPARATOR . 'WAYF' . DIRECTORY_SEPARATOR . 'AutoLoader.php';
 
 // Register all classes under WAYF
-$classLoader = new WAYF\AutoLoader('WAYF', ROOT . 'lib');
+$classLoader = new \WAYF\AutoLoader('WAYF', ROOT . 'lib');
 $classLoader->register();

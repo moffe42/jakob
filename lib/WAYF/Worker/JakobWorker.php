@@ -15,12 +15,12 @@
 /**
  * @namespace
  */
-namespace WAYF\Connector\Worker;
+namespace WAYF\Worker;
 
 /**
  * @uses
  */
-use WAYF\Connector\Worker;
+use WAYF\Worker;
 
 /**
  * Worker class based on Gearman

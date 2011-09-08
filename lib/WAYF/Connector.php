@@ -15,16 +15,23 @@
 /**
  * @namespace
  */
-namespace WAYF\Connector;
+namespace WAYF;
 
 /**
  * Job interface
  */
-interface Job
+interface Connector
 {
     /**
      * Default method called by worker
      * @param \GearmanJob $job Job Gearman job
      */
     public function execute(\GearmanJob $job);
+
+    public function setStore(\WAYF\Store $store);
+
+    public function setConfig(array $config);
+
+    public function setup();
 }
+

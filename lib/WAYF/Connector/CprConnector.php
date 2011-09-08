@@ -15,20 +15,24 @@
 /**
  * @namespace
  */
-namespace WAYF\Connector\Job;
+namespace WAYF\Connector;
 
 /**
  * @uses
  */
-use WAYF\Connector\Job;
+use WAYF\Connector;
 
 /**
  * CPR job
  *
  * Implementation of a job that fetches information from CPR. 
  */
-class CprJob implements Job
+class CprConnector implements Connector
 {
+    private $_store = null;
+    
+    private $_config = null;
+
     /**
      * Fetch data from CPR
      *
@@ -40,28 +44,41 @@ class CprJob implements Job
      */ 
     public function execute(\GearmanJob $job)
     {
-        $mc = new \WAYF\Store\MemcacheStore();
-        $mc->initialize();
+        $handle = $job->handle();
+        
+        // Process workload
+        $workload = json_decode($job->workload(), true);
+        
+        $params['cid'] = md5($workload['attributes']['cpr']);
+        $params['ukey'] = $workload['options']['userkey'];
 
+        // Init signer
         $signer = new \WAYF\Security\Signer\GetRequestSigner();
-
-        $workload = $job->workload();
-        $workloadd = json_decode($workload, true);
-        $md5cpr = md5($workloadd['cpr']);
-        $ukey  ='wayf';
-        $key = 'wayf4ever';
-
-        $params['cid'] = $md5cpr;
-        $params['ukey'] = $ukey;
-
-        $signer->setUp($key, $params);
+        $signer->setUp($workload['options']['key'], $params);
 
         $params['signature'] = $signer->sign();
 
         $query = http_build_query($params);
 
+        // Get result from CPR
         $result = file_get_contents('http://cpr.test.wayf.dk/?' . $query);
 
-        $mc->set($job->handle(), $result);
+        // Pick put the relevant data
+        $decodedresult = json_decode($result, true);
+
+        // Store result
+        $this->_store->set($handle, json_encode($decodedresult['attributes']));
     }
+
+    public function setStore(\WAYF\Store $store)
+    {
+        $this->_store = $store;
+    }
+
+    public function setConfig(array $config)
+    {
+        $this->_config = $config;
+    }
+
+    public function setup() {}
 }

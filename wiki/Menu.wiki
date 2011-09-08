@@ -11,6 +11,10 @@
 
 * [Connectors Connectors]
 
+* [ConfigurationFormat Configuration Format]
+
+===Development===
+
 * [ProgrammersGuide Programmers Guide]
 
-* [ConfigurationFormat Configuration Format]
+* [MiscNotes Notes]

@@ -1,0 +1,16 @@
+#summary Stuff that we need
+
+= Gearman =
+
+Start gearman workers with the following command:
+
+{{{
+$ nouhp php jakob-worker.php 
+}}}
+
+== Installation ==
+See http://www.gearman.org and http://toys.lerdorf.com/archives/51-Playing-with-Gearman.html
+
+{{{
+$ apt-get install gearman gearman-job-server gearman-tools libgearman4 libgearman-dev libdrizzle-dev
+}}}

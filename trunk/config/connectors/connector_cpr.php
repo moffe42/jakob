@@ -1,9 +1,8 @@
 <?php
 $config = array(
+    // Connector class
+    'class' => 'CprConnector',
+
     // Connector ID
     'id' => 'CPR',   
-
-    // Connector specific options
-    'userkey' => 'wayf',
-    'key' => 'wayf4ever',
 );

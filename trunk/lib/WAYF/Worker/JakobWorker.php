@@ -4,7 +4,7 @@
  *
  * @category   WAYF
  * @package    JAKOB
- * @subpackage Connector
+ * @subpackage Worker
  * @author     Jacob Christiansen <jach@wayf.dk>
  * @copyright  Copyright (c) 2011 Jacob Christiansen, WAYF (http://www.wayf.dk)
  * @license    http://www.opensource.org/licenses/mit-license.php MIT License
@@ -48,7 +48,7 @@ class JakobWorker implements Worker
      * @param string The name of the work
      * @param \WAYF\Connector\Job Job object
      */
-    public function addWork($name, \WAYF\Connector\Job $obj)
+    public function addWork($name, \WAYF\Connector $obj)
     {
         $this->_gworker->addFunction($name, array($obj, 'execute'));
     }

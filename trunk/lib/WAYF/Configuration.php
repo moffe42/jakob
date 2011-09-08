@@ -40,8 +40,10 @@ class Configuration
      * @param  array $config Configuration
      * @return void
      */
-    public function loadConfig($config)
+    public static function getConfig($config = 'config.php')
     {
-        return true;
+        require CONFIGROOT . DIRECTORY_SEPARATOR . $config;
+
+        return $config;
     }
 }

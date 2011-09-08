@@ -15,7 +15,7 @@
 /**
  * @namespace
  */
-namespace WAYF\Connector;
+namespace WAYF;
 
 /**
  * Worker interface

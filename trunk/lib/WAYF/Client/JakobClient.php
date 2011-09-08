@@ -15,12 +15,12 @@
 /**
  * @namespace
  */
-namespace WAYF\Connector\Client;
+namespace WAYF\Client;
 
 /**
  * @uses
  */
-use WAYF\Connector\Client;
+use WAYF\Client;
 
 /**
  * Client implementation using Gearman
@@ -56,6 +56,12 @@ class JakobClient implements Client
         return end($this->_jobs);
     }
 
+    public function doSync($name, $workload)
+    {
+        $res = $this->_gclient->do($name, $workload);
+        var_dump($res);
+        return $this->getResult($res);
+    }
     /**
      * Check if job is done
      *
@@ -121,7 +127,7 @@ class JakobClient implements Client
         $storage->initialize();
 
         if ($this->isDone($job_handler)) {
-            return $storage->get($job_handler);
+            return json_decode($storage->get($job_handler), true);
         }
         return false;
     }

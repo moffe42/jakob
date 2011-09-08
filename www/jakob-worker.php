@@ -1,17 +1,39 @@
 <?php
 include '_init.php';
 
-include CONFIGROOT . DIRECTORY_SEPARATOR . 'connectors' . DIRECTORY_SEPARATOR . 'connector_cpr.php';
+$jakob_config = \WAYF\Configuration::getConfig();
 
-$store = \WAYF\StoreFactory::createInstance('Memcache');
+// Setup logger
+$loggertype = 'WAYF\Logger\\' . $jakob_config['logger']['type'];
+$logger = new $loggertype();
+
+// Get configuration for all connectors
+$connector_configs = array();
+foreach (new Directoryiterator(CONFIGROOT . DIRECTORY_SEPARATOR . 'connectors') AS $k => $v) {
+    if($v->isFile()) {
+        $connector_configs[] = \WAYF\Configuration::getConfig('connectors' . DIRECTORY_SEPARATOR . $v->getFilename());
+    }
+}
+
+// Setup shared storage
+$store = \WAYF\StoreFactory::createInstance($jakob_config['connector.storage']['type'], $jakob_config['connector.storage']['options']);
 $store->initialize();
 
-$func = new \WAYF\Connector\Job\CprJob();
-$func->setStore($store);
-$func->setConfig($config);
+$worker = new \WAYF\Worker\JakobWorker();
 
-$worker = new \WAYF\Connector\Worker\JakobWorker();
+// Load all connectors
+foreach ($connector_configs AS $cconfig) {
+    if (isset($cconfig['class'])) {
+        $classname = 'WAYF\Connector\\' . $cconfig['class'];
+        if (class_exists($classname, true)) {
+            $func = new $classname();
+            $func->setStore($store);
+            $func->setConfig($cconfig);
+            $worker->addWork($cconfig['id'], $func);
 
-$worker->addWork('GetUser', $func);
+            $logger->log(1, "Starting connector: " . $cconfig['class']);
+        }
+    }
+}
 
 $worker->work();

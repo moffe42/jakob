@@ -7,6 +7,8 @@ class AttributeCollector {
     private $_client = null;
     private $_config = null;
 
+    private $_async_jobs = array();
+
     public function __construct() {}
 
     public function setLogger($logger)
@@ -14,7 +16,7 @@ class AttributeCollector {
         $this->_logger = $logger;
     }
 
-    public function setClient(\WAYF\Connector\Client $client)
+    public function setClient(\WAYF\Client $client)
     {
         $this->_client = $client;
     }
@@ -25,37 +27,36 @@ class AttributeCollector {
     }
     
     public function processTasks(array $tasks, array $attributes) {
-        $async_jobs = array();
-        $waitforresult = false;
 
         foreach($tasks AS $kj => $vj) {
             $workload = isset($vj['_options']) ? array('attributes' => $attributes, 'options' => $vj['_options']) : array('attributes' => $attributes);
             $taskid = isset($vj['_id']) ? $vj['_id'] : null;
 
             if($vj['_priority'] == 'sync') {
-                $async_jobs[] = $this->_client->doAsync($taskid, json_encode($workload));
-                $waitforresult = true;
+                $attributes = $this->fetchResults($attributes);
+                $this->_async_jobs[] = $this->_client->doAsync($taskid, json_encode($workload));
+                $attributes = $this->fetchResults($attributes);
             } else if($vj['_priority'] == 'async') {
-                $async_jobs[] = $this->_client->doAsync($taskid, json_encode($workload));
-                $waitforresult = false;
-            } else if ($vj['_priority'] == 'batch') {
-                $attributes = $this->processTasks($vj['tasks'], $attributes);
-            } 
-            // Wait for async jobs to finish
-            if ($waitforresult) {
-                while (!empty($async_jobs)) {
-                    foreach ($async_jobs AS $key => $jobid) {
-                        if ($job_res = $this->_client->getResult($jobid)) {
-                            $attributes = array_merge_recursive($attributes, $job_res);
-                            unset($async_jobs[$key]);
-                        }
-                    }
-                    if (!empty($async_jobs)) {
-                        echo "Sleeping\n";
-                        usleep(300);
-                    }    
+                $this->_async_jobs[] = $this->_client->doAsync($taskid, json_encode($workload));
+            }
+        }
+        $attributes = $this->fetchResults($attributes);
+
+        return $attributes;
+    }
+
+    public function fetchResults($attributes)
+    {
+        while (!empty($this->_async_jobs)) {
+            foreach ($this->_async_jobs AS $key => $jobid) {
+                if ($job_res = $this->_client->getResult($jobid)) {
+                    $attributes = array_merge_recursive($attributes, $job_res);
+                    unset($this->_async_jobs[$key]);
                 }
             }
+            if (!empty($this->_async_jobs)) {
+                usleep($this->_config['waittime']);
+            }    
         }
         return $attributes;
     }

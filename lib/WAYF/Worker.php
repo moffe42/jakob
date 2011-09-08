@@ -28,7 +28,7 @@ interface Worker
      * @params string $name Remote name of the function
      * @param callback $obj Callback function 
      */
-    public function addWork($name, \WAYF\Connector\Job $obj);
+    public function addWork($name, \WAYF\Connector $obj);
 
     /**
      * Start the worker

@@ -18,7 +18,7 @@ $config = array(
      * `connector.`
      */
     'connector.storage' => array(
-        'type' => 'memcache',
+        'type' => 'Memcache',
         'options' => array(
             'servers' => array(
                 array(
@@ -28,4 +28,11 @@ $config = array(
             ),
         ),     
     ),
+
+    'logger' => array(
+        'type' => 'SysLogger',  
+    ),
+
+    // Time to wait if jobs are not done
+    'waittime' => 1000,
 );

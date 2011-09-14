@@ -22,3 +22,6 @@ Below is a proposed example output of an external datasource, to be delivered ba
     } 
 }
 }}}
+
+= Internal format =
+JAKOB uses the above format internally to communicate results from connectors to the attribute collector.

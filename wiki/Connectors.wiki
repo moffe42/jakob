@@ -12,7 +12,9 @@ Below is a proposed example output of an external datasource, to be delivered ba
     "id" : "v4j23h5vj5h3425v",
     "version" : "1.0",
     "userid" : "999999-8888",
-    "status" : "success",
+    "status" : {
+        "code" : "success"
+    },
     "attributes" : {
         "attributekey1" : "attributevalue",
         "attributekey2" : [

@@ -4,8 +4,11 @@ include '_init.php';
 $jakob_config = \WAYF\Configuration::getConfig();
 
 // Setup logger
-$loggertype = 'WAYF\Logger\\' . $jakob_config['logger']['type'];
-$logger = new $loggertype();
+$logger = \WAYF\LoggerFactory::createInstance($jakob_config['logger']);
+
+// Setup shared storage
+$store = \WAYF\StoreFactory::createInstance($jakob_config['connector.storage']);
+$store->initialize();
 
 // Get configuration for all connectors
 $connector_configs = array();
@@ -15,13 +18,11 @@ foreach (new Directoryiterator(CONFIGROOT . DIRECTORY_SEPARATOR . 'connectors') 
     }
 }
 
-// Setup shared storage
-$store = \WAYF\StoreFactory::createInstance($jakob_config['connector.storage']['type'], $jakob_config['connector.storage']['options']);
-$store->initialize();
+// Create a new worker
+$worker = new \WAYF\Worker\JakobWorker($jakob_config['gearman.jobservers']);
+$worker->setLogger($logger);
 
-$worker = new \WAYF\Worker\JakobWorker();
-
-// Load all connectors
+// Load all connectors into worker
 foreach ($connector_configs AS $cconfig) {
     if (isset($cconfig['class'])) {
         $classname = 'WAYF\Connector\\' . $cconfig['class'];
@@ -36,4 +37,6 @@ foreach ($connector_configs AS $cconfig) {
     }
 }
 
+// Wait for work
 $worker->work();
+

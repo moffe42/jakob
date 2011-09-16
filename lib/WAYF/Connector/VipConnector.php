@@ -67,7 +67,7 @@ class VipConnector implements Connector
         $decodedresult = json_decode($result, true);
 
         // Store result
-        $this->_store->set($handle, json_encode($decodedresult['attributes']));
+        $this->_store->set($handle, json_encode($decodedresult));
     }
 
     public function setStore(\WAYF\Store $store)

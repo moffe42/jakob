@@ -35,3 +35,5 @@ include ROOT . 'lib' . DIRECTORY_SEPARATOR . 'WAYF' . DIRECTORY_SEPARATOR . 'Aut
 // Register all classes under WAYF
 $classLoader = new \WAYF\AutoLoader('WAYF', ROOT . 'lib');
 $classLoader->register();
+
+session_start();

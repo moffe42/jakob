@@ -17,6 +17,8 @@
  */
 namespace WAYF;
 
+class LoggerException extends \Exception {}
+
 /**
  * Logger interface
  *

@@ -45,10 +45,11 @@ class CprConnector implements Connector
     public function execute(\GearmanJob $job)
     {
         $handle = $job->handle();
+        var_dump($handle);
         
         // Process workload
         $workload = json_decode($job->workload(), true);
-        
+
         $params['cid'] = md5($workload['attributes']['cpr']);
         $params['ukey'] = $workload['options']['userkey'];
 
@@ -63,11 +64,11 @@ class CprConnector implements Connector
         // Get result from CPR
         $result = file_get_contents('http://cpr.test.wayf.dk/?' . $query);
 
-        // Pick put the relevant data
+        // Process the returned data and pu on right form
         $decodedresult = json_decode($result, true);
 
         // Store result
-        $this->_store->set($handle, json_encode($decodedresult['attributes']));
+        $this->_store->set($handle, json_encode($decodedresult));
     }
 
     public function setStore(\WAYF\Store $store)

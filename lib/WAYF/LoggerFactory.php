@@ -1,15 +1,15 @@
 <?php
 namespace WAYF;
 
-class StoreFactory
+class LoggerFactory
 {
     // The parameterized factory method
     public static function createInstance($config)
     {
-        $classname = "WAYF\Store\\" . $config['type'] . "Store";
+        $classname = "WAYF\Logger\\" . $config['type'] . "Logger";
         if (class_exists($classname, true)) {
-            $store = new $classname($config['options']);
-            return $store;
+            $logger = new $classname($config['options']);
+            return $logger;
         }
         return null;
     }

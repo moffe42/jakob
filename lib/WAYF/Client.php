@@ -17,6 +17,8 @@
  */
 namespace WAYF;
 
+class ClientException extends \Exception {}
+
 /**
  * Client interface
  */

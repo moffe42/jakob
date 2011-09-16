@@ -29,12 +29,19 @@ class JakobClient implements Client
 {
     private $_gclient = null;
 
+    private $_storage = null;
+
     private $_jobs = array();
     
-    public function __construct()
+    public function __construct($servers = '127.0.0.1')
     {
         $this->_gclient = new \GearmanClient();
-        $this->_gclient->addServer();
+        $this->_gclient->addServers($servers);
+    }
+
+    public function setStorage(\WAYF\Store $storage) 
+    {
+        $this->_storage = $storage;
     }
 
     /**
@@ -56,12 +63,6 @@ class JakobClient implements Client
         return end($this->_jobs);
     }
 
-    public function doSync($name, $workload)
-    {
-        $res = $this->_gclient->do($name, $workload);
-        var_dump($res);
-        return $this->getResult($res);
-    }
     /**
      * Check if job is done
      *
@@ -123,11 +124,13 @@ class JakobClient implements Client
      */
     public function getResult($job_handler)
     {
-        $storage = new \WAYF\Store\MemcacheStore();
-        $storage->initialize();
-
         if ($this->isDone($job_handler)) {
-            return json_decode($storage->get($job_handler), true);
+            $result =  json_decode($this->_storage->get($job_handler), true);
+            if ($result['status']['code'] == 'success') {
+                return $result['attributes'];
+            } else {
+                throw new \WAYF\ClientException('Error: ' . $result['status']['message']);
+            }
         }
         return false;
     }

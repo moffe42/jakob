@@ -30,9 +30,12 @@ $config = array(
     ),
 
     'logger' => array(
-        'type' => 'SysLogger',  
+        'type' => 'Syslog',  
+        'options' => array(),
     ),
 
     // Time to wait if jobs are not done
     'waittime' => 1000,
+
+    'gearman.jobservers' => '127.0.0.1',
 );

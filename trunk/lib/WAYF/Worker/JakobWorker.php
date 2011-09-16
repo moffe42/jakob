@@ -33,13 +33,20 @@ class JakobWorker implements Worker
      */
     private $_gworker = null;
 
+    private $_logger = null;
+
     /**
      * constructor
      */
-    public function __construct()
+    public function __construct($servers = '127.0.0.1')
     {
         $this->_gworker = new \GearmanWorker();
-        $this->_gworker->addServer();
+        $this->_gworker->addServer($servers);
+    }
+
+    public function setLogger($logger)
+    {
+        $this->_logger = $logger;
     }
 
     /**
@@ -60,7 +67,7 @@ class JakobWorker implements Worker
     {
         while ($this->_gworker->work()) {
             if (GEARMAN_SUCCESS != $this->_gworker->returnCode()) {
-                echo "Worker failed: " . $this->_gworker->error() . "\n";
+                $this->_logger->log(1, "Worker failed: " . $this->_gworker->error());
             }
         }
     }

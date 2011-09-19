@@ -13,6 +13,8 @@
 
 * [ConfigurationFormat Configuration Format]
 
+* [Dependencies Dependencies]
+
 ===Development===
 
 * [ProgrammersGuide Programmers Guide]

@@ -29,4 +29,4 @@ Please set the user role in bold and capitalise it.
 
 Keep the user stories as short as possible.
 
-If you introduce a new user role please ad it to the "[UserStories#User_roles User roles]" section.
+If you introduce a new user role please add it to the "[UserStories#User_roles User roles]" section.

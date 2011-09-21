@@ -1,17 +1,41 @@
 <?php
 include '_init.php';
 
+// Protection against session fixation attacks
+session_regenerate_id(true);
+
+/**
+ * If JAKOB.id is set and $_POST['token'] is equale, then we are resuming 
+ * execution
+ */
 $jakob_config = \WAYF\Configuration::getConfig();
 
 $template = new \WAYF\Template();
 
-// Process the rewuest
-try {
-    $request = new \WAYF\Request();
-    $request->handleRequest();
-} catch(\WAYF\RequestException $re) {
-    $data = array('errortitle' => 'Request error', 'errormsg' => $re->getMessage());
-    $template->setTemplate('error')->setData($data)->render();
+if ((isset($_SESSION['JAKOB.id']) && isset($_POST['token'])) && $_SESSION['JAKOB.id'] == $_POST['token']) {
+    unset($_SESSION['JAKOB.id']);
+    $session = unserialize($_SESSION['JAKOB_Session']);
+    $tasks = $session['tasks'];
+    $attributes = $session['attributes'];
+    $returnurl = $session['returnURL'];
+    $returnmethod = $session['returnMethod'];
+    $pendingjobs = $session['pendingjobs'];
+} else {
+    // Process the rewuest
+    try {
+        $request = new \WAYF\Request();
+        $request->handleRequest();
+        // Get job configuration
+        $jc = new \WAYF\JobConfiguration();
+        $job = $jc->load($request->getJobid());
+        $tasks = $job['tasks'];
+        $attributes = $request->getAttributes();
+        $returnurl = $request->getReturnURL();
+        $returnmethod = $request->getReturnMethod();
+    } catch(\WAYF\RequestException $re) {
+        $data = array('errortitle' => 'Request error', 'errormsg' => $re->getMessage());
+        $template->setTemplate('error')->setData($data)->render();
+    }
 }
 
 // Setup the attribute collector
@@ -24,12 +48,40 @@ $client = new \WAYF\Client\JakobClient($jakob_config['gearman.jobservers']);
 $client->setStorage($storage);
 $attr_col->setClient($client);
 
-// Get job configuration
-$jc = new \WAYF\JobConfiguration();
-$job = $jc->load($request->getJobid());
 
-$attributes = $attr_col->processTasks($job['tasks'], $request->getAttributes());
+try {
+    $attr_col->setAttributes($attributes);
+    $attr_col->setTasks($tasks);
+    if (isset($pendingjobs)) {
+        $attr_col->setPendingJobs($pendingjobs);
+    }
+    $attributes = $attr_col->processTasks();
+} catch(WAYF\Exceptions\TimeoutException $e) {
+    $session = array(
+        'attributes' => $attr_col->getAttributes(),
+        'tasks' => $attr_col->getTasks(),
+        'pendingjobs' => $attr_col->getPendingJobs(),
+        'returnURL' => $returnurl,
+        'returnMethod' => $returnmethod,
+    );
+    $_SESSION['JAKOB_Session'] = serialize($session);
+    $_SESSION['JAKOB.id'] = \WAYF\Utilities::generateID();
+    $template->setTemplate('timeout')->setData(array('token' => $_SESSION['JAKOB.id']))->render();
+    die();
+} catch(\Exception $e) {
+    var_dump($e);
+    die();
+}
+
+// Destroy session
+$_SESSION = array();
+// sends as Set-Cookie to invalidate the session cookie
+if (isset($_COOKIES[session_name()])) { 
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '', 1, $params['path'], $params['domain'], $params['secure'], isset($params['httponly']));
+}
+session_destroy();
 
 // Return the result
-$data = array('post' => array('attributes' => json_encode($attributes)), 'destination' => $request->getReturnURL());
-$template->setTemplate($request->getReturnMethod())->setData($data)->render();
+$data = array('post' => array('attributes' => json_encode($attributes)), 'destination' => $returnurl);
+$template->setTemplate($returnmethod)->setData($data)->render();

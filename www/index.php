@@ -20,6 +20,7 @@ if ((isset($_SESSION['JAKOB.id']) && isset($_POST['token'])) && $_SESSION['JAKOB
     $returnurl = $session['returnURL'];
     $returnmethod = $session['returnMethod'];
     $pendingjobs = $session['pendingjobs'];
+    $returnparams = $session['returnParams'];
 } else {
     // Process the rewuest
     try {
@@ -32,6 +33,7 @@ if ((isset($_SESSION['JAKOB.id']) && isset($_POST['token'])) && $_SESSION['JAKOB
         $attributes = $request->getAttributes();
         $returnurl = $request->getReturnURL();
         $returnmethod = $request->getReturnMethod();
+        $returnparams = $request->getReturnParams();
     } catch(\WAYF\RequestException $re) {
         $data = array('errortitle' => 'Request error', 'errormsg' => $re->getMessage());
         $template->setTemplate('error')->setData($data)->render();
@@ -48,7 +50,6 @@ $client = new \WAYF\Client\JakobClient($jakob_config['gearman.jobservers']);
 $client->setStorage($storage);
 $attr_col->setClient($client);
 
-
 try {
     $attr_col->setAttributes($attributes);
     $attr_col->setTasks($tasks);
@@ -63,25 +64,36 @@ try {
         'pendingjobs' => $attr_col->getPendingJobs(),
         'returnURL' => $returnurl,
         'returnMethod' => $returnmethod,
+        'returnParams' => $returnparams
     );
     $_SESSION['JAKOB_Session'] = serialize($session);
     $_SESSION['JAKOB.id'] = \WAYF\Utilities::generateID();
     $template->setTemplate('timeout')->setData(array('token' => $_SESSION['JAKOB.id']))->render();
-    die();
 } catch(\Exception $e) {
-    var_dump($e);
-    die();
+    $data = array('errortitle' => 'An error has occured', 'errormsg' => $e->getMessage());
+    $template->setTemplate('error')->setData($data)->render();
 }
 
 // Destroy session
 $_SESSION = array();
-// sends as Set-Cookie to invalidate the session cookie
+// Set-Cookie to invalidate the session cookie
 if (isset($_COOKIES[session_name()])) { 
     $params = session_get_cookie_params();
     setcookie(session_name(), '', 1, $params['path'], $params['domain'], $params['secure'], isset($params['httponly']));
 }
 session_destroy();
 
+$data = array();
+
+foreach($returnparams AS $k => $v) {
+    $data[$k] = $v;
+}
+$data['attributes'] = json_encode($attributes);
+
 // Return the result
-$data = array('post' => array('attributes' => json_encode($attributes)), 'destination' => $returnurl);
+if ($returnmethod == 'post') {
+    $data = array('post' => $data, 'destination' => $returnurl);
+} else if ($returnmethod == 'get') {
+    $data = array('url' => $returnurl . '?' . http_build_query($data));
+}
 $template->setTemplate($returnmethod)->setData($data)->render();

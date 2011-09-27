@@ -40,9 +40,15 @@ class Configuration
      * @param  array $config Configuration
      * @return void
      */
-    public static function getConfig($config = 'config.php')
+    public static function getConfig($configfile = 'config.php')
     {
-        require CONFIGROOT . DIRECTORY_SEPARATOR . $config;
+        $path = CONFIGROOT . DIRECTORY_SEPARATOR . $configfile;
+        
+        if (!file_exists($path)) {
+            throw \InvalidArgumentException($configfile . ' config file does not exists');
+        }
+
+        require $path;
 
         return $config;
     }

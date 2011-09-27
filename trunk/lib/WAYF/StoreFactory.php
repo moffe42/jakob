@@ -7,10 +7,10 @@ class StoreFactory
     public static function createInstance($config)
     {
         $classname = "WAYF\Store\\" . $config['type'] . "Store";
-        if (class_exists($classname, true)) {
-            $store = new $classname($config['options']);
-            return $store;
+        if (!class_exists($classname, true)) {
+            throw new \InvalidArgumentException($config['type'] . ' store do not exists');
         }
-        return null;
+        $store = new $classname($config['options']);
+        return $store;
     }
 }

@@ -19,6 +19,11 @@ namespace WAYF;
 
 class LoggerException extends \Exception {}
 
+define('JAKOB_ERROR', 1);
+define('JAKOB_WARNING', 2);
+define('JAKOB_INFO', 3);
+define('JAKOB_DEBUG', 4);
+
 /**
  * Logger interface
  *

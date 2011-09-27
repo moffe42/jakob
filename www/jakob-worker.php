@@ -1,14 +1,19 @@
 <?php
 include '_init.php';
 
-$jakob_config = \WAYF\Configuration::getConfig();
+try {
+    $jakob_config = \WAYF\Configuration::getConfig();
 
-// Setup logger
-$logger = \WAYF\LoggerFactory::createInstance($jakob_config['logger']);
+    // Setup logger
+    $logger = \WAYF\LoggerFactory::createInstance($jakob_config['logger']);
 
-// Setup shared storage
-$store = \WAYF\StoreFactory::createInstance($jakob_config['connector.storage']);
-$store->initialize();
+    // Setup shared storage
+    $store = \WAYF\StoreFactory::createInstance($jakob_config['connector.storage']);
+    $store->initialize();
+} catch(\InvalidArgumentException $e) {
+    echo $e->getMessage() . "\n";
+    die();
+}
 
 // Get configuration for all connectors
 $connector_configs = array();
@@ -32,7 +37,7 @@ foreach ($connector_configs AS $cconfig) {
             $func->setConfig($cconfig);
             $worker->addWork($cconfig['id'], $func);
 
-            $logger->log(1, "Starting connector: " . $cconfig['class']);
+            $logger->log(JAKOB_INFO, "Starting connector: " . $cconfig['class']);
         }
     }
 }

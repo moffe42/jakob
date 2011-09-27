@@ -49,7 +49,7 @@ class VipConnector implements Connector
         // Process workload
         $workload = json_decode($job->workload(), true);
         
-        $params['cid'] = md5($workload['attributes']['cpr']);
+        $params['cid'] = md5($workload['attributes']['cpr'][0]);
         $params['ukey'] = $workload['options']['userkey'];
 
         // Init signer

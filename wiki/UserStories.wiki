@@ -16,12 +16,12 @@ The design of JAKOB are based on these low level user stories.
 
 =User roles=
 
-|| *User roles* ||
-|| User ||
-|| Administrator ||
-|| Developer ||
-|| Attributestore ||
-|| Service ||
+|| *User roles* || *Description* ||
+|| User || ||
+|| Administrator || || 
+|| Developer || ||
+|| Attributestore || External data source where attributes about a given user can be fetched ||
+|| Service || ||
 =How to create user stories=
 
 All user tories should be on the form:

@@ -2,8 +2,15 @@
 
 The plan below outlining the different version are preliminary and will be corrected as the project moves along.
 
-Version 0.1: statiske regler, administreret via webinterface af WAYF
+The first few versions will not recive individual tags, but will be denoted with a specific revision id that refers to trunk.
 
+For the latest development, please check out trunk.
+
+= Releases = 
+
+Version 0.1: Static rules, administrated via an text editor at WAYF.
+
+= Future releases = 
 Version 0.2: redundans, (som ved BIRK, -> afhængighed til BIRK-projekt)
 
 Version 0.3: statiske regler, administreret via webinterface af IdP'erne

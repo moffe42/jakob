@@ -4,7 +4,7 @@ The plan below outlining the different version are preliminary and will be corre
 
 The first few versions will not recive individual tags, but will be denoted with a specific revision id that refers to [https://jakob.googlecode.com/svn/trunk/ trunk].
 
-For the latest development, please check out [http://code.google.com/p/jakob/source/browse/#svn%2Ftrunk trunk].
+For the latest development, please check out [http://code.google.com/p/jakob/source/checkout trunk].
 
 = Releases = 
 

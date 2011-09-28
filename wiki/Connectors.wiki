@@ -1,11 +1,34 @@
 #summary Connector design
 
-=How to write a Connector=
+=Writing a connector for JAKOB=
+To write a JKOB connector you must implement a class the implements the `Connector` interface. The actual implementation of the connector must be placed in the `<JAKOB-DIR>/lib/WAYF/Connector/` directory
+
+==Connector interface==
+{{{
+interface Connector
+{
+    /**
+     * Default method called by worker
+     * @param \GearmanJob $job Job Gearman job
+     */
+    public function execute(\GearmanJob $job);
+
+    public function setStore(\WAYF\Store $store);
+
+    public function setConfig(array $config);
+
+    public function setup();
+}
+}}}
+
+Please note that this interface is still under development, so it may change in the future.
+
+=How to design API for JKOB connectors=
 When designing an API for a JAKOB connector to access, it is importent to make the interchange format as light weight as possible. The smaller and easier it is to parse, the quicker JAKOb will respond to a request.
 
-the following is an example of an interchange format that is light weight and easy to parse.
+The following is an example of an interchange format that is light weight and easy to parse.
 
-=Example=
+==Example==
 Below is a proposed example output of an external datasource, to be delivered back to a connector
 {{{
 {
@@ -25,6 +48,3 @@ Below is a proposed example output of an external datasource, to be delivered ba
     } 
 }
 }}}
-
-= Internal format =
-JAKOB uses the above format internally to communicate results from connectors to the attribute collector.

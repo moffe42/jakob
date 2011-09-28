@@ -3,6 +3,8 @@
 ===Project===
 * [Inception Initial thoughts]
 
+* [UseCases Use cases]
+
 * [UserStories User stories]
 
 * [ProjectPlan Project plan]

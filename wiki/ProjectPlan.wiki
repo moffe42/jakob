@@ -8,15 +8,15 @@ For the latest development, please check out [http://code.google.com/p/jakob/sou
 
 = Releases = 
 
-Version 0.1: Static rules, administrated via an text editor at WAYF. (trunk [http://code.google.com/p/jakob/source/detail?r=71 r71])
+ * 0.1: Static rules, administrated via an text editor at WAYF. (trunk [http://code.google.com/p/jakob/source/detail?r=71 r71])
 
 = Future releases = 
-Version 0.2: redundans, (som ved BIRK, -> afhængighed til BIRK-projekt)
+ * 0.2: redundans, (som ved BIRK, -> afhængighed til BIRK-projekt)
 
-Version 0.3: statiske regler, administreret via webinterface af IdP'erne
+ * 0.3: statiske regler, administreret via webinterface af IdP'erne
 
-Version 0.4 : Dynamiske regler baseret på svar fra et attribut store.
+ * 0.4 : Dynamiske regler baseret på svar fra et attribut store.
 
-Version 0.5 : statistik over hvilke attributter der leveres fra hvilke IdP'er og attribut-stores
+ * 0.5 : statistik over hvilke attributter der leveres fra hvilke IdP'er og attribut-stores
 
-Version 0.6:  Errorhåndtering: Visning i samtykke-dialog, hvor påkrævede attributter ikke blev leveret fra. Giver afhængighed til samtykkemodul.
+ * 0.6:  Errorhåndtering: Visning i samtykke-dialog, hvor påkrævede attributter ikke blev leveret fra. Giver afhængighed til samtykkemodul.

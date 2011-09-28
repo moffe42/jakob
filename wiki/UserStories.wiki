@@ -22,11 +22,12 @@ The design of JAKOB are based on these low level user stories.
 || Developer || ||
 || Attributestore || External data source where attributes about a given user can be fetched ||
 || Service || ||
+
 =How to create user stories=
 
 All user tories should be on the form:
 
-_As a *`[`user role`]`* I want to *`[`goal`]`* so that *`[`benefit`]`*
+    _As a *`[`user role`]`* I want to *`[`goal`]`* so that *`[`benefit`]`*
 
 Please set the user role in bold and capitalise it.
 

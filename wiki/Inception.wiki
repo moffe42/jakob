@@ -1,6 +1,8 @@
 #summary Initial thoughts
 
-=ATTRIBUTE COLLECTOR, JAKOB=
+This page contains the original initial thoughts about JAKOB. These initial ideas have spanned several [UseCases use cases], that form the basis of the design of JAKOB.
+
+=JAKOB - An Attribute Collector=
 
 Work only back channel.
 

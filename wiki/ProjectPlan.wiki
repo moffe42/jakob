@@ -2,13 +2,13 @@
 
 The plan below outlining the different version are preliminary and will be corrected as the project moves along.
 
-The first few versions will not recive individual tags, but will be denoted with a specific revision id that refers to trunk.
+The first few versions will not recive individual tags, but will be denoted with a specific revision id that refers to [https://jakob.googlecode.com/svn/trunk/ trunk].
 
-For the latest development, please check out trunk.
+For the latest development, please check out [http://code.google.com/p/jakob/source/browse/#svn%2Ftrunk trunk].
 
 = Releases = 
 
-Version 0.1: Static rules, administrated via an text editor at WAYF.
+Version 0.1: Static rules, administrated via an text editor at WAYF. (trunk [http://code.google.com/p/jakob/source/detail?r=71 r71])
 
 = Future releases = 
 Version 0.2: redundans, (som ved BIRK, -> afhængighed til BIRK-projekt)

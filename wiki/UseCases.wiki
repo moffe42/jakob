@@ -1,0 +1,6 @@
+#summary Description for high level use cases for JAKOB
+
+= Use Cases =
+This page contains high level descriptions of use cases, that are the basis for the initial high level design and description of the JAKOB attribute collector.
+
+The use cases are further refined to actual [UserStories user stories], that form the basis for the actual design and implementation.

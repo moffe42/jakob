@@ -5,6 +5,7 @@ All code in JAKOB should conform to the [http://framework.zend.com/manual/en/cod
 {{{
 phpcs --standard=zend filename
 }}}
+The run should not produce any errors. Some warnings are allowed, but should be keeps to a minimum.
 
 = Documentation =
 All PHP library files (places in the lib directory) should contain inline documentation of the same quality describet [http://framework.zend.com/manual/en/coding-standard.coding-style.html here]. (See paragraph _Inline Documentation_). Both a file level and a class level docblock is required.

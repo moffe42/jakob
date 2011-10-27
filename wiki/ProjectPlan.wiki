@@ -21,8 +21,8 @@ For the latest development, please check out [http://code.google.com/p/jakob/sou
 
  * 0.6:  Errorhåndtering: Visning i samtykke-dialog, hvor påkrævede attributter ikke blev leveret fra. Giver afhængighed til samtykkemodul.
 
-= Project plan contains 7 tracks =
+== Project plan contains 7 tracks ==
 The plan below outline 7 tracks where deliveries are pointed out.
 http://jakob.googlecode.com/files/JAKOB%20Project%20Plan.png
 
-[JAKOB Project Plan as PDFhttp://jakob.googlecode.com/files/JAKOB_Project_Plan.pdf]
+[http://jakob.googlecode.com/files/JAKOB_Project_Plan.pdf JAKOB Project Plan as PDF]

@@ -24,3 +24,5 @@ For the latest development, please check out [http://code.google.com/p/jakob/sou
 = Project plan contains 7 tracks =
 The plan below outline 7 tracks where deliveries are pointed out.
 http://jakob.googlecode.com/files/JAKOB%20Project%20Plan.png
+
+http://jakob.googlecode.com/files/JAKOB_Project_Plan.pdf

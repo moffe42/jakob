@@ -65,6 +65,8 @@ class sspmod_jakob_Auth_Process_jakob extends SimpleSAML_Auth_ProcessingFilter
             $joburl     = $this->_jConfig->getString('joburl');
             $jakoburl   = $joburl . $jobid;
 
+            SimpleSAML_Logger::info('Calling JAKOB with jobID: ' . $jobid);
+
             // Redirect to JAKOB
             SimpleSAML_Utilities::postRedirect($jakoburl,
                 array(

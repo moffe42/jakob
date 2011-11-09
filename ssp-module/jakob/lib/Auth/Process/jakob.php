@@ -24,10 +24,10 @@ class sspmod_jakob_Auth_Process_jakob extends SimpleSAML_Auth_ProcessingFilter
         assert('array_key_exists("entityid", $state["Source"])');
 
         // Init DB
-        $dsn      = $this->_jConfig->getString('dsn', NULL);
-        $username = $this->_jConfig->getString('username', NULL);
-        $password = $this->_jConfig->getString('password', NULL);
-        $table    = $this->_jConfig->getString('table', NULL);
+        $dsn      = $this->_jConfig->getString('dsn');
+        $username = $this->_jConfig->getString('username');
+        $password = $this->_jConfig->getString('password');
+        $table    = $this->_jConfig->getString('table');
         $db       = new sspmod_jakob_DB($dsn, $username, $password);
 
         // Get jaobhash value
@@ -44,7 +44,7 @@ class sspmod_jakob_Auth_Process_jakob extends SimpleSAML_Auth_ProcessingFilter
             $jobid      = $res->jobid;
             $attributes = $state['Attributes'];
             $stateId    = SimpleSAML_Auth_State::saveState($state, 'jakob:request');
-            $joburl     = $this->_jConfig->getString('joburl', NULL);
+            $joburl     = $this->_jConfig->getString('joburl');
             $jakoburl   = $joburl . $jobid;
 
             // Redirect to JAKOB
@@ -64,6 +64,6 @@ class sspmod_jakob_Auth_Process_jakob extends SimpleSAML_Auth_ProcessingFilter
      */
     public function getJobHash($source, $destination)
     {
-        return hash('sha1', $source . '|' . $this->_jConfig->getString('salt', NULL) . '|' . $destination);
+        return hash('sha1', $source . '|' . $this->_jConfig->getString('salt') . '|' . $destination);
     }
 }

@@ -28,7 +28,16 @@ class sspmod_jakob_Auth_Process_jakob extends SimpleSAML_Auth_ProcessingFilter
         $username = $this->_jConfig->getString('username');
         $password = $this->_jConfig->getString('password');
         $table    = $this->_jConfig->getString('table');
-        $db       = new sspmod_jakob_DB($dsn, $username, $password);
+
+        try {
+            $db = new sspmod_jakob_DB($dsn, $username, $password);
+        } catch (PDOException $e) {
+            SimpleSAML_Logger::error(
+                'JAKOB: Connection to JAKOB database failed: ' .
+                $e->getMessage()
+            );
+            throw new SimpleSAML_Error_Exception('Error connection to JAKOB');
+        }
 
         // Get jaobhash value
         $source      = $state['Source']['entityid'];
@@ -37,7 +46,16 @@ class sspmod_jakob_Auth_Process_jakob extends SimpleSAML_Auth_ProcessingFilter
         
         // Grab job configuration
         $query = "SELECT * FROM `" . $table . "` WHERE `jobhash` = :jobhash;";
-        $res   = $db->fetch_one($query, array('jobhash' => $jobhash));
+
+        try{
+            $res = $db->fetch_one($query, array('jobhash' => $jobhash));
+        } catch (PDOException $e) {
+            SimpleSAML_Logger::error(
+                'JAKOB: Running queryon JAKOB database failed: ' .
+                $e->getMessage()
+            );
+            throw new SimpleSAML_Error_Exception('Error connection to JAKOB');
+        }
 
         // redirect if job exists
         if ($res) {

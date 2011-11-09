@@ -1,9 +1,9 @@
 <?php
-$attributes = json_decode($_POST['attributes'], true);
+// Restore session
+$state = SimpleSAML_Auth_State::loadState($_POST['StateId'], 'jakob:request');
 
-$id = $_POST['StateId'];
-$state = SimpleSAML_Auth_State::loadState($id, 'jakob:request');
+// Grab the attributes returned from JAKOB
+$state['Attributes'] = json_decode($_POST['attributes'], true);
 
-$state['Attributes'] = $attributes;
-
+// Resume processing
 SimpleSAML_Auth_ProcessingChain::resumeProcessing($state);

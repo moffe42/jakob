@@ -30,8 +30,8 @@ $config = array(
     ),
 
     'logger' => array(
-        'type' => 'Syslog',  
-        'options' => array(),
+        'type' => 'File',  
+        'options' => array('file' => 'jakob.log'),
     ),
 
     // Time to wait if jobs are not done

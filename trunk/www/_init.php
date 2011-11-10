@@ -37,5 +37,14 @@ include ROOT . 'lib' . DIRECTORY_SEPARATOR . 'WAYF' . DIRECTORY_SEPARATOR . 'Aut
 $classLoader = new \WAYF\AutoLoader('WAYF', ROOT . 'lib');
 $classLoader->register();
 
+$jakob_config = \WAYF\Configuration::getConfig();
+$logger = \WAYF\LoggerFactory::createInstance($jakob_config['logger']);
+$template = new \WAYF\Template();
+
+// Set exception handler
+$exceptionHandler = new \WAYF\ExceptionHandler();
+$exceptionHandler->setLogger($logger);
+set_exception_handler(array($exceptionHandler, 'handleException'));
+
 // Start session
 session_start();

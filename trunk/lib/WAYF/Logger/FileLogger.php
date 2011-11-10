@@ -34,6 +34,13 @@ class FileLogger implements Logger
 {
     private $_file;
 
+    private $_logLevelNames = array(
+        JAKOB_ERROR => 'ERROR',
+        JAKOB_WARNING => 'WARNING',
+        JAKOB_INFO => 'INFO',
+        JAKOB_DEBUG => 'DEBUG',
+    );
+    
     public function __construct(array $options)
     {
         if (isset($options['file']) && is_string($options['file'])) {
@@ -73,7 +80,7 @@ class FileLogger implements Logger
      */
     public function log($level, $message)
     {
-        $line = sprintf("%s - %s - %s \n", strftime("%b %d %H:%M:%S"), $level, $message);
+        $line = sprintf("%s - %s - %s \n", strftime("%b %d %H:%M:%S"), $this->_logLevelNames[$level], $message);
 
         $this->_file->fwrite($line);
     }

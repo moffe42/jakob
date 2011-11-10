@@ -1,14 +1,15 @@
 <?php
 // Define the root path of JAKOB 
 define('ROOT', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
-define('CONFIGROOT', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR);
+define('CONFIGROOT', ROOT . 'config' . DIRECTORY_SEPARATOR);
+define('LOGROOT', ROOT . 'log' . DIRECTORY_SEPARATOR);
 
 // System status
 define('STATUS', 'development');
 
 // Set error logging
 ini_set('log_errors', TRUE);
-ini_set('error_log', ROOT . DIRECTORY_SEPARATOR . 'log' . DIRECTORY_SEPARATOR . 'jakob_error.log');
+ini_set('error_log', LOGROOT . 'jakob_error.log');
 ini_set('error_reporting', -1);
 
 // Check what status we have

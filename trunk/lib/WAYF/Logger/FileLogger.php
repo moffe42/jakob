@@ -32,6 +32,38 @@ use WAYF\Logger;
  */
 class FileLogger implements Logger
 {
+    private $_file;
+
+    public function __construct(array $options)
+    {
+        if (isset($options['file']) && is_string($options['file'])) {
+            $file = new \SplFileInfo(LOGROOT . $options['file']);
+
+            if (!$file->isFile()) {
+                // Check that log directory is writable
+                $logpath = new \SplFileInfo(LOGROOT);
+                if (!$logpath->isWritable()) {
+                    throw new \WAYF\LoggerException('Log directory is not writable.');
+                }
+
+                // Filen eksisterer ikke, prøver at oprette den
+                try {
+                    $this->_file = $file->openFile('w+');
+                } catch (\RuntimeException $e) {
+                    throw new \WAYF\LoggerException('Log file could not be created: ' . $e->getMessage());
+                }
+            } else if ($file->isWritable()){
+                // Filen eksisterer og er skrivbar
+                $this->_file = $file->openFile('a+');
+            } else {
+                // Filen eksisterer, men er ikke srivbar
+                throw new \WAYF\LoggerException('Log file not available for writing: ' . $file->getRealPath());
+            }
+        } else {
+            throw new \WAYF\LoggerException('Log file configuration not correct');
+        }
+    }
+
     /**
      * Log message
      *
@@ -41,6 +73,8 @@ class FileLogger implements Logger
      */
     public function log($level, $message)
     {
-        echo "Logged...\n";
+        $line = sprintf("%s - %s - %s \n", strftime("%b %d %H:%M:%S"), $level, $message);
+
+        $this->_file->fwrite($line);
     }
 }

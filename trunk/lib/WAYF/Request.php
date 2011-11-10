@@ -50,7 +50,9 @@ class Request
         if ((json_last_error() != JSON_ERROR_NONE ) && is_null($this->_attributes)) {
             throw new RequestException('Attributes - ' . JsonHelper::errornoToString(json_last_error()));
         }
-        $this->_returnURL = urldecode($data['returnURL']);  
+        if (!isset($data['returnURL']) || $this->_returnURL = urldecode($data['returnURL'])) {
+            throw new RequestException('No return URL found');
+        }
         /*
          * FILTER_VALIDATE_URL has a bug. Fixed in PHP > 5.3.2
         if (!filter_var($this->_returnURL, FILTER_VALIDATE_URL)) {

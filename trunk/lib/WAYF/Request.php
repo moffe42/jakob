@@ -50,7 +50,7 @@ class Request
         if ((json_last_error() != JSON_ERROR_NONE ) && is_null($this->_attributes)) {
             throw new RequestException('Attributes - ' . JsonHelper::errornoToString(json_last_error()));
         }
-        if (!isset($data['returnURL']) || $this->_returnURL = urldecode($data['returnURL'])) {
+        if (!isset($data['returnURL']) || !($this->_returnURL = urldecode($data['returnURL']))) {
             throw new RequestException('No return URL found');
         }
         /*

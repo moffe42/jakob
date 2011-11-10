@@ -8,10 +8,6 @@ session_regenerate_id(true);
  * If JAKOB.id is set and $_POST['token'] is equale, then we are resuming 
  * execution
  */
-$jakob_config = \WAYF\Configuration::getConfig();
-
-$template = new \WAYF\Template();
-
 if ((isset($_SESSION['JAKOB.id']) && isset($_POST['token'])) && $_SESSION['JAKOB.id'] == $_POST['token']) {
     unset($_SESSION['JAKOB.id']);
     $session = unserialize($_SESSION['JAKOB_Session']);
@@ -42,7 +38,6 @@ if ((isset($_SESSION['JAKOB.id']) && isset($_POST['token'])) && $_SESSION['JAKOB
 
 // Setup the attribute collector
 $attr_col = new \WAYF\AttributeCollector();
-$logger = \WAYF\LoggerFactory::createInstance($jakob_config['logger']);
 $attr_col->setLogger($logger);
 $storage = new \WAYF\Store\MemcacheStore();
 $storage->initialize();

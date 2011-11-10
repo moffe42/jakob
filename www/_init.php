@@ -9,6 +9,7 @@ define('STATUS', 'development');
 // Set error logging
 ini_set('log_errors', TRUE);
 ini_set('error_log', ROOT . DIRECTORY_SEPARATOR . 'log' . DIRECTORY_SEPARATOR . 'jakob_error.log');
+ini_set('error_reporting', -1);
 
 // Check what status we have
 switch (STATUS) {
@@ -21,7 +22,6 @@ switch (STATUS) {
         // Display all errors in development
         ini_set('display_errors', 'on');
         ini_set('display_startup_errors', TRUE);
-        ini_set('error_reporting', -1);
         break;
     }
     default: {

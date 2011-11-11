@@ -51,5 +51,9 @@ $exceptionHandler = new \WAYF\ExceptionHandler();
 $exceptionHandler->setLogger($logger);
 set_exception_handler(array($exceptionHandler, 'handleException'));
 
+// Set error handler
+$errorHandler = new \WAYF\ErrorHandler();
+set_error_handler(array($errorHandler, 'handleError'));
+
 // Start session
 session_start();

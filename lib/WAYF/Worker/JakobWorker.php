@@ -67,7 +67,7 @@ class JakobWorker implements Worker
     {
         while ($this->_gworker->work()) {
             if (GEARMAN_SUCCESS != $this->_gworker->returnCode()) {
-                $this->_logger->log(1, "Worker failed: " . $this->_gworker->error());
+                $this->_logger->log(JAKOB_ERROR, "Worker failed: " . $this->_gworker->error());
             }
         }
     }

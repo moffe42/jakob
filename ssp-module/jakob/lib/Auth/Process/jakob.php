@@ -42,16 +42,16 @@ class sspmod_jakob_Auth_Process_jakob extends SimpleSAML_Auth_ProcessingFilter
         // Get jaobhash value
         $source      = $state['Source']['entityid'];
         $destination = $state['Destination']['entityid'];
-        $jobhash     = $this->getJobHash($source, $destination);
-        
+        $jobid     = $this->getJobHash($source, $destination);
+
         // Grab job configuration
-        $query = "SELECT * FROM `" . $table . "` WHERE `jobhash` = :jobhash;";
+        $query = "SELECT * FROM `" . $table . "` WHERE `jobid` = :jobid;";
 
         try{
-            $res = $db->fetch_one($query, array('jobhash' => $jobhash));
+            $res = $db->fetch_one($query, array('jobid' => $jobid));
         } catch (PDOException $e) {
             SimpleSAML_Logger::error(
-                'JAKOB: Running queryon JAKOB database failed: ' .
+                'JAKOB: Running query on JAKOB database failed: ' .
                 $e->getMessage()
             );
             throw new SimpleSAML_Error_Exception('Error connection to JAKOB');
@@ -59,7 +59,6 @@ class sspmod_jakob_Auth_Process_jakob extends SimpleSAML_Auth_ProcessingFilter
 
         // redirect if job exists
         if ($res) {
-            $jobid      = $res->jobid;
             $attributes = $state['Attributes'];
             $stateId    = SimpleSAML_Auth_State::saveState($state, 'jakob:request');
             $joburl     = $this->_jConfig->getString('joburl');

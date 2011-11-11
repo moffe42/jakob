@@ -12,6 +12,11 @@ ini_set('log_errors', TRUE);
 ini_set('error_log', LOGROOT . 'jakob_error.log');
 ini_set('error_reporting', -1);
 
+// Disable magic_quotes_*
+ini_set('magic_quotes_gpc', 'off');
+ini_set('magic_quotes_runtime', 'off');
+ini_set('magic_quotes_sybase', 'off');
+
 // Check what status we have
 switch (STATUS) {
     case 'production': {

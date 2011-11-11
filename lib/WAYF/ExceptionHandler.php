@@ -15,7 +15,8 @@ class ExceptionHandler {
         if (!is_null($this->_logger)) {
             $trace = $this->_buildTrace($exception);
 
-            $this->_logger->log(JAKOB_ERROR, $exception->getMessage());
+            $this->_logger->log(JAKOB_ERROR, 'Uncaught exception: `' . get_class($exception) . '` with message: ' . $exception->getMessage());
+            $this->_logger->log(JAKOB_ERROR, 'Stack trace');
             foreach ($trace AS $line) {
                 $this->_logger->log(JAKOB_ERROR, $line);
             }

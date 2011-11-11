@@ -3,6 +3,23 @@
 namespace WAYF;
 
 class ExceptionHandler {
+    
+    private $_errortype = array (
+        E_ERROR              => 'EERROR',
+        E_WARNING            => 'WARNING',
+        E_PARSE              => 'PARSING EROR',
+        E_NOTICE             => 'NOTICE',
+        E_CORE_ERROR         => 'Core Error',
+        E_CORE_WARNING       => 'Core Warning',
+        E_COMPILE_ERROR      => 'Compile Error',
+        E_COMPILE_WARNING    => 'Compile Warning',
+        E_USER_ERROR         => 'User Error',
+        E_USER_WARNING       => 'User Warning',
+        E_USER_NOTICE        => 'User Notice',
+        E_STRICT             => 'Runtime Notice',
+        E_RECOVERABLE_ERROR  => 'Catchable Fatal Error'
+    );
+    
     private $_logger = null;
 
     public function setLogger(\WAYF\Logger $logger)
@@ -15,10 +32,14 @@ class ExceptionHandler {
         if (!is_null($this->_logger)) {
             $trace = $this->_buildTrace($exception);
 
-            $this->_logger->log(JAKOB_ERROR, 'Uncaught exception: `' . get_class($exception) . '` with message: ' . $exception->getMessage());
+            if (is_a($exception, 'ErrorException')) {
+                $this->_logger->log(JAKOB_ERROR, $this->_errortype[$exception->getSeverity()] . ' - Uncaught exception: `' . get_class($exception) . '` with message: ' . $exception->getMessage());
+            } else {
+                $this->_logger->log(JAKOB_ERROR, 'Uncaught exception: `' . get_class($exception) . '` with message: ' . $exception->getMessage());
+            }
             $this->_logger->log(JAKOB_ERROR, 'Stack trace');
             foreach ($trace AS $line) {
-                $this->_logger->log(JAKOB_ERROR, $line);
+                $this->_logger->log(JAKOB_ERROR, "\t" . $line);
             }
         }
 

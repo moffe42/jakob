@@ -26,14 +26,17 @@ Det sker:
 ===Use Case 2 for netlydbog.dk===
 En bruger browser rundt på [https://netlydbog.dk/ netlydbog.dk]
  * Klikker på ”Hent” for at downloade lydbogen til sin computer
- * Bruger ikke logget ind og redirectes derfr til login siden for indlogning
- * Der vælges nemID login. I forbindelse med indlogning hentes information om brugeres bopælskommune
+ * Brugeren er ikke logget ind og redirectes derfor til login-siden for indlogning
+ * Der vælges NemID login. I forbindelse med indlogning hentes information om brugeres bopælskommune
  * Kommunen har abonnement på netlydbog.dk så titlen må downloades
 
 Det sker:
-Ved indlogning sendes cpr-nr. fra NemID-login retur til Attribut Collector, som ud fra cpr-nr. tjekker låneren. Cpr-nummet findes kun som biblioteksbruger på Statsbiblioteket. Da Statsbiblioteket ikke har tegnet abonnement på netlydbog.dk forespørges de lokale bibliotekssystemer i folkebiblioteker i Midtjylland om hvor brugeren hører til. Attribut Collector får svar fra Silkeborg Bibliotek og cpr-nr. tilknyttes Silkeborg Bibliotek + Silkeborg Kommune.
-
-Der sendes besked til Silkeborg Bibliotek om at oprette låneren som bruger (digital bruger). Hvordan Silkeborg Bibliotek håndtere dette er ikke en del af usecasen.
+ * Cpr-nr. sendes fra NemID-login til Attribut Collector, som ud fra cpr-nr. tjekker låneren.
+ * Cpr-nr. findes kun som biblioteksbruger på Statsbiblioteket
+ * Statsbiblioteket har ikke abonnement på netlydbog.dk, så de lokale bibliotekssystemer i folkebiblioteker i Midtjylland forespørges om hvor brugeren hører til
+ * Attribut Collector får svar fra Silkeborg Bibliotek og cpr-nr. knyttes til Silkeborg Bibliotek & Silkeborg Kommune
+ * Der sendes besked til Silkeborg Bibliotek om at oprette låneren som bruger (digital bruger)
+ * Hvordan Silkeborg Bibliotek håndtere dette er ikke en del af usecasen!
 
 ===Use Case 3 for netlydbog.dk===
 Et barn browser rundt på netlydbog.dk for at finde en lydbog han ønsker at høre på vej til skole. Da han finder den ønskede titlen klikker han på ”Lyt” for at streame lydbogen fra hans iPhone.

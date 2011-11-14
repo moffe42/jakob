@@ -9,7 +9,7 @@ The use cases are further refined to actual [UserStories user stories], that for
 ----
 ==Netlydbog.dk (Aarhus)==
 ===Use Case 1 for netlydbog.dk===
-En bruger går ind på [netlydbog.dk] og logger ind med det samme. Hun vælger at logge ind med NemID.
+En bruger går ind på [http://www.bibzoom.dk/ netlydbog.dk] og logger ind med det samme. Hun vælger at logge ind med NemID.
 I forbindelse med indlogningen hentes informationer om hvilken kommune brugeren er tilknyttet.
 
 Hun søger den ønskede titel frem og klikker herefter på ”Hent”. Filen downloades til hendes computer.

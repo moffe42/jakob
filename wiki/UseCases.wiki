@@ -49,9 +49,9 @@ Det sker:
 Ved indlogning tjekkes at brugeren er oprettet som låner på det valgte bibliotek.
 ----
 
-==Bibzoom.dk (Statsbiblioteket)==
+==E-ressource ezProxy (Statsbiblioteket)==
 
-===Use Case 1 for bibzoom.dk===
+===Use Case 1 for E-ressource ezProxy===
 En bruger sidder hjemme og søger efter videnskabelige artikler via Statsbibliotekets søgesystem eller via en ekstern søgedatabase.
 
 Brugeren ønsker at downloade en bestemt artikel og sendes derfor til Statsbibliotekets [linkresolver], som returnerer et link til download af den ønskede artikel.

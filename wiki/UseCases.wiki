@@ -1,14 +1,14 @@
 #summary Description for high level use cases for JAKOB
-=Use Cases=
+=JAKOB (Attribut Collector) Use Cases=
 ----
 This page contains high level descriptions of use cases, that are the basis for the initial high level design and description of the JAKOB attribute collector.
 
 The use cases are further refined to actual [UserStories user stories], that form the basis for the actual design and implementation.
 ----
-<wiki:toc max_depth="4" />
-===Use cases for netlydbog.dk===
-====Use Case 1 for netlydbog.dk====
-En bruger går ind på netlydbog.dk og logger ind med det samme. Hun vælger at logge ind med NemID.
+<wiki:toc max_depth="5" />
+==netlydbog.dk (Aarhus)==
+===Use Case 1 for netlydbog.dk===
+En bruger går ind på [netlydbog.dk] og logger ind med det samme. Hun vælger at logge ind med NemID.
 I forbindelse med indlogningen hentes informationer om hvilken kommune brugeren er tilknyttet.
 
 Hun søger den ønskede titel frem og klikker herefter på ”Hent”. Filen downloades til hendes computer.
@@ -21,7 +21,7 @@ Biblioteket registreres for udlånet i administrationsystemet.
 
 *_Man skal være bosiddende i den kommune biblioteket ligger i for at kunne låne netlydbøger_*
 ----
-====Use Case 2 for netlydbog.dk====
+===Use Case 2 for netlydbog.dk===
 En bruger browser rundt på netlydbog.dk for at finde en lydbog han ønsker at høre til og fra arbejde. Da han finder den ønskede titlen klikker han på ”Hent” for at downloade lydbogen til sin computer.
 
 Da brugeren ikke er logget ind, videresendes han til login siden for indlogning.
@@ -32,7 +32,7 @@ Ved indlogning sendes cpr-nr. fra NemID-login retur til attribut-collectoren, so
 
 Der sendes besked til Silkeborg Bibliotek om at oprette låneren som bruger (digital bruger). Hvordan Silkeborg Bibliotek håndtere dette er ikke en del af usecasen.
 ----
-====Use Case 3 for netlydbog.dk====
+===Use Case 3 for netlydbog.dk===
 Et barn browser rundt på netlydbog.dk for at finde en lydbog han ønsker at høre på vej til skole. Da han finder den ønskede titlen klikker han på ”Lyt” for at streame lydbogen fra hans iPhone.
 
 Da han ikke er logget ind, videresendes han til login siden. Da han ikke har et NemID, vælger han at logge ind med hans lånekort. Han skal selv vælge hvilket bibliotek han er tilknyttet.
@@ -40,3 +40,18 @@ Da han ikke er logget ind, videresendes han til login siden. Da han ikke har et 
 Det sker:
 Ved indlogning tjekkes at brugeren er oprettet som låner på det valgte bibliotek.
 ----
+
+==Bibzoom.dk (Statsbiblioteket)==
+
+===Use Case 1 for bibzoom.dk===
+En bruger sidder hjemme og søger efter videnskabelige artikler via Statsbibliotekets søgesystem eller via en ekstern søgedatabase.
+
+Brugeren ønsker at downloade en bestemt artikel og sendes derfor til Statsbibliotekets [linkresolver], som returnerer et link til download af den ønskede artikel.
+
+Der er kun adgang til videnskabelige artikler, hvis brugeren er studerende eller ansat på Aarhus Universitet. Fordi brugeren sidder hjemme og ikke på Aarhus Universitets Campus er artiklen beskyttet af en [fjern-adgangsproxy]
+
+Fjernadgangsproxien tilbyder forskellige login former og heriblandt [NemID] via [WAYF]. Vælger brugeren NemID, så skal attribut collectoren hente information vedr. brugerens rolle (ansat, studerende) og tilhørsforhold (et fakultet på Aarhus universitet) fra Statsbibliotekets brugerregister. Hvis rolle og tilhørsforhold matcher proxiens valideringsregler, så udleveres artiklens downloadlink.
+
+ * Statsbiblioteket skal opsætte og konfigurerer en proxy som beskrevet ovenfor.
+ * Statsbiblioteket skal udstille Statsbiblioteket brugerregister som et attribut store, der ud fra CPR-nummer kan udlevere brugerens rolle og tilhørsforhold
+ * WAYF opsættes, så attribut collectoren kan håndtere casen

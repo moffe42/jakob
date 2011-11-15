@@ -46,7 +46,7 @@ Et barn browser rundt på netlydbog.dk for at finde en lydbog han ønsker at hø
  * Han skal selv vælge hvilket bibliotek han er tilknyttet
 
 Det sker:
-Ved indlogning tjekkes at brugeren er oprettet som låner på det valgte bibliotek.
+ * Ved indlogning tjekkes at brugeren er oprettet som låner på det valgte bibliotek.
 ----
 
 ==E-ressource ezProxy (Statsbiblioteket)==

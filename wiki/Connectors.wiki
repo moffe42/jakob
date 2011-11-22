@@ -23,7 +23,7 @@ interface Connector
 
 Please note that this interface is still under development, so it may change in the future.
 
-=How to design API for JKOB connectors=
+=How to design API for JAKOB connectors=
 When designing an API for a JAKOB connector to access, it is importent to make the interchange format as light weight as possible. The smaller and easier it is to parse, the quicker JAKOb will respond to a request.
 
 The following is an example of an interchange format that is light weight and easy to parse.

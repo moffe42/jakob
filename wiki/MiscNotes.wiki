@@ -5,7 +5,7 @@
 Start gearman workers with the following command:
 
 {{{
-$ nouhp php jakob-worker.php &
+$ nohup php jakob-worker.php &
 }}}
 
 == Installation ==

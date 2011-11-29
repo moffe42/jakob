@@ -1,6 +1,8 @@
 <?php
 namespace WAYF;
 
+class AttributeCollectorException extends \Exception {}
+
 class AttributeCollector {
 
     private $_logger = null;
@@ -33,7 +35,7 @@ class AttributeCollector {
         $this->_attributes = $attributes;
     }
 
-    public function setTasks(array $tasks)
+    public function setTasks(\WAYF\jobConfiguration $tasks = null)
     {
         $this->_tasks = $tasks;
     }
@@ -61,21 +63,31 @@ class AttributeCollector {
     public function processTasks()
     {
         $this->startTimer();
-        foreach($this->_tasks AS $kj => $vj) {
-            $workload = isset($vj['_options']) ? array('attributes' => $this->_attributes, 'options' => $vj['_options']) : array('attributes' => $this->_attributes);
-            $taskid = isset($vj['_id']) ? $vj['_id'] : null;
 
-            if($vj['_priority'] == 'sync') {
-                $this->fetchResults();
-                $this->_async_jobs[] = $this->_client->doAsync($taskid, json_encode($workload));
-                $this->fetchResults();
-            } else if($vj['_priority'] == 'async') {
-                $this->_async_jobs[] = $this->_client->doAsync($taskid, json_encode($workload));
-            }
-            unset($this->_tasks[$kj]);
-        }
+        // Fetch results in case there are sync jobs waiting
         $this->fetchResults();
 
+        while(!is_null($this->_tasks)) {
+
+            $data = $this->_tasks->data;
+
+            $workload = isset($data['_options']) ? array('attributes' => $this->_attributes, 'options' => $data['_options']) : array('attributes' => $this->_attributes);
+            if (isset($data['_id'])) {
+                $taskid = $data['_id'];
+            } else {
+                throw new \WAYF\AttributeCollectorException('Task Id non set on job');
+            }
+            
+            if($data['_priority'] == 'sync') {
+                $this->fetchResults();
+                $this->_async_jobs[$this->_client->doAsync($taskid, json_encode($workload))] = $this->_tasks;
+                $this->fetchResults();
+            } else if($data['_priority'] == 'async') {
+                $this->_async_jobs[$this->_client->doAsync($taskid, json_encode($workload))] = $this->_tasks;
+                $this->_tasks = $this->_tasks->success;
+            }
+        }
+        $this->fetchResults();
         return $this->_attributes;
     }
 
@@ -86,8 +98,21 @@ class AttributeCollector {
                 throw new \WAYF\Exceptions\TimeoutException('Timeout');
             }
             foreach ($this->_async_jobs AS $key => $jobid) {
-                if ($job_res = $this->_client->getResult($jobid)) {
-                    $this->_attributes = array_merge_recursive($this->_attributes, $job_res);
+                try {
+                    $job_res = $this->_client->getResult($key);
+                    if ($job_res) {
+                        $this->_attributes = array_merge_recursive($this->_attributes, $job_res);
+                        if (is_null($this->_tasks)) {
+                            $this->_tasks = null;
+                        } else {
+                            $this->_tasks = $jobid->success;
+                        }
+                        unset($this->_async_jobs[$key]);
+                    }
+                } catch(\WAYF\ClientException $e) {
+                    // Handle the exception
+                    // Some kind of error have happend. Jump to failure task
+                    $this->_tasks = $jobid->fail;
                     unset($this->_async_jobs[$key]);
                 }
             }

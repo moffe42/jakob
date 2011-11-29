@@ -126,10 +126,10 @@ class JakobClient implements Client
     {
         if ($this->isDone($job_handler)) {
             $result =  json_decode($this->_storage->get($job_handler), true);
-            if ($result['status']['code'] == 'success') {
+            if ($result['status']['code'] == STATUS_SUCCESS) {
                 return $result['attributes'];
             } else {
-                throw new \WAYF\ClientException('Error: ' . $result['status']['message']);
+                throw new \WAYF\ClientException($result['status']['message'], $result['status']['code']);
             }
         }
         return false;

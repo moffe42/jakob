@@ -1,32 +1,46 @@
 <?php
-
 namespace WAYF;
 
 class JobConfigurationException extends \Exception {}
+/**
+ * Binary tree
+ *
+ * Simple binary tree for storing basic binary trees. NOTE this is not a binary 
+ * search tree. It is up to the user to insert and delete the correct nodes.
+ */
+class JobConfiguration {
+    public $success = null;
+    public $fail = null;
+    public $data = null;
 
-class JobConfiguration
-{
-    private $_path = '';
+    public function toArray($i = 0, &$array = array()) {
 
-    public function __construct($path = null)
-    {
-        if (is_null($path)) {
-            $this->_path = CONFIGROOT . DIRECTORY_SEPARATOR . 'jobs' . DIRECTORY_SEPARATOR;
-        } else if(is_dir($path)) {
-            $this->_path = $path;
-        } else {
-            throw new JobConfigurationException($path . ' si not a valid configuration path');
+        $array[$i]['data'] = $this->data;
+
+        if (!is_null($this->success)) {
+            $array[$i]['success'] = 2*$i+1;
+            $this->success->toArray(2*$i+1, $array);
         }
+        if (!is_null($this->fail)) {
+            $array[$i]['fail'] = 2*$i+2;
+            $this->fail->toArray(2*$i+2, $array);
+        }
+        ksort($array);
+        return $array;
     }
+    
+    public function fromArray($array, $i = 0) {
+        $this->data = $array[$i]['data'];
 
-    public function load($id)
-    {
-        $file = $this->_path . $id . '.php';
-        if (file_exists($file)) {
-            include $file;
-        } else {
-            throw new JobConfigurationException('Job configuration "' . $id . '" does not exists'); 
+        if (isset($array[$i]['success'])) {
+            $success = new JobConfiguration();
+            $success->fromArray($array, 2*$i+1);
+            $this->success =& $success;
         }
-        return $job;
+        if (isset($array[$i]['fail'])) {
+            $fail = new JobConfiguration();
+            $fail->fromArray($array, 2*$i+2);
+            $this->fail =& $fail;
+        }
     }
 }

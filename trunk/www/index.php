@@ -23,9 +23,8 @@ if ((isset($_SESSION['JAKOB.id']) && isset($_POST['token'])) && $_SESSION['JAKOB
         $request = new \WAYF\Request();
         $request->handleRequest();
         // Get job configuration
-        $jc = new \WAYF\JobConfiguration();
-        $job = $jc->load($request->getJobid());
-        $tasks = $job['tasks'];
+        $jc = new \WAYF\JobConfigurationLoader();
+        $tasks = $jc->load($request->getJobid());
         $attributes = $request->getAttributes();
         $returnurl = $request->getReturnURL();
         $returnmethod = $request->getReturnMethod();
@@ -65,6 +64,7 @@ try {
     $_SESSION['JAKOB.id'] = \WAYF\Utilities::generateID();
     $template->setTemplate('timeout')->setData(array('token' => $_SESSION['JAKOB.id']))->render();
 } catch(\Exception $e) {
+    var_dump($e);
     $data = array('errortitle' => 'An error has occured', 'errormsg' => $e->getMessage());
     $template->setTemplate('error')->setData($data)->render();
 }

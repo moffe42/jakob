@@ -1,26 +1,31 @@
 <?php
 $job = array(
-    'tasks' => array(
-        0 => array(
+    0 => array(
+        'data' => array(
             '_id' => 'CPR',    
             '_priority' => 'sync',
             '_options' => array(
                 'userkey' => 'wayf',        
                 'key' => 'wayf4ever',        
             ),
-            '_success' => 1,
         ),
-        1 => array(
+        'success' => 1,
+    ),
+    1 => array(
+        'data' => array(
             '_id' => 'VIP',    
-            '_priority' => 'async',
+            '_priority' => 'sync',
             '_options' => array(
                 'userkey' => 'wayf',        
                 'key' => 'wayf4evervip',        
             ),
         ),
-        2 => array(
+        'success' => 3,
+    ),
+    3 => array(
+        'data' => array(
             '_id' => 'CPR',    
-            '_priority' => 'async',
+            '_priority' => 'sync',
             '_options' => array(
                 'userkey' => 'wayf',        
                 'key' => 'wayf4ever',        

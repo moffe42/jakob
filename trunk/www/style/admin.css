@@ -1,0 +1,40 @@
+#container {
+    width: 1500px;
+    height: 600px;
+    border: 1px solid #000000;
+    background-color: #AAAAAA;
+}
+
+#toolbar {
+    width: 100px;
+    height: 300px;
+    border: 1px solid #FF0000;
+    background-color: #0000FF;
+    display: inline-block;
+}
+
+#workspace {
+    width: 800px;
+    height: 580px;
+    border: 1px solid #FF0000;
+    background-color: #00FF00;
+    display: inline-block;
+}
+
+.connectorbox {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #000000;
+    margin-left: auto;
+    margin-right: auto;
+    //margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: #CCCCCC;
+}
+
+.dropbox {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #000000;
+    background-color: green;
+}

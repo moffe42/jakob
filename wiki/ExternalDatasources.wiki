@@ -1,6 +1,6 @@
 #summary Basic requirements for external data sources
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119.
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in [http://www.ietf.org/rfc/rfc2119.txt RFC 2119].
 
 =Introduction=
 This documents describes the basic requirements for external data sources used in conjunction with JAKOB, together with some best practice advice.

@@ -45,7 +45,7 @@ It is also a good idear to return the following informations
 
 The following is an example of an interchange format that is light weight and easy to parse.
 
-==Example==
+===Example===
 Below is a proposed example output of an external datasource, to be delivered back to a connector
 {{{
 {

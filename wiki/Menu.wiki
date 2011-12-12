@@ -13,6 +13,8 @@
 
 * [Connectors Connectors]
 
+* [ExternalDatasources External data sources]
+
 * [ConfigurationFormat Configuration Format]
 
 * [Dependencies Dependencies]

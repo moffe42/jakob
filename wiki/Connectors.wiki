@@ -27,15 +27,16 @@ Please note that this interface is still under development, so it may change in 
 When designing an API for a JAKOB connector to access, it is importent to make the interchange format as light weight as possible. The smaller and easier it is to parse, the quicker JAKOB will respond to a request.
 
 ==Basic requirements==
-  * The API should be public accessible via one or more URL's
+  * The API should be public accessible via one or more URL's (or IP address)
+  * The request method SHOULD be GET or POST (Get is preferred)
   * The authentication against the API MUST not require human interaction
-  * The number of requests for getting data DHOULD be keept to a bare minimum (One is preferred)
+  * The number of requests for getting data SHOULD be keept to a bare minimum (one is preferred)
   * The interchange format should be as light weight as possible (JSON is preferred)
 
 ==Interchange format==
 The interchange format should as a bare minimun contain the following informations
-  * A status (A message together with a code is preferred)
-  * the requested attributes about the user (if success)
+  * The request status (A message together with a code is preferred)
+  * The requested attributes about the user (if success)
   * The key used to identify the user in the request (Return the CPR of the user if the CPR was the key used to retrive attributes)
 
 It is also a good idear to return the following informations

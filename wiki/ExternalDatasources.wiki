@@ -1,5 +1,8 @@
 #summary Basic requirements for external data sources
 
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119.
+
+=Introduction=
 This documents describes the basic requirements for external data sources used in conjunction with JAKOB, together with some best practice advice.
 
 =How to design API for JAKOB connectors=
@@ -20,7 +23,7 @@ The interchange format SHOULD as a bare minimun contain the following informatio
   * The requested attributes about the user (if success)
   * The key used to identify the user in the request (Return the CPR of the user if the CPR was the key used to retrive attributes)
 
-It is also a good idear to return the following informations
+It is also a good idear to return the following informations. These requirements are OPTIONAL.
   * A unique id number for the request (This will make debugging easier in case of errors)
   * The API version (This will make it easier to upgrade the API's interchange format at a later time)
 

@@ -82,7 +82,10 @@ sudo ldconfig
 
 
 ==References==
-  * http://www.gearman.org
+  * http://gearman.org/index.php?id=getting_started
   * http://www.modernfidelity.co.uk/tech/installing-configuring-and-running-gearman-php-ubuntu
   * http://toys.lerdorf.com/archives/51-Playing-with-Gearman.html
   * https://launchpad.net/~gearman-developers/+archive/ppa
+  * http://sudhirvn.blogspot.com/2009/08/installing-gearman-on-ubuntu.html
+  * http://pecl.php.net/package/gearman
+  * http://www.mkfoster.com/2009/01/04/how-to-install-a-php-pecl-extensionmodule-on-ubuntu/

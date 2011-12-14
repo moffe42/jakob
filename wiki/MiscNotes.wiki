@@ -38,7 +38,7 @@ $ gearmand -d
 ps auxw | grep [g]earmand
 
 # check germand listening for jobs on tcp port 4730
-sudo lsof -i tcp:4730
+lsof -i tcp:4730
 }}}
 
 ==Installing Gearman PECL extension==

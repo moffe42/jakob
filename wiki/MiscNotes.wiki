@@ -33,6 +33,46 @@ Now you can start the Gearman job server
 $ gearmand -d
 }}}
 
+==Installing Gearman PECL extension==
+{{{
+sudo apt-get install php-pear
+}}}
+{{{
+sudo apt-get install php5-dev
+}}}
+{{{
+sudo pecl install gearman
+}}}
+Does not work Need libgearman >= 0.21
+
+{{{
+You should add "extension=gearman.so" to php.ini
+}}}
+==Install libgearman > 0.21==
+You need Boost headers version >= 1.39.0
+{{{
+sudo apt-get install libboost-dev
+}}}
+{{{
+sudo apt-get install libboost-program-options1.40-dev
+}}}
+{{{
+udo apt-get install uuid-dev
+}}}
+Get latest gearmand
+{{{
+wget http://launchpad.net/gearmand/trunk/0.26/+download/gearmand-0.26.tar.gz
+}}}
+{{{
+tar xzf gearmand-0.26.tar.gz
+cd gearmand-0.26
+./configure
+make
+sudo make install
+sudo ldconfig
+}}}
+
+
 ==References==
   * http://www.gearman.org
   * http://www.modernfidelity.co.uk/tech/installing-configuring-and-running-gearman-php-ubuntu

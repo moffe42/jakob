@@ -125,11 +125,15 @@ class JakobClient implements Client
     public function getResult($job_handler)
     {
         if ($this->isDone($job_handler)) {
-            $result =  json_decode($this->_storage->get($job_handler), true);
-            if ($result['status']['code'] == STATUS_SUCCESS) {
-                return $result['attributes'];
+            //$result =  json_decode($this->_storage->get($job_handler), true);
+            $result = $this->_storage->get($job_handler);
+            $response = new \WAYF\ConnectorResponse();
+            $response->fromJSON($result);
+            //if ($result['status']['code'] == STATUS_SUCCESS) {
+            if ($response->statuscode == STATUS_SUCCESS) {
+                return $response->attributes;
             } else {
-                throw new \WAYF\ClientException($result['status']['message'], $result['status']['code']);
+                throw new \WAYF\ClientException($response->statusmsg, $response->statuscode);
             }
         }
         return false;

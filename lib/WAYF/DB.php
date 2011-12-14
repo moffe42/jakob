@@ -62,6 +62,11 @@ class DB extends \PDO {
     return($modify_stmt->rowCount());
   }
 
+  public function insert($query, $parameters=array()) {
+    $insert_stmt = $this->prepare_and_execute($query, $parameters);
+    return $this->lastInsertId();
+  }
+
   private function prepare_and_execute($query, $parameters=array()) {
     $prep_stmt = $this->prepare($query);
     $prep_stmt->execute($parameters);

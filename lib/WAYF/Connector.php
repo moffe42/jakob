@@ -17,6 +17,8 @@
  */
 namespace WAYF;
 
+class ConnectorException extends \Exception {}
+
 /**
  * Job interface
  */

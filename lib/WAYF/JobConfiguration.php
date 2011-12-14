@@ -34,12 +34,14 @@ class JobConfiguration {
 
         if (isset($array[$i]['success'])) {
             $success = new JobConfiguration();
-            $success->fromArray($array, 2*$i+1);
+            //$success->fromArray($array, 2*$i+1);
+            $success->fromArray($array, $array[$i]['success']);
             $this->success =& $success;
         }
         if (isset($array[$i]['fail'])) {
             $fail = new JobConfiguration();
-            $fail->fromArray($array, 2*$i+2);
+            //$fail->fromArray($array, 2*$i+2);
+            $fail->fromArray($array, $array[$i]['fail']);
             $this->fail =& $fail;
         }
     }

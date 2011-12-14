@@ -23,7 +23,7 @@ if ((isset($_SESSION['JAKOB.id']) && isset($_POST['token'])) && $_SESSION['JAKOB
         $request = new \WAYF\Request();
         $request->handleRequest();
         // Get job configuration
-        $jc = new \WAYF\JobConfigurationLoader();
+        $jc = new \WAYF\JobConfigurationHelper($jakob_config['database']);
         $tasks = $jc->load($request->getJobid());
         $attributes = $request->getAttributes();
         $returnurl = $request->getReturnURL();

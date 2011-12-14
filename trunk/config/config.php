@@ -28,14 +28,33 @@ $config = array(
             ),
         ),     
     ),
+    
+    // Database configuration
+    'database' => array(
+    'dsn'      => 'mysql:host=localhost;dbname=jach',
+    'username' => 'jach',
+    'password' => 'Jacob82NG',
+    'table'    => 'jakob__configuration',
+    /*
+        'dsn'      => 'mysql:host=localhost;dbname=jakob_db',
+        'username' => 'USERNAME',
+        'password' => 'PASSWORD',
+        'table'    => 'jakob__configuration',
+     */
+    ),
 
+    // Logger configuration
     'logger' => array(
         'type' => 'File',  
         'options' => array('file' => 'jakob.log'),
     ),
+    
+    // Salt used when calculating jobhash values
+    'salt'     => 'pezo340fkvd3afnywz3ab2fuwf5enj8h',
 
     // Time to wait if jobs are not done
     'waittime' => 1000,
 
+    // German configuration
     'gearman.jobservers' => '127.0.0.1',
 );

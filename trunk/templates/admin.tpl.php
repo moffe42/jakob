@@ -3,6 +3,6 @@
         <title>JAKOB - Admin</title>
     </head>
     <body>
-        <h1>JAKOb - Admin</h1>
+        <h1>JAKOB - Admin</h1>
     </body>
 </html>

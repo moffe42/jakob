@@ -27,7 +27,7 @@ use WAYF\Connector;
  *
  * Implementation of a job that fetches information from CPR. 
  */
-class CprConnector implements Connector
+class CULRConnector implements Connector
 {
     private $_store = null;
     
@@ -49,7 +49,12 @@ class CprConnector implements Connector
         // Process workload
         $workload = json_decode($job->workload(), true);
 
-        $params['cid'] = md5($workload['attributes']['cpr'][0]);
+        if (!isset($workload['attributes']['shacPersonalUniqueID'][0])) {
+            throw new \WAYF\ConnectorException('required attribute shacPersonalUniqueID not parsed to CULR connector');
+        }
+        $cpr = substr($workload['attributes']['shacPersonalUniqueID'][0], -10);
+
+        $params['cpr'] = $workload['attributes']['shacPersonalUniqueID'][0];
         $params['ukey'] = $workload['options']['userkey'];
 
         // Init signer
@@ -61,7 +66,7 @@ class CprConnector implements Connector
         $query = http_build_query($params);
 
         // Get result from CPR
-        $result = file_get_contents('http://cpr.test.wayf.dk/?' . $query);
+        $result = file_get_contents('http://culr.test.wayf.dk/?' . $query);
 
         // Process the returned data and pu on right form
         $decodedresult = json_decode($result, true);
@@ -69,8 +74,17 @@ class CprConnector implements Connector
         $parsedresult = new \WAYF\ConnectorResponse();
         $parsedresult->statuscode = $decodedresult['status']['code']; 
         $parsedresult->responseid = $decodedresult['id'];
-        $parsedresult->userid = $decodedresult['userid'];
-        $parsedresult->attributes = $decodedresult['attributes'];
+
+        if ($parsedresult->statuscode == 0) {
+            $parsedresult->userid = $decodedresult['userid'];
+            $parsedresult->attributes['Provider-ID'] = $decodedresult['attributes']['Provider']['Provider-ID'];
+            $parsedresult->attributes['Provider-ID-type'] = $decodedresult['attributes']['Provider']['Provider-ID-type'];
+            $parsedresult->attributes['Local-ID-value'] = $decodedresult['attributes']['Local-ID']['Local-ID-value'];
+            $parsedresult->attributes['Local-ID-type'] = $decodedresult['attributes']['Local-ID']['Local-ID-type'];
+            $parsedresult->attributes['Muncipality-number'] = $decodedresult['attributes']['Muncipality-number'];
+        } else if (isset($decodedresult['status']['message'])) {
+            $parsedresult->statusmsg = $decodedresult['status']['message']; 
+        }
 
         // Store result
         $this->_store->set($handle, $parsedresult->toJSON());

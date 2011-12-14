@@ -2,17 +2,11 @@
 
 = Gearman =
 
+==Starting a worker==
 Start gearman workers with the following command:
 
 {{{
 $ nohup php jakob-worker.php &
-}}}
-
-== Installation ==
-See http://www.gearman.org and http://toys.lerdorf.com/archives/51-Playing-with-Gearman.html and https://launchpad.net/~gearman-developers/+archive/ppa
-
-{{{
-$ apt-get install gearman gearman-job-server gearman-tools libgearman4 libgearman-dev libdrizzle-dev
 }}}
 
 ==Installing Gearman on Ubuntu 10.04==
@@ -25,7 +19,7 @@ $ sudo apt-get install python-software-properties
 {{{
 $ sudo add-apt-repository ppa:gearman-developers/ppa
 }}}
-
+As of december 2011, the above repository have not been maintained since May 2011.
 {{{
 $ sudo apt-get update
 }}}
@@ -38,3 +32,9 @@ Now you can start the Gearman job server
 {{{
 $ gearmand -d
 }}}
+
+==References==
+  * http://www.gearman.org
+  * http://www.modernfidelity.co.uk/tech/installing-configuring-and-running-gearman-php-ubuntu
+  * http://toys.lerdorf.com/archives/51-Playing-with-Gearman.html
+  * https://launchpad.net/~gearman-developers/+archive/ppa

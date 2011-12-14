@@ -9,8 +9,32 @@ $ nohup php jakob-worker.php &
 }}}
 
 == Installation ==
-See http://www.gearman.org and http://toys.lerdorf.com/archives/51-Playing-with-Gearman.html
+See http://www.gearman.org and http://toys.lerdorf.com/archives/51-Playing-with-Gearman.html and https://launchpad.net/~gearman-developers/+archive/ppa
 
 {{{
 $ apt-get install gearman gearman-job-server gearman-tools libgearman4 libgearman-dev libdrizzle-dev
+}}}
+
+==Installing Gearman on Ubuntu 10.04==
+First you need to include the PPA for the latest version of Gearman.
+
+{{{
+$ sudo apt-get install python-software-properties
+}}}
+
+{{{
+$ sudo add-apt-repository ppa:gearman-developers/ppa
+}}}
+
+{{{
+$ sudo apt-get update
+}}}
+
+{{{
+$ apt-get install gearman gearman-job-server gearman-tools libgearman4 libgearman-dev
+}}}
+
+Now you can start the Gearman job server
+{{{
+$ gearmand -d
 }}}

@@ -1,6 +1,0 @@
-#summary List of depencies for JAKOB
-
-  * Gearman server
-  * Greaman extension for PHP
-  * Memcache server
-  * Memcache PHP extension

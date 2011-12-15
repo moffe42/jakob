@@ -17,6 +17,33 @@ The following list of requirements for the JAKOB is non-exhaustive and will be e
  * Memcache PHP extension
 
 = Installing JAKOB =
+You need to check out the SimpleSAMLphp authentication processing filter in the modules directory of your SSP installation
+{{{
+$ svn export http://jakob.googlecode.com/svn/trunk/ssp-module/jakob <SSP-DIR>/modules/jakob
+}}}
+Then copy the config template file to the config dir and edit to fit your needs
+{{{
+$ cp <SSP-DIR>/modules/jakob/config-templates/module_jakob.php <SSP-DIR>/config/
+}}}
+Config file
+{{{
+$config = array(
+    'dsn'      => 'mysql:host=localhost;dbname=jakob_db',
+    'username' => 'jakobuser',
+    'password' => 'jakobpass',
+    'table'    => 'jakob__configuration',
+    'salt'     => 'pezo340fkvd3afnywz3ab2fuwf5enj8h',
 
+    'joburl'   => 'http://JAKOB-URL/job/',
+);
+}}}
+Next you should add the filter to your configuration. It can be placed in any of the places authproc filters are configured. Below is an example configuration:
+{{{
+'authproc.idp' => array(
+    10 => array(
+        'class' => 'jakob:jakob',    
+    ),
+),
+}}}
 
 = Installing JAKOB filter on WAYF =

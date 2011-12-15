@@ -17,6 +17,8 @@
 
 * [ConfigurationFormat Configuration Format]
 
+* [DeployingJAKOB Deploying JAKOB]
+
 * [Dependencies Dependencies]
 
 ===Development===

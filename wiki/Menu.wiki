@@ -19,8 +19,6 @@
 
 * [DeployingJAKOB Deploying JAKOB]
 
-* [Dependencies Dependencies]
-
 ===Development===
 
 * [ProgrammersGuide Programmers Guide]

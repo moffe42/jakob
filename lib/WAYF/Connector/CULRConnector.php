@@ -90,17 +90,18 @@ class CULRConnector implements Connector
 
         // Process the returned data and pu on right form
         $decodedresult = json_decode($result, true);
+        var_dump($decodedresult);
 
         $response->statuscode = $decodedresult['status']['code']; 
         $response->responseid = $decodedresult['id'];
 
-        if ($parsedresult->statuscode == 0) {
+        if ($response->statuscode == 0) {
             $response->userid = $decodedresult['userid'];
-            $response->attributes['Provider-ID'] = $decodedresult['attributes']['Provider']['Provider-ID'];
-            $response->attributes['Provider-ID-type'] = $decodedresult['attributes']['Provider']['Provider-ID-type'];
-            $response->attributes['Local-ID-value'] = $decodedresult['attributes']['Local-ID']['Local-ID-value'];
-            $response->attributes['Local-ID-type'] = $decodedresult['attributes']['Local-ID']['Local-ID-type'];
-            $response->attributes['Muncipality-number'] = $decodedresult['attributes']['Muncipality-number'];
+            $response->attributes['Provider-ID'][] = $decodedresult['attributes']['Provider']['Provider-ID'];
+            $response->attributes['Provider-ID-type'][] = $decodedresult['attributes']['Provider']['Provider-ID-type'];
+            $response->attributes['Local-ID-value'][] = $decodedresult['attributes']['Local-ID']['Local-ID-value'];
+            $response->attributes['Local-ID-type'][] = $decodedresult['attributes']['Local-ID']['Local-ID-type'];
+            $response->attributes['Muncipality-number'][] = $decodedresult['attributes']['Muncipality-number'];
         } else if (isset($decodedresult['status']['message'])) {
             $response->statusmsg = $decodedresult['status']['message']; 
         }

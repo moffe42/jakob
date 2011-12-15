@@ -50,8 +50,14 @@ class CULRConnector implements Connector
         $workload = json_decode($job->workload(), true);
 
         if (!isset($workload['attributes']['shacPersonalUniqueID'][0])) {
-            throw new \WAYF\ConnectorException('required attribute shacPersonalUniqueID not parsed to CULR connector');
+            // If CPr is not set, then the connector should return an error 
+            // response to the AttributeCollector
         }
+
+        if (preg_match('/^urn:mace:terena.org:schac:personalUniqueID:dk:CPR:[0-9]{10}$/', $workload['attributes']['shacPersonalUniqueID'][0])) {
+            var_dump($workload);
+            exit;
+        } 
         $cpr = substr($workload['attributes']['shacPersonalUniqueID'][0], -10);
 
         $params['cpr'] = $workload['attributes']['shacPersonalUniqueID'][0];

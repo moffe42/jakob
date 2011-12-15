@@ -13,6 +13,7 @@ The following list of requirements for the JAKOB is non-exhaustive and will be e
  * Gearman Job Server 
  * Gearman PECL extension 1.0.1
  * Memcache
+ * Memcache PHP extension
 
 = Installing JAKOB =
 

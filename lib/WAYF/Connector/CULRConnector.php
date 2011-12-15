@@ -48,52 +48,65 @@ class CULRConnector implements Connector
         
         // Process workload
         $workload = json_decode($job->workload(), true);
+        
+        $response = new \WAYF\ConnectorResponse();
 
-        if (!isset($workload['attributes']['shacPersonalUniqueID'][0])) {
-            // If CPr is not set, then the connector should return an error 
-            // response to the AttributeCollector
+        // The identifing attribute is missing
+        if (!isset($workload['options']['userkey']) || !isset($workload['options']['key'])) { 
+            $response->statuscode = STATUS_ERROR;
+            $response->statusmsg = 'missing required configuration option'; 
+            $this->_store->set($handle, $response->toJSON());
+            return;
+        }
+        // The identifing attribute is missing
+        if (!isset($workload['attributes']['schacPersonalUniqueID'][0])) { 
+            $response->statuscode = STATUS_ERROR;
+            $response->statusmsg = 'Missing identifing attribute: schacPersonalUniqueID'; 
+            $this->_store->set($handle, $response->toJSON());
+            return;
+        }
+        
+        // The identifing attribute has wrong format
+        if (preg_match('/^urn:mace:terena.org:schac:personalUniqueID:dk:CPR:([0-9]{10})$/', $workload['attributes']['schacPersonalUniqueID'][0], $matches) != 1) {
+            $response->statuscode = STATUS_ERROR;
+            $response->statusmsg = 'Identifing attribute: schacPersonalUniqueID has wrong format'; 
+            $this->_store->set($handle, $response->toJSON());
+            return;
         }
 
-        if (preg_match('/^urn:mace:terena.org:schac:personalUniqueID:dk:CPR:[0-9]{10}$/', $workload['attributes']['shacPersonalUniqueID'][0])) {
-            var_dump($workload);
-            exit;
-        } 
-        $cpr = substr($workload['attributes']['shacPersonalUniqueID'][0], -10);
-
-        $params['cpr'] = $workload['attributes']['shacPersonalUniqueID'][0];
+        $params['cpr'] = $matches[1];
         $params['ukey'] = $workload['options']['userkey'];
 
         // Init signer
         $signer = new \WAYF\Security\Signer\GetRequestSigner();
         $signer->setUp($workload['options']['key'], $params);
-
         $params['signature'] = $signer->sign();
 
+        // Build query
         $query = http_build_query($params);
 
-        // Get result from CPR
+        // Get result from CULR
         $result = file_get_contents('http://culr.test.wayf.dk/?' . $query);
 
         // Process the returned data and pu on right form
         $decodedresult = json_decode($result, true);
 
-        $parsedresult = new \WAYF\ConnectorResponse();
-        $parsedresult->statuscode = $decodedresult['status']['code']; 
-        $parsedresult->responseid = $decodedresult['id'];
+        $response->statuscode = $decodedresult['status']['code']; 
+        $response->responseid = $decodedresult['id'];
 
         if ($parsedresult->statuscode == 0) {
-            $parsedresult->userid = $decodedresult['userid'];
-            $parsedresult->attributes['Provider-ID'] = $decodedresult['attributes']['Provider']['Provider-ID'];
-            $parsedresult->attributes['Provider-ID-type'] = $decodedresult['attributes']['Provider']['Provider-ID-type'];
-            $parsedresult->attributes['Local-ID-value'] = $decodedresult['attributes']['Local-ID']['Local-ID-value'];
-            $parsedresult->attributes['Local-ID-type'] = $decodedresult['attributes']['Local-ID']['Local-ID-type'];
-            $parsedresult->attributes['Muncipality-number'] = $decodedresult['attributes']['Muncipality-number'];
+            $response->userid = $decodedresult['userid'];
+            $response->attributes['Provider-ID'] = $decodedresult['attributes']['Provider']['Provider-ID'];
+            $response->attributes['Provider-ID-type'] = $decodedresult['attributes']['Provider']['Provider-ID-type'];
+            $response->attributes['Local-ID-value'] = $decodedresult['attributes']['Local-ID']['Local-ID-value'];
+            $response->attributes['Local-ID-type'] = $decodedresult['attributes']['Local-ID']['Local-ID-type'];
+            $response->attributes['Muncipality-number'] = $decodedresult['attributes']['Muncipality-number'];
         } else if (isset($decodedresult['status']['message'])) {
-            $parsedresult->statusmsg = $decodedresult['status']['message']; 
+            $response->statusmsg = $decodedresult['status']['message']; 
         }
 
         // Store result
-        $this->_store->set($handle, $parsedresult->toJSON());
+        $this->_store->set($handle, $response->toJSON());
     }
 
     public function setStore(\WAYF\Store $store)

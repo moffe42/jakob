@@ -1,5 +1,7 @@
 #summary Describes the configuration format
 
+*NOTE this document is not up to date and do not reflect the actual JAKOB implementation*
+
 This is the initial proposal for a internal configuration format used in JAKOB, in  order to get attributes from different sources
 = Example =
 {{{

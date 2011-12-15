@@ -26,7 +26,7 @@ class JobConfigurationHelper
         try {
             $this->_db = new \WAYF\DB($dsn, $username, $password);
         } catch (\PDOException $e) {
-            throw new JobConfigurationLoaderException('Error connecting to JAKOB database'); 
+            throw new JobConfigurationHelperException('Error connecting to JAKOB database'); 
         }
     }
 

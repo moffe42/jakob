@@ -4,6 +4,13 @@ namespace WAYF;
 
 class ConnectorResponseException extends \Exception {}
 
+/**
+ * Return status fra connectors, should be set to one of the following options.
+ */
+define('STATUS_SUCCESS', 0);
+define('STATUS_ERROR', 1);
+define('STATUS_TIMEOUT', 2);
+
 class ConnectorResponse{
 
     public $statuscode = null;

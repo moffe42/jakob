@@ -19,10 +19,6 @@ namespace WAYF;
 
 class ClientException extends \Exception {}
 
-define('STATUS_SUCCESS', 0);
-define('STATUS_ERROR', 1);
-define('STATUS_TIMEOUT', 2);
-
 /**
  * Client interface
  */

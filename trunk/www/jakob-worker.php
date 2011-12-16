@@ -43,5 +43,4 @@ foreach ($connector_configs AS $cconfig) {
 }
 
 // Wait for work
-$worker->work();
-
+while($worker->work()) {}

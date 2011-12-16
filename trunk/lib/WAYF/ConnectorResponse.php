@@ -26,6 +26,10 @@ class ConnectorResponse{
     public function __construct()
     {}
 
+    public function addAttribute($name, $value) {
+        $this->attributes[$name][] = $value;
+    }
+
     public function fromJSON($json)
     {
         $dejson = json_decode($json, true);

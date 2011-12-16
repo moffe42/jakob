@@ -43,8 +43,13 @@ $classLoader = new \WAYF\AutoLoader('WAYF', ROOT . 'lib');
 $classLoader->register();
 
 $jakob_config = \WAYF\Configuration::getConfig();
-$logger = \WAYF\LoggerFactory::createInstance($jakob_config['logger']);
 $template = new \WAYF\Template();
+try {
+    $logger = \WAYF\LoggerFactory::createInstance($jakob_config['logger']);
+} catch (\WAYF\LoggerException $e) {
+   $data = array('errortitle' => 'Logger could not be initiated', 'errormsg' => $e->getMessage());
+   $template->setTemplate('error')->setData($data)->render();
+}
 
 // Set exception handler
 $exceptionHandler = new \WAYF\ExceptionHandler();
@@ -54,6 +59,21 @@ set_exception_handler(array($exceptionHandler, 'handleException'));
 // Set error handler
 $errorHandler = new \WAYF\ErrorHandler();
 set_error_handler(array($errorHandler, 'handleError'));
+
+register_shutdown_function('shutdown');
+
+function shutdown() {
+    $e = error_get_last();
+    if (!is_null($e)) {
+        // Instiansiate all objects to be able to log FATAL errors
+        $jakob_config = \WAYF\Configuration::getConfig();
+        $logger = \WAYF\LoggerFactory::createInstance($jakob_config['logger']);
+        $exceptionHandler = new \WAYF\ExceptionHandler();
+        $exceptionHandler->setLogger($logger);
+        $exception = new \ErrorException($e['message'], 0, $e['type'], $e['file'], $e['line']);
+        $exceptionHandler->handleException($exception);
+    }
+}
 
 // Start session
 session_start();

@@ -51,6 +51,8 @@ class CULRConnector implements Connector
         
         $response = new \WAYF\ConnectorResponse();
 
+        nonexsisting_function();
+
         // The identifing attribute is missing
         if (!isset($workload['options']['userkey']) || !isset($workload['options']['key'])) { 
             $response->statuscode = STATUS_ERROR;
@@ -90,18 +92,17 @@ class CULRConnector implements Connector
 
         // Process the returned data and pu on right form
         $decodedresult = json_decode($result, true);
-        var_dump($decodedresult);
 
         $response->statuscode = $decodedresult['status']['code']; 
         $response->responseid = $decodedresult['id'];
 
         if ($response->statuscode == 0) {
             $response->userid = $decodedresult['userid'];
-            $response->attributes['Provider-ID'][] = $decodedresult['attributes']['Provider']['Provider-ID'];
-            $response->attributes['Provider-ID-type'][] = $decodedresult['attributes']['Provider']['Provider-ID-type'];
-            $response->attributes['Local-ID-value'][] = $decodedresult['attributes']['Local-ID']['Local-ID-value'];
-            $response->attributes['Local-ID-type'][] = $decodedresult['attributes']['Local-ID']['Local-ID-type'];
-            $response->attributes['Muncipality-number'][] = $decodedresult['attributes']['Muncipality-number'];
+            $response->addAttribute('Provider-ID', $decodedresult['attributes']['Provider']['Provider-ID']);
+            $response->addAttribute('Provider-ID-type', $decodedresult['attributes']['Provider']['Provider-ID-type']);
+            $response->addAttribute('Local-ID-value', $decodedresult['attributes']['Local-ID']['Local-ID-value']);
+            $response->addAttribute('Local-ID-type', $decodedresult['attributes']['Local-ID']['Local-ID-type']);
+            $response->addAttribute('Muncipality-number', $decodedresult['attributes']['Muncipality-number']);
         } else if (isset($decodedresult['status']['message'])) {
             $response->statusmsg = $decodedresult['status']['message']; 
         }

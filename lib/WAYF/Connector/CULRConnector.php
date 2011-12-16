@@ -51,8 +51,6 @@ class CULRConnector implements Connector
         
         $response = new \WAYF\ConnectorResponse();
 
-        nonexsisting_function();
-
         // The identifing attribute is missing
         if (!isset($workload['options']['userkey']) || !isset($workload['options']['key'])) { 
             $response->statuscode = STATUS_ERROR;

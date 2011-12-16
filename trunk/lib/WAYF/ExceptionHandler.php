@@ -43,12 +43,16 @@ class ExceptionHandler {
             }
         }
 
-        $data = array(
-            'errortitle' => 'Unhandled error',
-            'errormsg' => $exception->getMessage(),    
-        );
-        $template = new \WAYF\Template();
-        $template->setTemplate('error')->setData($data)->render(); 
+        // Please note that relying on php_sapi_name() is not 100 % solid. 
+        // Please see http://dk.php.net/manual/en/function.php-sapi-name.php#89858
+        if (php_sapi_name() != 'cli') {
+            $data = array(
+                'errortitle' => 'Unhandled error',
+                'errormsg' => $exception->getMessage(),    
+            );
+            $template = new \WAYF\Template();
+            $template->setTemplate('error')->setData($data)->render(); 
+        }
     }
 
     private function _buildTrace(\Exception $exception)

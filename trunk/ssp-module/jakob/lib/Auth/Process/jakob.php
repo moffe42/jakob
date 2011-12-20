@@ -75,6 +75,8 @@ class sspmod_jakob_Auth_Process_jakob extends SimpleSAML_Auth_ProcessingFilter
                     'returnParams' => json_encode(array('StateId' => $stateId)),
                 )    
             );
+        } else {
+            SimpleSAML_Logger::info('JAKOB jobID not found: ' . $jobid);
         }
     }
 

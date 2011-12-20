@@ -31,9 +31,9 @@ $config = array(
     
     // Database configuration
     'database' => array(
-        'dsn'      => 'mysql:host=localhost;dbname=jakob_db',
-        'username' => 'USERNAME',
-        'password' => 'PASSWORD',
+        'dsn'      => 'mysql:host=localhost;dbname=jach_db',
+        'username' => 'jach',
+        'password' => 'Jacob82NG',
         'table'    => 'jakob__configuration',
     ),
 

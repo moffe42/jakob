@@ -27,12 +27,8 @@ use WAYF\Connector;
  *
  * Implementation of a job that fetches information from CPR. 
  */
-class CprConnector implements Connector
+class CprConnector extends AbstractConnector
 {
-    private $_store = null;
-    
-    private $_config = null;
-
     /**
      * Fetch data from CPR
      *
@@ -75,16 +71,6 @@ class CprConnector implements Connector
         // Store result
         $this->_store->set($handle, $parsedresult->toJSON());
     }
-
-    public function setStore(\WAYF\Store $store)
-    {
-        $this->_store = $store;
-    }
-
-    public function setConfig(array $config)
-    {
-        $this->_config = $config;
-    }
-
+    
     public function setup() {}
 }

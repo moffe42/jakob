@@ -1,6 +1,8 @@
 <?php
 include '_init.php';
 
+echo "Starting JAKOB worker initializing script\n";
+
 try {
     $jakob_config = \WAYF\Configuration::getConfig();
 
@@ -19,28 +21,20 @@ try {
 $connector_configs = array();
 foreach (new Directoryiterator(CONFIGROOT . DIRECTORY_SEPARATOR . 'connectors') AS $k => $v) {
     if($v->isFile()) {
-        $connector_configs[] = \WAYF\Configuration::getConfig('connectors' . DIRECTORY_SEPARATOR . $v->getFilename());
-    }
-}
-
-// Create a new worker
-$worker = new \WAYF\Worker\JakobWorker($jakob_config['gearman.jobservers']);
-$worker->setLogger($logger);
-
-// Load all connectors into worker
-foreach ($connector_configs AS $cconfig) {
-    if (isset($cconfig['class'])) {
-        $classname = 'WAYF\Connector\\' . $cconfig['class'];
-        if (class_exists($classname, true)) {
-            $func = new $classname();
-            $func->setStore($store);
-            $func->setConfig($cconfig);
-            $worker->addWork($cconfig['id'], $func);
-
-            $logger->log(JAKOB_INFO, "Starting connector: " . $cconfig['class']);
+        $connector_config = \WAYF\Configuration::getConfig('connectors' . DIRECTORY_SEPARATOR . $v->getFilename());
+        $cmd = 'nohup php ' . ROOT .  'www' . DIRECTORY_SEPARATOR . 'connector-worker.php ' . urlencode($v->getFilename()) . ' 2> /dev/null &';
+        echo "Running: " . $cmd . "\n";
+        $logger->log(JAKOB_INFO, 'Starting ' . $connector_config['class'] . ' connector with ID: ' . $connector_config['id']);
+        $proc = Proc_Open($cmd, array(), $foo);
+        if ($proc === false) {
+            $logger->log(JAKOB_ERROR, 'Could not start ' . $connector_config['class'] . ' connector');
+            echo 'Could not start ' . $connector_config['class'] . " connector\n";
+        } else { 
+            Proc_close($proc);
+            $logger->log(JAKOB_INFO, $connector_config['class'] . ' connector with ID: ' . $connector_config['id'] . ' started');
+            echo $connector_config['class'] . ' connector with ID: ' . $connector_config['id'] . " started\n";
         }
     }
 }
 
-// Wait for work
-while($worker->work()) {}
+echo "JAKOB initialization script is done\n";

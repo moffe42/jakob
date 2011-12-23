@@ -31,7 +31,7 @@ class JakobWorker implements Worker
      * Gearman worker
      * @var \GearmanWorker
      */
-    private $_gworker = null;
+    public $_gworker = null;
 
     private $_logger = null;
 

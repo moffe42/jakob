@@ -33,6 +33,8 @@ interface Connector
     public function setStore(\WAYF\Store $store);
 
     public function setConfig(array $config);
+    
+    public function setLogger(\WAYF\Logger $logger);
 
     public function setup();
 }

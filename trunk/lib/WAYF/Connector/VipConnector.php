@@ -27,12 +27,8 @@ use WAYF\Connector;
  *
  * Implementation of a job that fetches information from CPR. 
  */
-class VipConnector implements Connector
+class VipConnector extends AbstractConnector
 {
-    private $_store = null;
-    
-    private $_config = null;
-
     /**
      * Fetch data from CPR
      *
@@ -68,16 +64,6 @@ class VipConnector implements Connector
 
         // Store result
         $this->_store->set($handle, json_encode($decodedresult));
-    }
-
-    public function setStore(\WAYF\Store $store)
-    {
-        $this->_store = $store;
-    }
-
-    public function setConfig(array $config)
-    {
-        $this->_config = $config;
     }
 
     public function setup() {}

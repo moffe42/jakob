@@ -27,6 +27,9 @@ $table    = $jakob_config['database']['table'];
 try {
     $db = new \WAYF\DB($dsn, $username, $password);
 } catch (\PDOException $e) {
+    echo "<pre>";
+    var_dump($e);
+    exit;
     //throw new JobConfigurationLoaderException('Error connecting to JAKOB database'); 
 }
 
@@ -64,7 +67,7 @@ switch ($action) {
 
         $tmp = $db->modify($query, array(
             'id' => (int)$_REQUEST['id'],    
-            'jobid' => \WAYF\Utilities::getjobHash($_REQUEST['targetsp'], $_REQUEST['targetidp'], $jakob_config['salt']),    
+            'jobid' => \WAYF\Utilities::getjobHash($_REQUEST['targetidp'], $_REQUEST['targetsp'], $jakob_config['salt']),    
             'name' => $_REQUEST['name'], 
             'targetsp' => $_REQUEST['targetsp'], 
             'targetidp' => $_REQUEST['targetidp'], 

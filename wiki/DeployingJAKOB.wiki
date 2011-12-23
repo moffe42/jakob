@@ -47,3 +47,21 @@ Next you should add the filter to your configuration. It can be placed in any of
 }}}
 
 = Installing JAKOB filter on WAYF =
+= Maintanaince =
+
+Find all workers (conectors) running
+{{{
+$ pgrep -f connector-worker.php
+}}}
+
+Kill all running workers
+{{{
+$ pkill -f connector-worker.php
+}}}
+
+See running workers
+{{{
+$ nc localhost 4730
+- status
+- workers
+}}}

@@ -10,6 +10,7 @@ class ConnectorResponseException extends \Exception {}
 define('STATUS_SUCCESS', 0);
 define('STATUS_ERROR', 1);
 define('STATUS_TIMEOUT', 2);
+define('STATUS_FATAL', 3);
 
 class ConnectorResponse{
 

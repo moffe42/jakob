@@ -112,6 +112,11 @@ class AttributeCollector {
                 } catch(\WAYF\ClientException $e) {
                     // Handle the exception
                     // Some kind of error have happend. Jump to failure task
+                    if ($e->getCode() == STATUS_FATAL) {
+                        // Throw exception on fatal error. This should maybe be 
+                        // a little more advanced
+                        throw new \WAYF\AttributeCollectorException($e->getMessage());
+                    }
                     $this->_tasks = $jobid->fail;
                     unset($this->_async_jobs[$key]);
                 }

@@ -8,4 +8,6 @@ I forhold til netlydbog.dk use-cases skal vi bruge et kommunenummer.
 
 I forbindelse med netlydbog.dk use cases, skal man kunne overføre biblioteks ID'er. Forslag til syntax (skal ligges i norEduPersonLIN)
 
-	LOC:AndersAnd@ISIL:DK-74033
+{{{
+LOC:AndersAnd@ISIL:DK-74033
+}}}

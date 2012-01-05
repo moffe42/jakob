@@ -18,9 +18,9 @@ if ((isset($_SESSION['JAKOB.id']) && isset($_POST['token'])) && $_SESSION['JAKOB
     $pendingjobs = $session['pendingjobs'];
     $returnparams = $session['returnParams'];
 } else {
-    // Process the rewuest
+    // Process the request
     try {
-        $request = new \WAYF\Request();
+        $request = new \WAYF\Request($jakob_config['database']);
         $request->handleRequest();
         // Get job configuration
         $jc = new \WAYF\JobConfigurationHelper($jakob_config['database']);

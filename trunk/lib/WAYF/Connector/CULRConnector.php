@@ -66,7 +66,7 @@ class CULRConnector extends AbstractConnector
         }
         
         // The identifing attribute has wrong format
-        if (preg_match('/^urn:mace:terena.org:schac:uniqueID:dk:CPR:([0-9]{10})$/', $workload['attributes']['schacPersonalUniqueID'][0], $matches) != 1) {
+        if (preg_match('/^urn:mace:terena.org:schac:personalUniqueID:dk:CPR:([0-9]{10})$/', $workload['attributes']['schacPersonalUniqueID'][0], $matches) != 1) {
             $response->statuscode = STATUS_ERROR;
             $response->statusmsg = 'Identifing attribute: schacPersonalUniqueID has wrong format'; 
             $this->_store->set($handle, $response->toJSON());
@@ -100,11 +100,13 @@ class CULRConnector extends AbstractConnector
 
         if ($response->statuscode == 0) {
             $response->userid = $decodedresult['userid'];
-            $response->addAttribute('Provider-ID', $decodedresult['attributes']['Provider']['Provider-ID']);
-            $response->addAttribute('Provider-ID-type', $decodedresult['attributes']['Provider']['Provider-ID-type']);
-            $response->addAttribute('Local-ID-value', $decodedresult['attributes']['Local-ID']['Local-ID-value']);
-            $response->addAttribute('Local-ID-type', $decodedresult['attributes']['Local-ID']['Local-ID-type']);
-            $response->addAttribute('Muncipality-number', $decodedresult['attributes']['Muncipality-number']);
+            $response->addAttribute('norEduPersonLIN', 
+                $decodedresult['attributes']['Local-ID']['Local-ID-type'] . ':' .
+                $decodedresult['attributes']['Local-ID']['Local-ID-value'] . '@' .
+                $decodedresult['attributes']['Provider']['Provider-ID-type'] . ':' .
+                $decodedresult['attributes']['Provider']['Provider-ID']
+            );
+            $response->addAttribute('municipalityCode', $decodedresult['attributes']['Muncipality-number']);
         } else if (isset($decodedresult['status']['message'])) {
             $response->statusmsg = $decodedresult['status']['message']; 
             $this->_logger->log(JAKOB_ERROR, $decodedresult['status']['message']);

@@ -11,4 +11,8 @@ $config = array(
 
     // URL for JAKOB jobs
     'joburl'   => 'http://jakob.test.wayf.dk/job/',
+
+    // Consumer
+    'consumerkey' => 'wayf',
+    'consumersecret' => '09984b3e4aa39d21f68b3d751fb4fa5b93a6ddb9',
 );

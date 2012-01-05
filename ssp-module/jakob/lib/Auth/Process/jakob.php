@@ -64,6 +64,18 @@ class sspmod_jakob_Auth_Process_jakob extends SimpleSAML_Auth_ProcessingFilter
             $joburl     = $this->_jConfig->getString('joburl');
             $jakoburl   = $joburl . $jobid;
 
+            // Generate signature on request
+            $signer = new sspmod_jakob_Signer();
+            $signer->setUp($this->_jConfig->getString('consumersecret'),
+                array(
+                    'attributes' => json_encode($attributes),
+                    'returnURL' => SimpleSAML_Module::getModuleURL('jakob/jakob.php'),
+                    'returnMethod' => 'post',
+                    'returnParams' => json_encode(array('StateId' => $stateId)),
+                )    
+            );
+            $signature = $signer->sign();
+            
             SimpleSAML_Logger::info('Calling JAKOB with jobID: ' . $jobid);
 
             // Redirect to JAKOB
@@ -73,6 +85,8 @@ class sspmod_jakob_Auth_Process_jakob extends SimpleSAML_Auth_ProcessingFilter
                     'returnURL' => SimpleSAML_Module::getModuleURL('jakob/jakob.php'),
                     'returnMethod' => 'post',
                     'returnParams' => json_encode(array('StateId' => $stateId)),
+                    'signature' => $signature,
+                    'consumerkey' => $this->_jConfig->getString('consumerkey'),
                 )    
             );
         } else {

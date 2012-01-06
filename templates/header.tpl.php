@@ -8,6 +8,9 @@
         <meta http-equiv="expires" content="Mon, 22 Jul 2002 11:12:01 GMT" />
         <meta http-equiv="pragma" content="no-cache" />
         <meta name="robots" content="none" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <link href="/style/jakob.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
+        <div id="header"></div>
+        <div id="main">

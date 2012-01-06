@@ -13,6 +13,14 @@
     <body onload="document.forms[0].submit()">
         <noscript>
             <p><strong>Note:</strong> Since your browser does not support JavaScript, you must press the button below once to proceed.</p> 
+            <hr />
+            <address>
+                WAYF - Where Are You From<br />
+                H. C. Andersens Boulevard 2<br />
+                DK-1553 København V<br />
+                Web: <a href="http://www.wayf.dk">www.wayf.dk</a><br />
+                E-mail: <a href="mailto:sekretariat@wayf.dk">sekretariat@wayf.dk</a>
+            </address>
         </noscript> 
         <form method="post" action="<?php echo htmlspecialchars($destination); ?>">
 <?php
@@ -49,13 +57,5 @@ foreach ($post as $name => $value) {
                 <input type="submit" value="Submit" />
             </noscript>
         </form>
-        <hr />
-        <address>
-            WAYF - Where Are You From<br />
-            H. C. Andersens Boulevard 2<br />
-            DK-1553 København V<br />
-            Web: <a href="http://www.wayf.dk">www.wayf.dk</a><br />
-            E-mail: <a href="mailto:sekretariat@wayf.dk">sekretariat@wayf.dk</a>
-        </address>
     </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-include '_init.php';
+include '../www/_init.php';
 
 try {
     $jakob_config = \WAYF\Configuration::getConfig();

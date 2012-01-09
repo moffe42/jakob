@@ -36,7 +36,7 @@ class sspmod_jakob_Auth_Process_jakob extends SimpleSAML_Auth_ProcessingFilter
                 'JAKOB: Connection to JAKOB database failed: ' .
                 $e->getMessage()
             );
-            throw new SimpleSAML_Error_Exception('Error connection to JAKOB');
+            return;
         }
 
         // Get jaobhash value
@@ -54,7 +54,7 @@ class sspmod_jakob_Auth_Process_jakob extends SimpleSAML_Auth_ProcessingFilter
                 'JAKOB: Running query on JAKOB database failed: ' .
                 $e->getMessage()
             );
-            throw new SimpleSAML_Error_Exception('Error connection to JAKOB');
+            return;
         }
 
         // redirect if job exists

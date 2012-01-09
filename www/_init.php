@@ -9,7 +9,6 @@ define('STATUS', 'development');
 
 // Set error logging
 ini_set('log_errors', TRUE);
-ini_set('error_log', LOGROOT . 'jakob_error.log');
 ini_set('error_reporting', -1);
 
 // Disable magic_quotes_*

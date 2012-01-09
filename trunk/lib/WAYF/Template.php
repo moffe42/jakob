@@ -7,6 +7,7 @@ class Template
 {
     private $_templatepath = '';
     private $_template = null;
+    private $_defaultheaders = true;
 
     public $data = array();
 
@@ -15,9 +16,13 @@ class Template
         $this->_templatepath = ROOT . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
     }
 
-    public function setTemplate($template) 
+    public function setTemplate($template, $defaultheaders = true) 
     {
         $this->_template = $template;
+        
+        if (is_bool($defaultheaders)) {
+            $this->_defaultheaders = $defaultheaders;
+        }    
         return $this;
     }
 
@@ -37,8 +42,20 @@ class Template
 
         // Include the template file
         $templetefile = $this->_templatepath . $this->_template.'.tpl.php'; 
+
         if (file_exists($templetefile)) {
+            // Include default header
+            if ($this->_defaultheaders) {
+                include $this->_templatepath . 'header.tpl.php';
+            }
+
+            // Include template file
             include $templetefile;
+
+            // Include default footer
+            if ($this->_defaultheaders) {
+                include $this->_templatepath . 'footer.tpl.php';
+            }
         } else {
             $this->showErrorPage();
         }

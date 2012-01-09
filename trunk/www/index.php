@@ -88,7 +88,8 @@ $data['attributes'] = json_encode($attributes);
 // Return the result
 if ($returnmethod == 'post') {
     $data = array('post' => $data, 'destination' => $returnurl);
+    $template->setTemplate('post', false)->setData($data)->render();
 } else if ($returnmethod == 'get') {
     $data = array('url' => $returnurl . '?' . http_build_query($data));
+    $template->setTemplate('get')->setData($data)->render();
 }
-$template->setTemplate($returnmethod)->setData($data)->render();

@@ -1,5 +1,6 @@
+#!/usr/bin/env php
 <?php
-include '_init.php';
+include '../www/_init.php';
 
 echo "Starting JAKOB worker initializing script\n";
 
@@ -22,7 +23,7 @@ $connector_configs = array();
 foreach (new Directoryiterator(CONFIGROOT . DIRECTORY_SEPARATOR . 'connectors') AS $k => $v) {
     if($v->isFile()) {
         $connector_config = \WAYF\Configuration::getConfig('connectors' . DIRECTORY_SEPARATOR . $v->getFilename());
-        $cmd = 'nohup php ' . ROOT .  'www' . DIRECTORY_SEPARATOR . 'connector-worker.php ' . urlencode($v->getFilename()) . ' 2> /dev/null &';
+        $cmd = 'nohup php ' . ROOT .  'bin' . DIRECTORY_SEPARATOR . 'connector-worker.php ' . urlencode($v->getFilename()) . ' 1> ' . LOGROOT .'nohup.out 2> ' . LOGROOT . 'nohup.error &';
         echo "Running: " . $cmd . "\n";
         $logger->log(JAKOB_INFO, 'Starting ' . $connector_config['class'] . ' connector with ID: ' . $connector_config['id']);
         $proc = Proc_Open($cmd, array(), $foo);

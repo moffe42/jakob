@@ -17,6 +17,7 @@ The following list of requirements for the JAKOB is non-exhaustive and will be e
  * Memcache PHP extension
 
 = Installing JAKOB =
+== Installing JAKOB filter on WAYF ==
 You need to check out the SimpleSAMLphp authentication processing filter in the modules directory of your SSP installation
 {{{
 $ svn export http://jakob.googlecode.com/svn/trunk/ssp-module/jakob <SSP-DIR>/modules/jakob
@@ -46,7 +47,6 @@ Next you should add the filter to your configuration. It can be placed in any of
 ),
 }}}
 
-= Installing JAKOB filter on WAYF =
 = Maintanaince =
 
 Find all workers (conectors) running

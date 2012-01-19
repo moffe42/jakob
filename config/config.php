@@ -39,7 +39,7 @@ $config = array(
 
     // Logger configuration
     'logger' => array(
-        'type' => 'File',  
+        'type' => 'Syslog',  
         'options' => array('file' => 'jakob.log'),
     ),
     

@@ -32,10 +32,16 @@ use WAYF\Logger;
  */
 class SyslogLogger implements Logger
 {
+    private $_logtosyslog = array(
+        JAKOB_ERROR => LOG_ERR,
+        JAKOB_WARNING => LOG_WARNING,
+        JAKOB_INFO => LOG_INFO,
+        JAKOB_DEBUG => LOG_DEBUG,
+    );
 
     public function __construct($config)
     {
-        openlog('JAKOB', LOG_PID, LOG_LOCAL5);
+        openlog('JAKOB', LOG_PID, LOG_LOCAL0);
     }
 
     /**
@@ -47,6 +53,6 @@ class SyslogLogger implements Logger
      */
     public function log($level, $message)
     {
-        syslog($level, $message);
+        syslog($this->_logtosyslog[$level], $message);
     }
 }

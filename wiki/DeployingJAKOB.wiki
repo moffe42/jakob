@@ -88,7 +88,6 @@ echo "extension=gearman.so" >> php.ini
 }}}
 
 Install JAKOB
-echo "Installing JAKOB"
 {{{
 mkdir -p <JAKOB-DIR>
 svn export http://jakob.googlecode.com/svn/trunk/ <JAKOB-DIR>

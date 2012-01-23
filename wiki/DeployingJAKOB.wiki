@@ -1,10 +1,20 @@
-#summary How to deploy JAKOb in the WAYF setup
+#summary How to deploy JAKOB in the WAYF setup
+
+Deploying JAKOb in a WAYF like setup requires you to:
+ * Deploy JAKOB
+ * Deploy a connector (AuthProc filter) on your WAYF to connect to JAKOB
+
+*NOTE* that the prerequisites list aplies to the current WAYF setup.
 
 = Prerequisites =
 The following list of requirements for the JAKOB is non-exhaustive and will be extended in the near future.
 
 == Global ==
- * MySQL database (accessable from both WAYF production server and the JAKOB server)
+ * MySQL database (accessible from both WAYF server and JAKOB server), can be located anywhere.
+
+== WAYF server ==
+ * All requirements for a SimpleSAMLphp server (see http://simplesamlphp.org/docs/1.8/simplesamlphp-install)
+ * PDO and the appropriate driver (mysql)
 
 == JAKOB server ==
  * Ubuntu Server 10.04 LTS
@@ -26,7 +36,7 @@ Then copy the config template file to the config dir and edit to fit your needs
 {{{
 $ cp <SSP-DIR>/modules/jakob/config-templates/module_jakob.php <SSP-DIR>/config/
 }}}
-Config file
+Config file  (modify for your setup)
 {{{
 $config = array(
     'dsn'      => 'mysql:host=localhost;dbname=jakob_db',
@@ -46,6 +56,10 @@ Next you should add the filter to your configuration. It can be placed in any of
     ),
 ),
 }}}
+
+== Installing the JAKOB server ==
+*NOTE* that this guide applies to the current WAYF setup. Your setup may vary.
+
 
 = Maintanaince =
 

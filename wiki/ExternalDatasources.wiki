@@ -12,7 +12,7 @@ Two of the main issues to focus on is the interchange format and that the data s
 
 ==Basic requirements==
   * The API MUST be public accessible via one or more URL's (or IP address)
-  * The request method SHOULD be GET or POST (Get is preferred)
+  * The request method SHOULD be GET or POST (GET is preferred)
   * The authentication against the API MUST not require human interaction
   * The number of requests for getting data MUST be keept to a bare minimum (one is preferred)
   * The interchange format MUST be as light weight as possible (JSON is preferred)

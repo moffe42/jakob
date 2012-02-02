@@ -37,7 +37,8 @@ Below is a proposed example output of an external datasource, to be delivered ba
     "version" : "1.0",
     "userid" : "999999-8888",
     "status" : {
-        "code" : "success"
+        "code" : 1,
+        "Msg" : "Success"
     },
     "attributes" : {
         "attributekey1" : "attributevalue",

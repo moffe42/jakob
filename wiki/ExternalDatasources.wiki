@@ -38,15 +38,15 @@ Below is a proposed example output of an external datasource, to be delivered ba
     "userid" : "999999-8888",
     "status" : {
         "code" : 1,
-        "Msg" : "Success"
+        "msg" : "Success"
     },
     "attributes" : {
-        "attributekey1" : "attributevalue",
-        "attributekey2" : [
-            "attributevalue1",
-            "attributevalue2"
+        "attribute1key" : "attribute1value",
+        "attribute2key" : [
+            "attribute2value1",
+            "attribute2value2"
         ],
-        "attributekey3" : "attributevalue"
+        "attribute3key" : "attribute3value"
     } 
 }
 }}}

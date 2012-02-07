@@ -63,3 +63,9 @@ Fjernadgangsproxien tilbyder forskellige login former og heriblandt [NemID] via 
  * Statsbiblioteket skal opsætte og konfigurerer en proxy som beskrevet ovenfor.
  * Statsbiblioteket skal udstille Statsbiblioteket brugerregister som et attribut store, der ud fra CPR-nummer kan udlevere brugerens rolle og tilhørsforhold
  * WAYF opsættes, så attribut collectoren kan håndtere casen
+
+==Filmstriben (DBC)==
+Usecase mangler...
+
+==VIP-Basen (DBC)==
+Usecase mangler...

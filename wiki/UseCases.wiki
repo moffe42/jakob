@@ -1,12 +1,19 @@
 #summary Description for high level use cases for JAKOB
+#labels JAKOB
 =JAKOB (Attribut Collector) Use Cases=
+
 ----
+
 This page contains high level descriptions of use cases, that are the basis for the initial high level design and description of the JAKOB attribute collector.
 
 The use cases are further refined to actual [UserStories user stories], that form the basis for the actual design and implementation.
+
 ----
+
 <wiki:toc max_depth="5" />
+
 ----
+
 ==Netlydbog.dk (Aarhus)==
 ===Use Case 1 for netlydbog.dk===
 En bruger går ind på [netlydbog.dk] og logger ind med [https://www.nemid.nu/ NemID]. 
@@ -46,7 +53,8 @@ Et barn browser rundt på netlydbog.dk for at finde en lydbog han ønsker at hø
  * Han skal selv vælge hvilket bibliotek han er tilknyttet
 
 Det sker:
- * Ved indlogning tjekkes at brugeren er oprettet som låner på det valgte bibliotek.
+ * Ved indlogning tjekkes at brugeren er oprettet som låner på det valgte bibliotek
+
 ----
 
 ==E-ressource ezProxy (Statsbiblioteket)==
@@ -64,8 +72,12 @@ Fjernadgangsproxien tilbyder forskellige login former og heriblandt [NemID] via 
  * Statsbiblioteket skal udstille Statsbiblioteket brugerregister som et attribut store, der ud fra CPR-nummer kan udlevere brugerens rolle og tilhørsforhold
  * WAYF opsættes, så attribut collectoren kan håndtere casen
 
+----
+
 ==Filmstriben (DBC)==
 Usecase mangler...
+
+----
 
 ==VIP-Basen (DBC)==
 Usecase mangler...

@@ -53,20 +53,23 @@ Det sker:
 
 ----
 
-==E-ressource ezProxy (Statsbiblioteket)==
+==E-ressource ezProxy (Statsbiblioteket, SB))==
 
 ===Use Case 1 for E-ressource ezProxy===
-En bruger sidder hjemme og søger efter videnskabelige artikler via Statsbibliotekets søgesystem eller via en ekstern søgedatabase.
+En bruger sidder hjemme og søger efter videnskabelige artikler via Statsbibliotekets (SB) søgesystem eller via en ekstern søgedatabase.
 
-Brugeren ønsker at downloade en bestemt artikel og sendes derfor til Statsbibliotekets [linkresolver], som returnerer et link til download af den ønskede artikel.
+Brugeren ønsker at downloade en bestemt artikel og sendes derfor til SB [linkresolver], som returnerer et link til download af den ønskede artikel.
 
 Der er kun adgang til videnskabelige artikler, hvis brugeren er studerende eller ansat på Aarhus Universitet. Fordi brugeren sidder hjemme og ikke på Aarhus Universitets Campus er artiklen beskyttet af en [fjern-adgangsproxy]
 
-Fjernadgangsproxien tilbyder forskellige login former og heriblandt [NemID] via [WAYF]. Vælger brugeren NemID, så skal attribut collectoren hente information vedr. brugerens rolle (ansat, studerende) og tilhørsforhold (et fakultet på Aarhus universitet) fra Statsbibliotekets brugerregister. Hvis rolle og tilhørsforhold matcher proxiens valideringsregler, så udleveres artiklens downloadlink.
+Fjernadgangsproxien tilbyder forskellige login former og heriblandt [NemID] via [WAYF]. Vælger brugeren NemID, så skal attribut collectoren hente information vedr. brugerens rolle (ansat, studerende) og tilhørsforhold (et fakultet på Aarhus universitet) fra SB brugerregister. Hvis rolle og tilhørsforhold matcher proxiens valideringsregler, så udleveres artiklens downloadlink.
 
- * Statsbiblioteket skal opsætte og konfigurerer en proxy som beskrevet ovenfor.
- * Statsbiblioteket skal udstille Statsbiblioteket brugerregister som et attribut store, der ud fra CPR-nummer kan udlevere brugerens rolle og tilhørsforhold
+ * SB skal opsætte og konfigurerer en proxy som beskrevet ovenfor
+ * SB skal udstille SB's brugerregister som et attribut store, der ud fra CPR-nummer kan udlevere brugerens rolle og tilhørsforhold
+ * SB sikkerhedsmodul kan være et alm. SSL kald, foretaget fra godkendt konsistent (fast) IP-adresse
+ ' Benyttet protokol kan være JSON
  * WAYF opsættes, så attribut collectoren kan håndtere casen
+ * WAYF udvikler adaptor til dataudveksling ml. JAKOB og SB's e-ressource
 
 ----
 

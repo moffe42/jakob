@@ -67,7 +67,7 @@ Fjernadgangsproxien tilbyder forskellige login former og heriblandt [NemID] via 
  * SB skal opsætte og konfigurerer en proxy som beskrevet ovenfor
  * SB skal udstille SB's brugerregister som et attribut store, der ud fra CPR-nummer kan udlevere brugerens rolle og tilhørsforhold
  * SB sikkerhedsmodul kan være et alm. SSL kald, foretaget fra godkendt konsistent (fast) IP-adresse
- ' Benyttet protokol kan være JSON
+ * Benyttet protokol kan være JSON
  * WAYF opsættes, så attribut collectoren kan håndtere casen
  * WAYF udvikler adaptor til dataudveksling ml. JAKOB og SB's e-ressource
 

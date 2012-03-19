@@ -71,6 +71,51 @@ Fjernadgangsproxien tilbyder forskellige login former og heriblandt [NemID] via 
  * WAYF opsættes, så attribut collectoren kan håndtere casen
  * WAYF udvikler adaptor til dataudveksling ml. JAKOB og SB's e-ressource
 
+==== API for Statsbibliotekets attribute store ====
+
+Statsbibliotekets attribute store kaldes med
+
+`https://<domæne>/index.php?ukey=<ukey>&cpr=<cpr>`
+
+hvor `<ukey>` er en nøgle til at få adgang til attribute store. `<cpr>` er CPR nummer på den person der skal skaffes data på. Resultatet leveres som en enkel JSON datastruktur:
+{{{
+API/JSON
+==================================================
+## Mon Mar 12 14:44:56 CET 2012
+
+{
+        "id":"4f5df82ce88f87.13862999",
+        "version":"1.0",
+        "userid":"8888888888",
+        "attributes": {
+                      "affiliation": {
+                                     <staff | student>@<organisation id>,
+                                     ...
+                       },
+                       <attribute name>: {...},
+                       ...,
+        },
+        "status":{"code":0}
+}
+}}}
+`id` er et unikt id for JSON svaret.
+
+`version` beskriver hvilken version af JSON API der benyttes.
+
+`userid` indeholder et lokalt unikt id på den person der spørges til.
+
+`attributes` indeholder information om personen der spørges
+til. `attributes` elementet kan være den tomme liste. Et element (key)
+i `attributes` kan have den tomme liste som værdi (value).
+`affiliation` elementet kan have værdien `NoAffiliation`, hvis den pågældende person ikke er hverken ansat eller studerende på AU eller Statsbiblioteket. Modset bliver værdien `stud` for studerende og `staff` for ansat på de pågældende to institutioner. Mere konkret er værdimængden beskrevet ved `stud|staff@au.dk` eller `staff@statsbiblioteket.dk`.
+
+`status` kan have `code` sat til 0 eller 1. Hvis den er 1 er der opstået
+et problem og der kan der være et ekstra element i listen. Dette element hedder
+`message` og vil som værdi have en beskrivelse af problemet.
+
+==== Sikkerhedsmodel for kommunikation ====
+Der benyttes enkel IP baseret autorisation og der kommunikeres over SSL.
+
 ----
 
 ==Filmstriben (DBC)==

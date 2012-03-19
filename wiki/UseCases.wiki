@@ -53,7 +53,7 @@ Det sker:
 
 ----
 
-==E-ressource ezProxy (Statsbiblioteket, SB))==
+==E-ressource ezProxy (Statsbiblioteket, SB)) - USECASE IMPLEMENTED==
 
 ===Use Case 1 for E-ressource ezProxy===
 En bruger sidder hjemme og søger efter videnskabelige artikler via Statsbibliotekets (SB) søgesystem eller via en ekstern søgedatabase.

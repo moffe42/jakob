@@ -79,10 +79,6 @@ Statsbibliotekets attribute store kaldes med
 
 hvor `<ukey>` er en nøgle til at få adgang til attribute store. `<cpr>` er CPR nummer på den person der skal skaffes data på. Resultatet leveres som en enkel JSON datastruktur:
 {{{
-API/JSON
-==================================================
-## Mon Mar 12 14:44:56 CET 2012
-
 {
         "id":"4f5df82ce88f87.13862999",
         "version":"1.0",

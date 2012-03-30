@@ -54,7 +54,6 @@ Det sker:
 ----
 
 ==E-ressource ezProxy (Statsbiblioteket, SB)) - USE CASE IMPLEMENTED==
-
 ===Use Case 1 for E-ressource ezProxy===
 An end-user sits at home searching for a scientific article via the State Library (SB) search engine retrieval system or via an external search database.
 
@@ -62,7 +61,7 @@ The user wants to download a particular article and is therefore redirected to S
 
 There is only access to these scientific articles at SB, if the user has a specific user role (student or staff) at Aarhus University.
 
-Since the end-user is sitting at home and not physically present at Aarhus University Campus while searching for the article, then the article is protected by a [remote access proxy].
+Since the end-user is sitting at home and not physically present at Aarhus University Campus while searching for the article, then the article is protected by a remote access proxy.
 
 The remote access proxy has different login possibilities and among one of them the Danish NemID (Easylog-in) via WAYF.
 
@@ -107,7 +106,7 @@ where `<ukey>` is the key for accessing the attribute store and `<cpr>` is the C
  * 'status' can have 'code' set to '0' or '1'. If '1' then an error has occured and an extra element can be found in the list. This element is called 'message' and will have the value of a description of the error
 
 ==== SB security module ====
-A simple IP based authorisation is used and data is exchanged through SSL
+ * A simple IP based authorisation is used and data is exchanged through SSL
 
 ----
 

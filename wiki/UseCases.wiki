@@ -75,7 +75,7 @@ If the end-user chooses NemID as login, then the attribute collector retrieves i
  * WAYF sets up, the attribute collector to handle this use case
  * WAYF develops adapters for the data exchange between the attribute collector and the SB remote access proxy
 
-==== API for Statsbibliotekets attribute store ====
+==== API for SB's attrubute store ====
 
 The remote access proxy's attribute store is called by:
 
@@ -98,13 +98,13 @@ where `<ukey>` is the key for accessing the attribute store and `<cpr>` is the C
         "status":{"code":0}
 }
 }}}
-`id` is a unique id for the JSON reply.
+'id' is a unique id for the JSON reply.
 
-`version` describes the version used of JSON API.
+'version' describes the version used of JSON API.
 
-`userid` contains a local unique id for the requested end-user.
+'userid' contains a local unique id for the requested end-user.
 
-`attributes` contains the end-user's information, The `attributes` element can be this empty list. An element (key) in `attributes` can consists of the empty list as value.
+'attributes' contains the end-user's information, The 'attributes' element can be this empty list. An element (key) in `attributes` can consists of the empty list as value.
 
 `affiliation` elementet kan have værdien `NoAffiliation`, hvis den pågældende person ikke er hverken ansat eller studerende på AU eller Statsbiblioteket. Modset bliver værdien `stud` for studerende og `staff` for ansat på de pågældende to institutioner. Mere konkret er værdimængden beskrevet ved `stud|staff@au.dk` eller `staff@statsbiblioteket.dk`.
 

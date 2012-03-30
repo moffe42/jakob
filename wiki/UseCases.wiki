@@ -68,12 +68,12 @@ The remote access proxy has different login possibilities and among one of them 
 
 If the end-user chooses NemID as login, then the attribute collector retrieves information about the end user's role (student or staff) AND affiliation (faculty at Aarhus University) from the SB user registry.If the user role and affiliation matches the remote access proxy's validation rules, the login is authorised and the requested download link for the article is provided.
 
-* SB must set up and configure a remote access proxy
-* SB must present SB's user directory as an attribute store, using the Danish CPR No. (social security number) to retrieve the user's role and affiliation
-* SB security module can be a normal secured SSL connection where data comes from a approved and fixed Ip address.
-* Used protocol can be JSON
-* WAYF sets up, the attribute collector to handle this use case
-* WAYF develops adapters for the data exchange between the attribute collector and the SB remote access proxy
+ * SB must set up and configure a remote access proxy
+ * SB must present SB's user directory as an attribute store, using the Danish CPR No. (social security number) to retrieve the user's role and affiliation
+ * SB security module can be a normal secured SSL connection where data comes from a approved and fixed Ip address.
+ * Used protocol can be JSON
+ * WAYF sets up, the attribute collector to handle this use case
+ * WAYF develops adapters for the data exchange between the attribute collector and the SB remote access proxy
 
 ==== API for Statsbibliotekets attribute store ====
 
@@ -81,7 +81,7 @@ The remote access proxy's attribute store is called by:
 
 `https://<domæne>/index.php?ukey=<ukey>&cpr=<cpr>`
 
-where `<ukey>` is the key for accessing the attribute store. `<cpr>` is the CPR No. for the end'users for collecting the data. The reply is passed as a single JSON data strkcture:
+where `<ukey>` is the key for accessing the attribute store and `<cpr>` is the CPR No. for collecting of the end-user data. The reply is passed as a single JSON data structure:
 {{{
 {
         "id":"4f5df82ce88f87.13862999",
@@ -104,9 +104,8 @@ where `<ukey>` is the key for accessing the attribute store. `<cpr>` is the CPR 
 
 `userid` contains a local unique id for the requested end-user.
 
-`attributes` indeholder information om personen der spørges
-til. `attributes` elementet kan være den tomme liste. Et element (key)
-i `attributes` kan have den tomme liste som værdi (value).
+`attributes` contains the end-user's information, The `attributes` element can be this empty list. An element (key) in `attributes` can consists of the empty list as value.
+
 `affiliation` elementet kan have værdien `NoAffiliation`, hvis den pågældende person ikke er hverken ansat eller studerende på AU eller Statsbiblioteket. Modset bliver værdien `stud` for studerende og `staff` for ansat på de pågældende to institutioner. Mere konkret er værdimængden beskrevet ved `stud|staff@au.dk` eller `staff@statsbiblioteket.dk`.
 
 `status` kan have `code` sat til 0 eller 1. Hvis den er 1 er der opstået

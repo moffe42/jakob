@@ -53,31 +53,35 @@ Det sker:
 
 ----
 
-==E-ressource ezProxy (Statsbiblioteket, SB)) - USECASE IMPLEMENTED==
+==E-ressource ezProxy (Statsbiblioteket, SB)) - USE CASE IMPLEMENTED==
 
 ===Use Case 1 for E-ressource ezProxy===
-En bruger sidder hjemme og søger efter videnskabelige artikler via Statsbibliotekets (SB) søgesystem eller via en ekstern søgedatabase.
+An end-user sits at home searching for a scientific article via the State Library (SB) search engine retrieval system or via an external search database.
 
-Brugeren ønsker at downloade en bestemt artikel og sendes derfor til SB [linkresolver], som returnerer et link til download af den ønskede artikel.
+The user wants to download a particular article and is therefore redirected to SB's link resolver, which returns a download link to the desired article.
 
-Der er kun adgang til videnskabelige artikler, hvis brugeren er studerende eller ansat på Aarhus Universitet. Fordi brugeren sidder hjemme og ikke på Aarhus Universitets Campus er artiklen beskyttet af en [fjern-adgangsproxy]
+There is only access to these scientific articles at SB, if the user has a specific user role (student or staff) at Aarhus University.
 
-Fjernadgangsproxien tilbyder forskellige login former og heriblandt [NemID] via [WAYF]. Vælger brugeren NemID, så skal attribut collectoren hente information vedr. brugerens rolle (ansat, studerende) og tilhørsforhold (et fakultet på Aarhus universitet) fra SB brugerregister. Hvis rolle og tilhørsforhold matcher proxiens valideringsregler, så udleveres artiklens downloadlink.
+Since the end-user is sitting at home and not physically present at Aarhus University Campus while searching for the article, then the article is protected by a [remote access proxy].
 
- * SB skal opsætte og konfigurerer en proxy som beskrevet ovenfor
- * SB skal udstille SB's brugerregister som et attribut store, der ud fra CPR-nummer kan udlevere brugerens rolle og tilhørsforhold
- * SB sikkerhedsmodul kan være et alm. SSL kald, foretaget fra godkendt konsistent (fast) IP-adresse
- * Benyttet protokol kan være JSON
- * WAYF opsættes, så attribut collectoren kan håndtere casen
- * WAYF udvikler adaptor til dataudveksling ml. JAKOB og SB's e-ressource
+The remote access proxy has different login possibilities and among one of them the Danish NemID (Easylog-in) via WAYF.
+
+If the end-user chooses NemID as login, then the attribute collector retrieves information about the end user's role (student or staff) AND affiliation (faculty at Aarhus University) from the SB user registry.If the user role and affiliation matches the remote access proxy's validation rules, the login is authorised and the requested download link for the article is provided.
+
+* SB must set up and configure a remote access proxy
+* SB must present SB's user directory as an attribute store, using the Danish CPR No. (social security number) to retrieve the user's role and affiliation
+* SB security module can be a normal secured SSL connection where data comes from a approved and fixed Ip address.
+* Used protocol can be JSON
+* WAYF sets up, the attribute collector to handle this use case
+* WAYF develops adapters for the data exchange between the attribute collector and the SB remote access proxy
 
 ==== API for Statsbibliotekets attribute store ====
 
-Statsbibliotekets attribute store kaldes med
+The remote access proxy's attribute store is called by:
 
 `https://<domæne>/index.php?ukey=<ukey>&cpr=<cpr>`
 
-hvor `<ukey>` er en nøgle til at få adgang til attribute store. `<cpr>` er CPR nummer på den person der skal skaffes data på. Resultatet leveres som en enkel JSON datastruktur:
+where `<ukey>` is the key for accessing the attribute store. `<cpr>` is the CPR No. for the end'users for collecting the data. The reply is passed as a single JSON data strkcture:
 {{{
 {
         "id":"4f5df82ce88f87.13862999",
@@ -94,11 +98,11 @@ hvor `<ukey>` er en nøgle til at få adgang til attribute store. `<cpr>` er CPR
         "status":{"code":0}
 }
 }}}
-`id` er et unikt id for JSON svaret.
+`id` is a unique id for the JSON reply.
 
-`version` beskriver hvilken version af JSON API der benyttes.
+`version` describes the version used of JSON API.
 
-`userid` indeholder et lokalt unikt id på den person der spørges til.
+`userid` contains a local unique id for the requested end-user.
 
 `attributes` indeholder information om personen der spørges
 til. `attributes` elementet kan være den tomme liste. Et element (key)

@@ -1,5 +1,5 @@
 #summary Description for high level use cases for JAKOB
-#labels JAKOB
+#labels JAKOB,Attribut
 =JAKOB (Attribut Collector) Use Cases=
 
 This page contains high level descriptions of use cases, that are the basis for the initial high level design and description of the JAKOB attribute collector.
@@ -110,10 +110,12 @@ where `<ukey>` is the key for accessing the attribute store and `<cpr>` is the C
 
 ----
 
-==Filmstriben (DBC)==
-Usecase mangler...
+==~~Filmstriben (DBC)~~==
+NOT TO BE IMPLEMENTED, DBC DROPPED OUT
+Usecase is missing
 
 ----
 
-==VIP-Basen (DBC)==
-Usecase mangler...
+==~~VIP-Basen (DBC)~~==
+NOT TO BE IMPLEMENTED, DBC DROPPED OUT
+Usecase is missing

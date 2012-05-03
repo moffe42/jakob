@@ -112,10 +112,8 @@ where `<ukey>` is the key for accessing the attribute store and `<cpr>` is the C
 
 ==~~Filmstriben (DBC)~~==
 NOT TO BE IMPLEMENTED, DBC DROPPED OUT
-Usecase is missing
 
 ----
 
 ==~~VIP-Basen (DBC)~~==
 NOT TO BE IMPLEMENTED, DBC DROPPED OUT
-Usecase is missing

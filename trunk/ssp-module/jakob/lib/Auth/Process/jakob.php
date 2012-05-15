@@ -30,7 +30,11 @@ class sspmod_jakob_Auth_Process_jakob extends SimpleSAML_Auth_ProcessingFilter
         $table    = $this->_jConfig->getString('table');
 
         try {
-            $db = new sspmod_jakob_DB($dsn, $username, $password);
+            $db = @new sspmod_jakob_DB($dsn, $username, $password, array(
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_TIMEOUT => 2,
+                PDO::ATTR_PERSISTENT   
+            ));
         } catch (PDOException $e) {
             SimpleSAML_Logger::error(
                 'JAKOB: Connection to JAKOB database failed: ' .

@@ -50,7 +50,7 @@ class MemcacheStore implements Store
             // Add default server if config is not parsed or has error
             $this->_servers[] = array(
                 'host' => 'localhost', 
-                'port' => '11212'
+                'port' => '11211'
             );
             return;
         }
@@ -60,8 +60,8 @@ class MemcacheStore implements Store
                 continue;
             }
 
-            if (!isset($config['port'])) {
-                $server['port'] = '11212';
+            if (!isset($server['port'])) {
+                $server['port'] = '11211';
             }
             $this->_servers[] = $server;
         }

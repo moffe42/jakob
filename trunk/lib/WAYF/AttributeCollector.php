@@ -100,7 +100,7 @@ class AttributeCollector {
             foreach ($this->_async_jobs AS $key => $jobid) {
                 try {
                     $job_res = $this->_client->getResult($key);
-                    if ($job_res) {
+                    if (is_array($job_res)) {
                         $this->_attributes = array_merge_recursive($this->_attributes, $job_res);
                         if (is_null($this->_tasks)) {
                             $this->_tasks = null;

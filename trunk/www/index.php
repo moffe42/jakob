@@ -38,7 +38,7 @@ if ((isset($_SESSION['JAKOB.id']) && isset($_POST['token'])) && $_SESSION['JAKOB
 // Setup the attribute collector
 $attr_col = new \WAYF\AttributeCollector();
 $attr_col->setLogger($logger);
-$storage = new \WAYF\Store\MemcacheStore();
+$storage = new \WAYF\Store\MemcacheStore($jakob_config['connector.storage']['options']);
 $storage->initialize();
 $client = new \WAYF\Client\JakobClient($jakob_config['gearman.jobservers']);
 $client->setStorage($storage);

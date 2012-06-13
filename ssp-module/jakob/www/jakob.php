@@ -32,7 +32,7 @@ foreach ($jakob_attr AS $key => $val) {
 $state['Attributes'] = $attributes;
 
 // Save origin info to session
-$session->setData('consent', 'origin', $orig_attr);
+$session->setData('consent', 'origin', $origin_attr);
 
 // Resume processing
 SimpleSAML_Auth_ProcessingChain::resumeProcessing($state);

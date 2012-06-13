@@ -34,7 +34,7 @@ class AttributeCollector {
     {
         $this->_attributes = $attributes;
     }
-
+    
     public function setTasks(\WAYF\jobConfiguration $tasks = null)
     {
         $this->_tasks = $tasks;
@@ -100,8 +100,8 @@ class AttributeCollector {
             foreach ($this->_async_jobs AS $key => $jobid) {
                 try {
                     $job_res = $this->_client->getResult($key);
-                    if (is_array($job_res)) {
-                        $this->_attributes = array_merge_recursive($this->_attributes, $job_res);
+                    if ($job_res) {
+                        $this->_attributes = array_merge_recursive($job_res->attributes, $this->_attributes);
                         if (is_null($this->_tasks)) {
                             $this->_tasks = null;
                         } else {

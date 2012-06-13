@@ -85,7 +85,18 @@ class Request
         if ((json_last_error() != JSON_ERROR_NONE ) && is_null($this->_attributes)) {
             throw new RequestException('Attributes - ' . JsonHelper::errornoToString(json_last_error()));
         }
-
+        // Transform attributes to internal format
+        $this->_attributes = array_map(
+            function ($val) {
+                $return = array();
+                foreach ($val AS $attr) {
+                    $return[] = array('value' => $attr);
+                }
+                return $return;
+            }, 
+            $this->_attributes
+        );
+        
         // Grab return URL parameter
         if (!isset($data['returnURL']) || !($this->_returnURL = urldecode($data['returnURL']))) {
             throw new RequestException('No return URL found');

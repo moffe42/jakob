@@ -19,7 +19,7 @@ class ConnectorResponse{
     public $statusmsg = null;
 
     public $attributes = array();
-
+    
     public $userid = null;
 
     public $responseid = null;
@@ -27,10 +27,11 @@ class ConnectorResponse{
     public function __construct()
     {}
 
-    public function addAttribute($name, $value) {
+    public function addAttribute($name, array $value)
+    {
         $this->attributes[$name][] = $value;
     }
-
+    
     public function fromJSON($json)
     {
         $dejson = json_decode($json, true);

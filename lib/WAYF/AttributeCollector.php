@@ -78,6 +78,7 @@ class AttributeCollector {
                 throw new \WAYF\AttributeCollectorException('Task Id non set on job');
             }
             
+            $this->_tasks->timestart = microtime(TRUE);
             if($data['_priority'] == 'sync') {
                 $this->fetchResults();
                 $this->_async_jobs[$this->_client->doAsync($taskid, json_encode($workload))] = $this->_tasks;
@@ -108,6 +109,7 @@ class AttributeCollector {
                             $this->_tasks = $jobid->success;
                         }
                         unset($this->_async_jobs[$key]);
+                        $this->_logger->log(JAKOB_INFO, "Connector: " . $jobid->data['_id'] . " finished in " . (microtime(TRUE) - $jobid->timestart) . " seconds");
                     }
                 } catch(\WAYF\ClientException $e) {
                     // Handle the exception

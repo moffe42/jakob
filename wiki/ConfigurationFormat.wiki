@@ -89,6 +89,7 @@ $job = array(
         array(
             '_id' => 'CPR',
             '_priority' => 'sync',
+            '_timeout' => 3,
             '_options' => array(
                 'userkey' => 'wayf',
                 'key' => 'wayf4ever',
@@ -97,6 +98,7 @@ $job = array(
         array(
             '_id' => 'VIP',
             '_priority' => 'async',
+            '_timeout' => 3,
             '_options' => array(
                 'userkey' => 'wayf',
                 'key' => 'wayf4evervip',
@@ -105,6 +107,7 @@ $job = array(
         array(
             '_id' => 'CPR',
             '_priority' => 'async',
+            '_timeout' => 3,
             '_options' => array(
                 'userkey' => 'wayf',
                 'key' => 'wayf4ever',

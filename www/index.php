@@ -52,6 +52,7 @@ try {
     }
     $attributes = $attr_col->processTasks();
 } catch(WAYF\Exceptions\TimeoutException $e) {
+    // Regular timeout, show feedback to user
     $session = array(
         'attributes' => $attr_col->getAttributes(),
         'tasks' => $attr_col->getTasks(),
@@ -63,11 +64,20 @@ try {
     $_SESSION['JAKOB_Session'] = serialize($session);
     $_SESSION['JAKOB.id'] = \WAYF\Utilities::generateID();
     $template->setTemplate('timeout')->setData(array('token' => $_SESSION['JAKOB.id']))->render();
+} catch(WAYF\Exceptions\FatalTimeoutException $e) {
+    // fatal timeout, return what we have
+    try {
+        $attr_col->emptyResultsQueue();
+    } catch (\Exception $e) {
+        $logger->log(JAKOB_ERROR, 'Something went wrong when collecting the last attributes. ' . var_export($e, true));
+    }
+    $attributes = $attr_col->getAttributes();
 } catch(\Exception $e) {
-    var_dump($e);
+    // Some unknown errro have happend
     $data = array('errortitle' => 'An error has occured', 'errormsg' => $e->getMessage());
+    $logger->log(JAKOB_ERROR, 'An error has occured' . var_export($e, true));
     $template->setTemplate('error')->setData($data)->render();
-}
+}   
 
 // Destroy session
 $_SESSION = array();

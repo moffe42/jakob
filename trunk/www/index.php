@@ -17,6 +17,7 @@ if ((isset($_SESSION['JAKOB.id']) && isset($_POST['token'])) && $_SESSION['JAKOB
     $returnmethod = $session['returnMethod'];
     $pendingjobs = $session['pendingjobs'];
     $returnparams = $session['returnParams'];
+    $silence = $session['silence'];
 } else {
     // Process the request
     try {
@@ -29,6 +30,7 @@ if ((isset($_SESSION['JAKOB.id']) && isset($_POST['token'])) && $_SESSION['JAKOB
         $returnurl = $request->getReturnURL();
         $returnmethod = $request->getReturnMethod();
         $returnparams = $request->getReturnParams();
+        $silence = $request->getSilence();
     } catch(\WAYF\RequestException $re) {
         $data = array('errortitle' => 'Request error', 'errormsg' => $re->getMessage());
         $template->setTemplate('error')->setData($data)->render();
@@ -37,6 +39,8 @@ if ((isset($_SESSION['JAKOB.id']) && isset($_POST['token'])) && $_SESSION['JAKOB
 
 // Setup the attribute collector
 $attr_col = new \WAYF\AttributeCollector();
+$jakob_config['silence'] = $silence;
+$attr_col->setConfig($jakob_config);
 $attr_col->setLogger($logger);
 $storage = \WAYF\StoreFactory::createInstance($jakob_config['connector.storage']);
 $storage->initialize();
@@ -59,7 +63,8 @@ try {
         'pendingjobs' => $attr_col->getPendingJobs(),
         'returnURL' => $returnurl,
         'returnMethod' => $returnmethod,
-        'returnParams' => $returnparams
+        'returnParams' => $returnparams,
+        'silence' => $silence,
     );
     $_SESSION['JAKOB_Session'] = serialize($session);
     $_SESSION['JAKOB.id'] = \WAYF\Utilities::generateID();

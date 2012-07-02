@@ -63,36 +63,29 @@ class sspmod_jakob_Auth_Process_jakob extends SimpleSAML_Auth_ProcessingFilter
 
         // redirect if job exists
         if ($res) {
-            $attributes = $state['Attributes'];
-            $stateId    = SimpleSAML_Auth_State::saveState($state, 'jakob:request');
-            $joburl     = $this->_jConfig->getString('joburl');
-            $jakoburl   = $joburl . $jobid;
+            $params = array();
+            // User interaction nessesary. Silence the request to JAKOB    
+            if (isset($state['isPassive']) && $state['isPassive'] == true) {
+                $params['silence'] = 'on';
+            }
+
+            $params['attributes']   = json_encode($state['Attributes']);
+            $params['returnURL']    = SimpleSAML_Module::getModuleURL('jakob/jakob.php');
+            $params['returnMethod'] = 'post';
+            $params['returnParams'] = json_encode(array('StateId' => SimpleSAML_Auth_State::saveState($state, 'jakob:request')));
+            $joburl                 = $this->_jConfig->getString('joburl');
+            $jakoburl               = $joburl . $jobid;
 
             // Generate signature on request
             $signer = new sspmod_jakob_Signer();
-            $signer->setUp($this->_jConfig->getString('consumersecret'),
-                array(
-                    'attributes' => json_encode($attributes),
-                    'returnURL' => SimpleSAML_Module::getModuleURL('jakob/jakob.php'),
-                    'returnMethod' => 'post',
-                    'returnParams' => json_encode(array('StateId' => $stateId)),
-                )    
-            );
-            $signature = $signer->sign();
+            $signer->setUp($this->_jConfig->getString('consumersecret'), $params);
+            $params['consumerkey'] = $this->_jConfig->getString('consumerkey');
+            $params['signature'] = $signer->sign();
             
             SimpleSAML_Logger::info('Calling JAKOB with jobID: ' . $jobid);
 
             // Redirect to JAKOB
-            SimpleSAML_Utilities::postRedirect($jakoburl,
-                array(
-                    'attributes' => json_encode($attributes),
-                    'returnURL' => SimpleSAML_Module::getModuleURL('jakob/jakob.php'),
-                    'returnMethod' => 'post',
-                    'returnParams' => json_encode(array('StateId' => $stateId)),
-                    'signature' => $signature,
-                    'consumerkey' => $this->_jConfig->getString('consumerkey'),
-                )    
-            );
+            SimpleSAML_Utilities::postRedirect($jakoburl, $params);
         } else {
             SimpleSAML_Logger::info('JAKOB jobID not found: ' . $jobid);
         }

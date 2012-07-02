@@ -12,6 +12,7 @@ class Request
     private $_returnMethod = 'post';
     private $_options = '';
     private $_config = array();
+    private $_silence = FALSE;
 
     public function __construct($config)
     {
@@ -112,6 +113,9 @@ class Request
         if ((json_last_error() != JSON_ERROR_NONE ) && is_null($this->_returnParams)) {
             throw new RequestException('Return parameters - ' . JsonHelper::errornoToString(json_last_error()));
         }
+        
+        // Grab optional silence parameters
+        $this->_silence = isset($data['silence']);
 
         // Get return method
         $this->_returnMethod = isset($data['returnMethod']) ? $data['returnMethod'] : 'post';  
@@ -149,5 +153,10 @@ class Request
     public function getReturnParams()
     {
         return $this->_returnParams;
+    }
+    
+    public function getSilence()
+    {
+        return $this->_silence;
     }
 } 

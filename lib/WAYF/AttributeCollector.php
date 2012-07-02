@@ -98,7 +98,7 @@ class AttributeCollector {
             foreach ($this->_async_jobs AS $key => $jobid) {
                 // Timeout for connector exceeded
                 if (isset($jobid->data['_timeout']) && ((microtime(TRUE) - $jobid->timestart) > $jobid->data['_timeout'])) {
-                    if (isset($jobid->data['_timeoutFatal']) && $jobid->data['_timeoutFatal']) {
+                    if ((isset($jobid->data['_timeoutFatal']) && $jobid->data['_timeoutFatal']) || $this->_config['silence']) {
                         throw new \WAYF\Exceptions\FatalTimeoutException('Fatal');
                     }
                     $jobid->data['_timeout'] = microtime(true);

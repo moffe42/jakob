@@ -108,5 +108,5 @@ if ($returnmethod == 'post') {
     $data = array('url' => $returnurl . '?' . http_build_query($data));
     $template->setTemplate('get')->setData($data)->render();
 } else if ($returnmethod == 'raw') { 
-    $template->setTemplate('raw')->setData($data)->render();
+    $template->setTemplate('raw', FALSE)->setData($data)->render();
 }

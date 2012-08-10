@@ -45,7 +45,7 @@ class VipConnector extends AbstractConnector
         // Process workload
         $workload = json_decode($job->workload(), true);
         
-        $params['cid'] = md5(substr($workload['attributes']['schacPersonalUniqueID'][0], 10));
+        $params['cid'] = md5(substr($workload['attributes']['schacPersonalUniqueID'][0]['value'], 10));
         $params['ukey'] = $workload['options']['userkey'];
 
         // Init signer

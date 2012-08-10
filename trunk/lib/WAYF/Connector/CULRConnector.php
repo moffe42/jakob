@@ -66,7 +66,7 @@ class CULRConnector extends AbstractConnector
         }
         
         // The identifing attribute has wrong format
-        if (preg_match('/^urn:mace:terena.org:schac:personalUniqueID:dk:CPR:([0-9]{10})$/', $workload['attributes']['schacPersonalUniqueID'][0], $matches) != 1) {
+        if (preg_match('/^urn:mace:terena.org:schac:personalUniqueID:dk:CPR:([0-9]{10})$/', $workload['attributes']['schacPersonalUniqueID'][0]['value'], $matches) != 1) {
             $response->statuscode = STATUS_ERROR;
             $response->statusmsg = 'Identifing attribute: schacPersonalUniqueID has wrong format'; 
             $this->_store->set($handle, $response->toJSON());

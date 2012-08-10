@@ -100,13 +100,21 @@ class CULRConnector extends AbstractConnector
 
         if ($response->statuscode == 0) {
             $response->userid = $decodedresult['userid'];
-            $response->addAttribute('norEduPersonLIN', 
-                $decodedresult['attributes']['Local-ID']['Local-ID-type'] . ':' .
-                $decodedresult['attributes']['Local-ID']['Local-ID-value'] . '@' .
-                $decodedresult['attributes']['Provider']['Provider-ID-type'] . ':' .
-                $decodedresult['attributes']['Provider']['Provider-ID']
+            $response->addAttribute('norEduPersonLIN',
+                array(
+                    'value' =>  $decodedresult['attributes']['Local-ID']['Local-ID-type'] . ':' .
+                                $decodedresult['attributes']['Local-ID']['Local-ID-value'] . '@' .
+                                $decodedresult['attributes']['Provider']['Provider-ID-type'] . ':' .
+                                $decodedresult['attributes']['Provider']['Provider-ID'],
+                    'origin' => 'http://culr.test.wayf.dk/'
+                )
             );
-            $response->addAttribute('municipalityCode', $decodedresult['attributes']['Muncipality-number']);
+            $response->addAttribute('municipalityCode', 
+                array(
+                    'value' => $decodedresult['attributes']['Muncipality-number'],
+                    'origin' => 'http://culr.test.wayf.dk/'
+                )
+            );
         } else if (isset($decodedresult['status']['message'])) {
             $response->statusmsg = $decodedresult['status']['message']; 
             $this->_logger->log(JAKOB_ERROR, $decodedresult['status']['message']);

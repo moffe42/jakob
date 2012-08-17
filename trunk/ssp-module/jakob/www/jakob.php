@@ -6,17 +6,7 @@ $state = SimpleSAML_Auth_State::loadState($_POST['StateId'], 'jakob:request');
 // Grab attributes
 $attributes = $state['Attributes'];
 $jakob_attr = json_decode($_POST['attributes'], true);
-
-// Get authenticating IdP
-$idp = $session->getIdP();
-
-// build origin array
-$origin_attr = array();
-foreach ($attributes AS $key => $val) {
-	foreach ($val AS $v) {
-		$origin_attr[$key][sha1($v)] = $idp;
-	}	
-}
+$origin_attr = (isset($state['AttributeOrigin']) && is_array($state['AttributeOrigin'])) ? $state['AttributeOrigin'] : array();
 
 // Merge attributes recived from JAKOB
 foreach ($jakob_attr AS $key => $val) {
@@ -30,9 +20,7 @@ foreach ($jakob_attr AS $key => $val) {
 
 // Save attributes to state
 $state['Attributes'] = $attributes;
-
-// Save origin info to session
-$session->setData('consent', 'origin', $origin_attr);
+$state['AttributeOrigin'] = $origin_attr;
 
 // Resume processing
 SimpleSAML_Auth_ProcessingChain::resumeProcessing($state);

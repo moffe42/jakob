@@ -3,6 +3,17 @@
 $session = SimpleSAML_Session::getInstance();
 $state = SimpleSAML_Auth_State::loadState($_POST['StateId'], 'jakob:request');
 
+$jakob_config = SimpleSAML_Configuration::getConfig('module_jakob.php');
+
+// Validate signature on response
+$signer = new sspmod_jakob_Signer();
+$signparams = $_POST;
+unset($signparams['signature']);
+$signer->setUp($jakob_config->getString('consumersecret'), $signparams);
+if (!$signer->validate($_POST['signature'])) {
+	throw new SimpleSAML_Error_Exception('Signature on JAKOB response is invalid');
+}
+
 // Grab attributes
 $attributes = $state['Attributes'];
 $jakob_attr = json_decode($_POST['attributes'], true);

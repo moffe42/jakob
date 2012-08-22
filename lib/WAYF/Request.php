@@ -13,6 +13,7 @@ class Request
     private $_options = '';
     private $_config = array();
     private $_silence = FALSE;
+    private $_consumer = '';
 
     public function __construct($config)
     {
@@ -66,6 +67,7 @@ class Request
             $consumer = new \WAYF\Consumer($this->_config);
             $consumer->consumerkey = $data['consumerkey'];
             $consumer->load();
+            $this->_consumer = $data['consumerkey'];
         } catch(\WAYF\ConsumerException $e) {
             throw new RequestException($e->getMessage());
         }
@@ -158,5 +160,10 @@ class Request
     public function getSilence()
     {
         return $this->_silence;
+    }
+    
+    public function getConsumer()
+    {
+        return $this->_consumer;
     }
 } 

@@ -18,6 +18,7 @@ if ((isset($_SESSION['JAKOB.id']) && isset($_POST['token'])) && $_SESSION['JAKOB
     $pendingjobs = $session['pendingjobs'];
     $returnparams = $session['returnParams'];
     $silence = $session['silence'];
+    $consumerkey = $session['consumerkey'];
 } else {
     // Process the request
     try {
@@ -31,6 +32,7 @@ if ((isset($_SESSION['JAKOB.id']) && isset($_POST['token'])) && $_SESSION['JAKOB
         $returnmethod = $request->getReturnMethod();
         $returnparams = $request->getReturnParams();
         $silence = $request->getSilence();
+        $consumerkey = $request->getConsumer();
     } catch(\WAYF\RequestException $re) {
         $data = array('errortitle' => 'Request error', 'errormsg' => $re->getMessage());
         $template->setTemplate('error')->setData($data)->render();
@@ -65,6 +67,7 @@ try {
         'returnMethod' => $returnmethod,
         'returnParams' => $returnparams,
         'silence' => $silence,
+        'consumerkey' => $consumerkey,
     );
     $_SESSION['JAKOB_Session'] = serialize($session);
     $_SESSION['JAKOB.id'] = \WAYF\Utilities::generateID();
@@ -98,7 +101,29 @@ $data = array();
 foreach($returnparams AS $k => $v) {
     $data[$k] = $v;
 }
+
 $data['attributes'] = json_encode($attributes);
+
+/**
+ * Sign the response with the same shared secret used by the consumer
+ */
+try {
+    $consumer = new \WAYF\Consumer($jakob_config['database']);
+    $consumer->consumerkey = $consumerkey;
+    $consumer->load();
+} catch(\WAYF\ConsumerException $e) {
+    // Consumer could not be found. Most likely a DB error
+    $data = array('errortitle' => 'Consumer could not be found', 'errormsg' => $e->getMessage());
+    $logger->log(JAKOB_ERROR, 'Consumer could not be found' . var_export($e, true));
+    $template->setTemplate('error')->setData($data)->render();
+}
+
+$signparams = $data;
+
+$signer = new \WAYF\Security\Signer\GetRequestSigner();
+$signer->setUp($consumer->consumersecret, $signparams);
+
+$data['signature'] = $signer->sign($logger);
 
 // Return the result
 if ($returnmethod == 'post') {

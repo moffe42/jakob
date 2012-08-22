@@ -39,7 +39,7 @@ function printItem($name, $value) {
     assert('is_string($value) || is_array($value)');
 
     if (is_string($value)) {
-        echo '<input type="hidden" name="' . htmlspecialchars($name) . '" value="' . htmlspecialchars($value) . '" />';
+        echo '<input type="hidden" name="' . htmlspecialchars($name) . '" value="' . htmlentities($value) . '" />';
         return;
     }
 

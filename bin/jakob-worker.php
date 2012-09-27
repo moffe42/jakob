@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-include '../www/_init.php';
+include dirname(__FILE__) . '/../www/_init.php';
 
 echo "Starting JAKOB worker initializing script\n";
 
@@ -23,17 +23,22 @@ $connector_configs = array();
 foreach (new Directoryiterator(CONFIGROOT . DIRECTORY_SEPARATOR . 'connectors') AS $k => $v) {
     if($v->isFile()) {
         $connector_config = \WAYF\Configuration::getConfig('connectors' . DIRECTORY_SEPARATOR . $v->getFilename());
+        $amount = isset($connector_config['amount']) ? $connector_config['amount'] : 1;
         $cmd = 'nohup php ' . ROOT .  'bin' . DIRECTORY_SEPARATOR . 'connector-worker.php ' . urlencode($v->getFilename()) . ' 1> ' . LOGROOT .'nohup.out 2> ' . LOGROOT . 'nohup.error &';
         echo "Running: " . $cmd . "\n";
-        $logger->log(JAKOB_INFO, 'Starting ' . $connector_config['class'] . ' connector with ID: ' . $connector_config['id']);
-        $proc = Proc_Open($cmd, array(), $foo);
-        if ($proc === false) {
-            $logger->log(JAKOB_ERROR, 'Could not start ' . $connector_config['class'] . ' connector');
-            echo 'Could not start ' . $connector_config['class'] . " connector\n";
-        } else { 
-            Proc_close($proc);
-            $logger->log(JAKOB_INFO, $connector_config['class'] . ' connector with ID: ' . $connector_config['id'] . ' started');
-            echo $connector_config['class'] . ' connector with ID: ' . $connector_config['id'] . " started\n";
+
+        for ($i = 0; $i < $amount; $i++) {
+            $logger->log(JAKOB_INFO, 'Starting ' . $connector_config['class'] . ' connector with ID: ' . $connector_config['id']);
+            $proc = Proc_Open($cmd, array(), $foo);
+            if ($proc === false) {
+                $logger->log(JAKOB_ERROR, 'Could not start ' . $connector_config['class'] . ' connector');
+                echo 'Could not start ' . $connector_config['class'] . " connector\n";
+                break;
+            } else {
+                Proc_close($proc);
+                $logger->log(JAKOB_INFO, $connector_config['class'] . ' connector with ID: ' . $connector_config['id'] . ' started');
+                echo $connector_config['class'] . ' connector with ID: ' . $connector_config['id'] . " started\n";
+            }
         }
     }
 }

@@ -1,0 +1,5 @@
+This is a very simple load test suite for JAKOB.
+
+- Start by setting up your JAKOB server and configure correctly.
+- Run 'bash runtest.sh' to run test
+- Run 'bash makegraphs.sh' to generate garphs for all tests

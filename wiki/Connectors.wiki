@@ -48,3 +48,5 @@ $config = array(
 );
 }}}
 Please note that this interface is still under development, so it may change in the future.
+
+*NOTE* that the `in_attributes`and `out_attributes`har not in use at the moment, but should be filled out accordingly for future use.

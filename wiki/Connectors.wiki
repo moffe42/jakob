@@ -42,6 +42,9 @@ $config = array(
         'norEduPersonLIN',
         'Muncipality-number'
     ),
+
+    // Number of instances of the connector to start
+    'amount' => 5,
 );
 }}}
 Please note that this interface is still under development, so it may change in the future.

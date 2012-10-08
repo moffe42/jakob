@@ -19,6 +19,9 @@ Indicates wether the connector should be called synchronous (sync) or asynchrono
 === `_options` ===
 This array contains connector specific data, that will be parsed to the connector on invokation.
 
+=== `_timeout` ===
+
+
 === `_timeoutFatal` ===
 If set, that all timeouts will be fatal. Meaning that if a timeout occurs, then the attributes gathered so far is returned with out waiting for the rest of the connectors to finish.
 

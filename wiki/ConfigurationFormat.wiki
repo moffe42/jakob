@@ -9,27 +9,40 @@ A configuration of JAKOB is an interger indexed array, that in turn can contain 
 Contains the configuration for the connector to be called
 
 === `_id` ===
+`string`
+
 The id of the connector to be used. This must match the id that is configured for the conector.
 
 === `_priority` ===
+`string` - `'sync'`|`'async'`
+
 Indicates wether the connector should be called synchronous (sync) or asynchronous (async). If the connector is called async, that JAKOB will jump directly to the success connector without waiting for a response. The result of the connector is fetched either at the end or when a connector is called sync. If a connector is called sync, JAKOB will wait for the result. Depending on that result, JAKOB will either choose the success connector or the fail connector.
 
 *NOTE* only use sync if strictly necessary. Use of sync will halt the entire process until the connector has finished. 
 
 === `_options` ===
+`array`
+
 This array contains connector specific data, that will be parsed to the connector on invokation.
 
 === `_timeout` ===
+`float`
 
+Max time an connector is allowed to run until the user will be presented with the JAKOB UI.
 
 === `_timeoutFatal` ===
+`boolean`
+
 If set, that all timeouts will be fatal. Meaning that if a timeout occurs, then the attributes gathered so far is returned with out waiting for the rest of the connectors to finish.
 
 == success ==
+`integer`
+
 Contains a pointer to the next connector to be executed if the result of the connector is successful. This must be the top level integer index in the configuration array. I no success connector is set, then the job wil terminate and the result so far is returned.
 
-
 == fail ==
+`integer`
+
 Contains a pointer to the next connector to be executed if the result of the connector is unsuccessful. This must be the top level integer index in the configuration array.
 
 {{{

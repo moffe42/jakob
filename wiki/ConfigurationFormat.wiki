@@ -8,6 +8,8 @@ A configuration of JAKOB is an interger indexed array, that in turn can contain 
 == data ==
 Contains the configuration for the connector to be called
 
+A cpnnector configuration can contain the following options:
+
 === `_id` ===
 _string_
 

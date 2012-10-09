@@ -96,14 +96,6 @@ class AttributeCollector {
     {
         while (!empty($this->_async_jobs)) {
             foreach ($this->_async_jobs AS $key => $jobid) {
-                // Timeout for connector exceeded
-                if (isset($jobid->data['_timeout']) && ((microtime(TRUE) - $jobid->timestart) > $jobid->data['_timeout'])) {
-                    if ((isset($jobid->data['_timeoutFatal']) && $jobid->data['_timeoutFatal']) || $this->_config['silence']) {
-                        throw new \WAYF\Exceptions\FatalTimeoutException('Fatal');
-                    }
-                    $jobid->data['_timeout'] = microtime(true);
-                    throw new \WAYF\Exceptions\TimeoutException('Timeout');
-                }
                 try {
                     $job_res = $this->_client->getResult($key);
                     if ($job_res) {
@@ -115,6 +107,13 @@ class AttributeCollector {
                         }
                         unset($this->_async_jobs[$key]);
                         $this->_logger->log(JAKOB_INFO, "Connector: " . $jobid->data['_id'] . " finished in " . (microtime(TRUE) - $jobid->timestart) . " seconds");
+                    } else if (isset($jobid->data['_timeout']) && ((microtime(TRUE) - $jobid->timestart) > $jobid->data['_timeout'])) {
+                        // Timeout for connector exceeded
+                        if ((isset($jobid->data['_timeoutFatal']) && $jobid->data['_timeoutFatal']) || $this->_config['silence']) {
+                            throw new \WAYF\Exceptions\FatalTimeoutException('Fatal');
+                        }
+                        $jobid->data['_timeout'] = microtime(true);
+                        throw new \WAYF\Exceptions\TimeoutException('Timeout');
                     }
                 } catch(\WAYF\ClientException $e) {
                     // Handle the exception

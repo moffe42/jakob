@@ -1,17 +1,19 @@
-#summary How to deploy JAKOB in a WAYF-like setup
+#summary How to deploy JAKOB in a WAYF-like setup using SimpleSAMLphp
 
 Deploying JAKOB in a WAYF-like setup requires you to:
  * Deploy JAKOB
- * Deploy a connector (AuthProc filter) on your WAYF to connect to JAKOB
+ * Deploy an Authentication Processing filter on your SimpleSAMLphp (SSP) to connect to JAKOB
 
-*NOTE* that the prerequisites list applies to the current WAYF setup and is non-exhaustive and will be extended in the near future.
+*NOTE* that the prerequisites list applies to the current WAYF-like setup and is non-exhaustive and will be extended as needed.
 
 = Global prerequisites =
- * MySQL database (accessible from both WAYF server and JAKOB server), can be located anywhere.
+ * MySQL database (accessible from both the SSP server and JAKOB server), can be located anywhere.
 
-= WAYF server =
+----
 
- * All requirements for a SimpleSAMLphp server (see http://simplesamlphp.org/docs/1.8/simplesamlphp-install)
+= Installing SSP server =
+
+ * All requirements for a SimpleSAMLphp server (see http://simplesamlphp.org/docs/1.10/simplesamlphp-install)
  * PDO and the appropriate driver (mysql)
 
 == Installing JAKOB filter on SimpleSMALphp ==
@@ -35,7 +37,7 @@ $config = array(
     'joburl'   => 'http://JAKOB-URL/job/',
 );
 }}}
-Next you should add the filter to your configuration. It can be placed in any of the places authproc filters are configured. Below is an example configuration:
+Next you should add the filter to your configuration. It can be placed in any of the places !AuthProc filters are configured. Below is an example configuration:
 {{{
 'authproc.idp' => array(
     10 => array(
@@ -43,9 +45,12 @@ Next you should add the filter to your configuration. It can be placed in any of
     ),
 ),
 }}}
+
+----
+
 = Installing JAKOB =
 == Prerequisites ==
- * Ubuntu Server 10.04 LTS (plain)
+ * Ubuntu Server 10.04 LTS (plain) or newer
  * Apcahe/2.2 (latest stable on Ubuntu) 
  * PHP version 5.3.2 or higher (latest stable on Ubuntu)
  * libgearman > 0.21 (for latest Gearman PECL extension)
@@ -57,14 +62,13 @@ Next you should add the filter to your configuration. It can be placed in any of
 == Installing the JAKOB server ==
 *NOTE* that this guide applies to the current WAYF setup. Your setup may vary. 
 
-This guide is not an exhaustive and you have to fill out the blankk yourself.
+This guide is not an exhaustive and you might have to install additional packages. Please report any missing dependencies as an issue [http://code.google.com/p/jakob/issues/list here].
 
-Install all required packages
+  # Install all required packages
 {{{
 apt-get install openssh-server mysql-server mysql-client apache2 libapache2-mod-php5 php5-mysql memcached php5-memcache php-pear php5-dev g++ libboost-dev libboost-program-options-dev libevent-dev uuid-dev libboost-thread-dev gearman gearman-job-server gearman-tools
 }}}
-
-The Gearman PECL extention requires Gearman > 0.21
+  # The Gearman PECL extention requires Gearman > 0.21 (which is not part of the Ubuntu 10.04 repositories). See this [MiscNotes page] for more detailed information.
 {{{
 wget -q http://launchpad.net/gearmand/trunk/0.27/+download/gearmand-0.27.tar.gz
 tar xzf gearmand-0.27.tar.gz
@@ -74,11 +78,11 @@ make
 make install
 ldconfig
 }}}
-Install the PECL Gearman extension for PHP"
+  # Install the PECL Gearman extension for PHP"
 {{{
 pecl install gearman
 }}}
-Enable the extension in both apache and cli
+  # Enable the extension in both apache and cli
 {{{
 cd /etc/php5/apache2/
 echo "extension=gearman.so" >> php.ini
@@ -86,19 +90,15 @@ cd /etc/php5/cli/
 echo "extension=gearman.so" >> php.ini
 /etc/init.d/apache2 restart
 }}}
-
-Install JAKOB
+  # Install JAKOB
 {{{
 mkdir -p <JAKOB-DIR>
 svn export http://jakob.googlecode.com/svn/trunk/ <JAKOB-DIR>
 chmod 777 <JAKOB-DIR>/log
 }}}
-
-Configure the config file to fit your needs
-
-Create the database and set up the tables
-
-Setup Apache
+  # Adapt the config file to fit your needs. Found in `/<JAKOB-DIR>/config/config.php`
+  # Create the database and set up the tables. SQL found in `/<JAKOB-DIR>/docs/jakob.sql`
+  # Setup Apache
 {{{
 a2enmod ssl
 a2enmod rewrite
@@ -108,31 +108,28 @@ a2ensite jakob.wayf.dk
 a2dissite 000-default
 /etc/init.d/apache2 reload
 }}}
-
-Get metadata for Admin interface
+  # Get metadata for Admin interface
 {{{
-wget -q -O /home/ndn-wayf/jakob.wayf.dk/config/metadata/wayf-idp.xml "https://janus.wayf.dk/module.php/janus/exportentities.php?type%5B%5D=saml20-idp&state=prod&mimetype=application%2Fxml"
-wget -q -O /home/ndn-wayf/jakob.wayf.dk/config/metadata/wayf-sp.xml "https://janus.wayf.dk/module.php/janus/exportentities.php?type%5B%5D=saml20-sp&state=prod&mimetype=application%2Fxml"
+wget -q -O /<JAKOB-DIR>/config/metadata/wayf-idp.xml "<IDP-METADATA-URL>"
+wget -q -O /<JAKOB-DIR>/config/metadata/wayf-sp.xml "<SP-METADATA-URL>"
 }}}
-
-Restarting Gearman job server
+  # Restarting Gearman job server
 {{{
 killall gearmand
 gearmand -d
 }}}
-
-start JAKOB workers
+  # Start JAKOB workers
 {{{
 ./<JAKOB-DIR>/bin/jakob-worker.php
 }}}
-
-Set correct permissions on log files
+  # Set correct permissions on log files
 {{{
 chmod 777 <JAKOB-DIR>/log/jakob.log
 }}}
 
-= Maintanaince =
+----
 
+= Maintanaince =
 Find all workers (conectors) running
 {{{
 $ pgrep -f connector-worker.php

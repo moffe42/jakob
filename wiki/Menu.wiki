@@ -7,8 +7,6 @@
 
 * [UserStories User stories]
 
-* [ProjectPlan Project plan]
-
 ===Documentation===
 
 * [ExternalDatasources External data sources]

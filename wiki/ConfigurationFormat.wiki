@@ -1,5 +1,7 @@
 #summary Describes the configuration format
 
+= JAKOB job configuration =
+
 Configuration of a job in JAKOB is done with an PHP style array. The array is integer indexed. Each toplevel entry defines a call to a specific connector, with the define options. ONLY the first connector is called automatically. The subsequent connectors are only called if specified by a previously run connector. 
 
 A connector configuration has the following options:
@@ -21,6 +23,7 @@ A connector configuration can contain the following options:
 || `_timeout`||_float_ || No || Max time an connector is allowed to run until the user will be presented with the JAKOB UI. The values is a float in seconds where the decimal part is micro seconds.||
 || `_timeoutFatal`|| _boolean_ || No || If set, that all timeouts will be fatal. Meaning that if a timeout occurs, then the attributes gathered so far is returned with out waiting for the rest of the connectors to finish.||
 
+= Example =
 {{{
 array (
   0 => array (

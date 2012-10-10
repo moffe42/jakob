@@ -23,4 +23,6 @@
 
 ===Development===
 
+* [Contribute How to contribute]
+
 * [ProgrammersGuide Programmers Guide]

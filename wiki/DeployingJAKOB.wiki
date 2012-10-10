@@ -14,7 +14,7 @@ Deploying JAKOb in a WAYF like setup requires you to:
  * All requirements for a SimpleSAMLphp server (see http://simplesamlphp.org/docs/1.8/simplesamlphp-install)
  * PDO and the appropriate driver (mysql)
 
-== Installing JAKOB filter on WAYF ==
+== Installing JAKOB filter on SimpleSMALphp ==
 You need to check out the SimpleSAMLphp authentication processing filter in the modules directory of your SSP installation
 {{{
 $ svn export http://jakob.googlecode.com/svn/trunk/ssp-module/jakob <SSP-DIR>/modules/jakob

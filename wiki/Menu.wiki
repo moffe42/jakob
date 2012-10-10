@@ -11,9 +11,9 @@
 
 ===Documentation===
 
-* [Connectors Connectors]
-
 * [ExternalDatasources External data sources]
+
+* [Connectors Connectors]
 
 * [ConfigurationFormat Configuration Format]
 

@@ -25,6 +25,4 @@
 
 * [ProgrammersGuide Programmers Guide]
 
-* [MiscNotes Gearman Notes]
-
 * [Notes Notes]

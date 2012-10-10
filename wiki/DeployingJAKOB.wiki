@@ -1,6 +1,6 @@
-#summary How to deploy JAKOB in the WAYF setup
+#summary How to deploy JAKOB in a WAYF-like setup
 
-Deploying JAKOb in a WAYF like setup requires you to:
+Deploying JAKOB in a WAYF-like setup requires you to:
  * Deploy JAKOB
  * Deploy a connector (AuthProc filter) on your WAYF to connect to JAKOB
 

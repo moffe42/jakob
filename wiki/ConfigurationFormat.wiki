@@ -2,8 +2,10 @@
 
 = JAKOB job configuration =
 
-Configuration of a job in JAKOB is done with an PHP style array. The array is integer indexed. Each toplevel entry defines a call to a specific connector, with the define options. ONLY the first connector is called automatically. The subsequent connectors are only called if specified by a previously run connector. 
+Configuration of a job in JAKOB is done with an PHP style array. The array is integer indexed. Each toplevel entry defines a call to a specific connector, with the define options. ONLY the first connector is called 
+automatically. The subsequent connectors are only called if specified by a previously run connector. 
 
+== Connector configuration ==
 A connector configuration has the following options:
 
 || *Identifier* || *Type* || *Required* || *Description* ||
@@ -11,7 +13,7 @@ A connector configuration has the following options:
 || `success` || _integer_ || No || Contains a pointer to the next connector to be executed if the result of the connector is successful. This must be the top level integer index in the configuration array. I no success connector is set, then the job wil terminate and the result so far is returned. ||
 || `fail` || _integer_ || No || Contains a pointer to the next connector to be executed if the result of the connector is unsuccessful. This must be the top level integer index in the configuration array. ||
 
-== data ==
+=== data ===
 Contains the configuration for the connector to be called
 
 A connector configuration can contain the following options:

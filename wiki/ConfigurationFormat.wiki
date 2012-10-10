@@ -4,12 +4,13 @@ Configuration of a job in JAKOB is done with an PHP style array. The array is in
 
 A connector configuration has the following options:
 
+<table>
 <thead><tr><th>Identifier</th><th>Type</th><th>Required</th><th>Description</th></tr>
 </thead>
 <tbody>
 <tr><td>ddd</td><td>ddd</td><td>ddd</td><td>ddd</td></tr>
 </tbody>
-
+</table>
 || `data` || _array_ || Yes ||  ||
 || `success` || _integer_ || No || Contains a pointer to the next connector to be executed if the result of the connector is successful. This must be the top level integer index in the configuration array. I no success connector is set, then the job wil terminate and the result so far is returned. ||
 || `fail` || _integer_ || No || Contains a pointer to the next connector to be executed if the result of the connector is unsuccessful. This must be the top level integer index in the configuration array. ||

@@ -17,6 +17,8 @@
 
 * [ConfigurationFormat Configuration Format]
 
+==== Operations ====
+
 * [DeployingJAKOB Deploying JAKOB]
 
 ===Development===

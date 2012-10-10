@@ -1,4 +1,4 @@
-#summary Stuff that we need
+#summary Detailed description on how to install Gearman on Ubuntu 10.04
 
 = Gearman =
 

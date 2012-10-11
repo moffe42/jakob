@@ -1,20 +1,22 @@
 <?php
+// Signal handler function for gracefull exit capability
 declare(ticks=1);
-include '../www/_init.php';
-
-$stopwork = false;
-
-// Signal handler function
+pcntl_signal(SIGTERM, "sig_handler");
 function sig_handler($signo)
 {
+    global $logger, $connector_config, $stopwork;
     switch ($signo) {
         case SIGTERM:
             // Workers is to terminate
             $stopwork = true;
-            $logger->log(JAOKB_INFO, $connector_config['class'] . ' was forced to quit - SIGTERM');
-        }
+            $logger->log(JAKOB_DEBUG, $connector_config['class'] . ' was forced to quit - SIGTERM');
+            break;
+    }
 }
-pcntl_signal(SIGTERM, "sig_handler");
+
+include '../www/_init.php';
+
+$stopwork = false;
 
 try {
     $jakob_config = \WAYF\Configuration::getConfig();
@@ -50,18 +52,23 @@ if (isset($connector_config['class'])) {
     }
 }
 
+
+
 // Set timeout to 5 seconds
-$worker->setTimeout(5000);
+$worker->_gworker->setTimeout(5000);
 
 // Wait for work
-while(@$gmworker->work() || $gmworker->returnCode() == GEARMAN_TIMEOUT) {
-    if ($worker->_gworker->returnCode() != GEARMAN_SUCCESS) {
-        $logger->log(JAOKB_ERROR, $connector_config['class'] . ' did not return success on work. Return cod was: ', $worker->_gworker->returnCode());
+while(@$worker->work() || $worker->_gworker->returnCode() == GEARMAN_TIMEOUT) {
+    if (($worker->_gworker->returnCode() != GEARMAN_SUCCESS) && ($worker->_gworker->returnCode() != GEARMAN_TIMEOUT)) {
+        $logger->log(JAKOB_ERROR, $connector_config['class'] . ' did not return success on work. Return cod was: ', $worker->_gworker->returnCode());
     }
     // Check to see if the workers have been killed
     if ($stopwork) {
+        $logger->log(JAKOB_DEBUG, $connector_config['class'] . ' stopping work loop');
         break;
     }
 }
 
-$worker->unregisterAll();
+$worker->_gworker->unregisterAll();
+$logger->log(JAKOB_INFO, $connector_config['class'] . ' disconnecting nicly from job server and exiting');
+exit(0);

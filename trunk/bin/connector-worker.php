@@ -64,4 +64,4 @@ while(@$gmworker->work() || $gmworker->returnCode() == GEARMAN_TIMEOUT) {
     }
 }
 
-$worker->unregisterAll()
+$worker->unregisterAll();

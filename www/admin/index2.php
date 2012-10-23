@@ -17,7 +17,6 @@ function sporto($md, $providerids){
 	}
 }
 
-/*
 if (!isset($_SESSION['loginok'])) {
     $attributes = sporto($metadata, null);
     if (in_array($attributes['eduPersonPrincipalName'][0], $users)) {
@@ -26,7 +25,7 @@ if (!isset($_SESSION['loginok'])) {
         trigger_error('You are not authorized to access the JAKOB admin interface');
     }
 }
- */
+
 $actions = array(
     'list',
     'edit',

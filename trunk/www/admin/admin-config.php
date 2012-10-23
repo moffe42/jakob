@@ -1,6 +1,6 @@
 <?php
 include '../_init.php';
-include 'auth.php';
+//include 'auth.php';
 
 $actions = array(
     'list',
@@ -49,11 +49,28 @@ switch ($action) {
             'config' => $res
         );
         
+        function cmp1($a, $b) {
+            if ($a['md:Organization']['md:OrganizationDisplayName'][1]['__v'] == $b['md:Organization']['md:OrganizationDisplayName'][1]['__v']) {
+                return 0;
+            }
+            return ($a['md:Organization']['md:OrganizationDisplayName'][1]['__v'] < $b['md:Organization']['md:OrganizationDisplayName'][1]['__v']) ? -1 : 1;
+        }
+        
+        function cmp2($a, $b) {
+            if ($a['md:SPSSODescriptor'][0]['md:AttributeConsumingService'][0]['md:ServiceName'][1]['__v'] == $b['md:SPSSODescriptor'][0]['md:AttributeConsumingService'][0]['md:ServiceName'][1]['__v']) {
+                return 0;
+            }
+            return ($a['md:SPSSODescriptor'][0]['md:AttributeConsumingService'][0]['md:ServiceName'][1]['__v'] < $b['md:SPSSODescriptor'][0]['md:AttributeConsumingService'][0]['md:ServiceName'][1]['__v']) ? -1 : 1;
+        }
+
         $spmetadata = file_get_contents('../../config/metadata/wayf-sp.xml');
         $idpmetadata = file_get_contents('../../config/metadata/wayf-idp.xml');
 
         $data['spmd'] = \WAYF\SAML\XmlToArray::xml2array($spmetadata);
         $data['idpmd'] = \WAYF\SAML\XmlToArray::xml2array($idpmetadata);
+
+        usort($data['idpmd']['md:EntityDescriptor'], 'cmp1');
+        usort($data['spmd']['md:EntityDescriptor'], 'cmp2');
 
         $template->setTemplate('admin-edit')->setData($data)->render();
         break;

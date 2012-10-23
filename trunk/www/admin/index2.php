@@ -59,8 +59,9 @@ try {
 
 switch ($action) {
     case 'create':
-        $query = "INSERT INTO `" . $table . "` (`umerkey, `consumersecret`, `email`) VALUES('', '', '');";
-        $jobid = $db->insert($query);
+        $query = "INSERT INTO `{$table}` (`consumerkey`, `consumersecret`, `email`) VALUES ('CHANGE ME',  'CHANGE ME',  'CHANGE ME');";
+        $key = $db->insert($query);
+        $key = 'CHANGE ME';
     case 'edit':
         if (isset($_REQUEST['key'])) {
             $key = $_REQUEST['key'];

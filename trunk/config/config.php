@@ -53,5 +53,5 @@ $config = array(
     'gearman.jobservers' => '127.0.0.1',
 
     // Directory for pid files for start-stop-daemon
-    'pid.directory' = '/var/jakob',
+    'pid.directory' => '/var/jakob',
 );

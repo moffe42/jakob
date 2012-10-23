@@ -52,7 +52,9 @@ if (isset($connector_config['class'])) {
     }
 }
 
-
+// Write pid file for start-stop-daemon
+$pid = getmypid();
+file_put_contents($jakob_config['pid_directory'] . DIRECTORY_SEPERATOR . $pid . '.pid', $pid);
 
 // Set timeout to 5 seconds
 $worker->_gworker->setTimeout(5000);

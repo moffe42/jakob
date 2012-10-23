@@ -23,7 +23,7 @@ $config = array(
             'servers' => array(
                 array(
                     'host' => '127.0.0.1',
-                    'port' => '11211',
+                    'port' => '11212',
                 ),
             ),
         ),     
@@ -39,16 +39,19 @@ $config = array(
 
     // Logger configuration
     'logger' => array(
-        'type' => 'Syslog',  
+        'type' => 'File',  
         'options' => array('file' => 'jakob.log'),
     ),
     
     // Salt used when calculating jobhash values
     'salt'     => 'pezo340fkvd3afnywz3ab2fuwf5enj8h',
 
-    // Time to wait if jobs are not done
-    'waittime' => 1000,
+    // Time to wait if jobs are not done (in micro seconds)
+    'waittime' => 100000, // 100 ms
 
     // German configuration
     'gearman.jobservers' => '127.0.0.1',
+
+    // Directory for pid files for start-stop-daemon
+    'pid.directory' = '/var/jakob',
 );

@@ -56,5 +56,5 @@ $ nc localhost 4730
 
 === Start Gearman Job Server ===
 {{{
-$ gearman -d
+$ gearmand -d
 }}}

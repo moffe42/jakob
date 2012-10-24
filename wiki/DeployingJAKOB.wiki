@@ -126,23 +126,3 @@ gearmand -d
 {{{
 chmod 777 <JAKOB-DIR>/log/jakob.log
 }}}
-
-----
-
-= Maintanaince =
-Find all workers (conectors) running
-{{{
-$ pgrep -f connector-worker.php
-}}}
-
-Kill all running workers
-{{{
-$ pkill -f connector-worker.php
-}}}
-
-See running workers
-{{{
-$ nc localhost 4730
-- status
-- workers
-}}}

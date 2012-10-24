@@ -1,9 +1,7 @@
-#summary One-sentence summary of this page.
+#summary Operation tools and best practice.
 
+= JAKOB Operations =
 This document describes some of the standard operation items.
-
-= Operations =
-
 
 == Tools ==
 JAKOB comes with some simple maintenance tools, all located in the `bin` directory located under `JAKOB`.
@@ -24,16 +22,22 @@ The script will start connectors for all configuration files located in the `./c
 === restart-workers.sh ===
 This script will stop all running connectors and start connectors for all configuration files located in the `./config/connectors/` directory. The script uses the jakob-workers.php for starting the actual connectors.
 
+----
+
 == Find running connectors ==
 Find all workers (conectors) running
 {{{
 $ pgrep -f connector-worker.php
 }}}
 
-== Kill all running connectors ==
+== Stop all running connectors ==
 Kill all running workers
 {{{
 $ pkill -f connector-worker.php
+}}}
+If one or more connector are not stopping use
+{{{
+$ pkill -9 -f connector-worker.php
 }}}
 
 == See the running workers ==

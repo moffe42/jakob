@@ -1,6 +1,6 @@
 <?php
 include '../_init.php';
-//include 'auth.php';
+include 'auth.php';
 
 $actions = array(
     'list',

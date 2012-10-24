@@ -5,6 +5,7 @@ $config = array(
     'username' => 'USERNAME',
     'password' => 'PASSWORD',
     'table'    => 'jakob__configuration',
+    'timeout'  => 2, // Database timeout in seconds
 
     // Salt used when calculating jobhash values
     'salt'     => 'pezo340fkvd3afnywz3ab2fuwf5enj8h',

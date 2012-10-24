@@ -28,11 +28,12 @@ class sspmod_jakob_Auth_Process_jakob extends SimpleSAML_Auth_ProcessingFilter
         $username = $this->_jConfig->getString('username');
         $password = $this->_jConfig->getString('password');
         $table    = $this->_jConfig->getString('table');
+        $timeout  = $this->_jConfig->getInteger('timeout');
 
         try {
             $db = @new sspmod_jakob_DB($dsn, $username, $password, array(
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_TIMEOUT => 2,
+                PDO::ATTR_TIMEOUT => $timeout,
                 PDO::ATTR_PERSISTENT   
             ));
         } catch (PDOException $e) {

@@ -24,13 +24,15 @@ This script will stop all running connectors and start connectors for all config
 
 ----
 
-== Find running connectors ==
+== Connectors ==
+
+=== Find running connectors ===
 Find all workers (conectors) running
 {{{
 $ pgrep -f connector-worker.php
 }}}
 
-== Stop all running connectors ==
+=== Stop all running connectors ===
 Kill all running workers
 {{{
 $ pkill -f connector-worker.php
@@ -40,10 +42,19 @@ If one or more connector are not stopping use
 $ pkill -9 -f connector-worker.php
 }}}
 
-== See the running workers ==
+=== See the running workers ===
 See running workers
 {{{
 $ nc localhost 4730
 - status
 - workers
+}}}
+
+----
+
+== Gearman job Server ==
+
+=== Start Gearman Job Server ===
+{{{
+$ gearman -d
 }}}

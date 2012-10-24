@@ -18,6 +18,7 @@
 === Operations ===
 
 * [DeployingJAKOB Deploying JAKOB]
+* [Operations Maintanaince]
 
 ===Development===
 

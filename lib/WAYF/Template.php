@@ -24,7 +24,7 @@ class Template
 
     public function t($term)
     {
-       $this->_translator->t($term); 
+       return $this->_translator->t($term); 
     }
 
     public function setTemplate($template, $defaultheaders = true) 

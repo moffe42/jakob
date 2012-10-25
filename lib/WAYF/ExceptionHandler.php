@@ -5,7 +5,7 @@ namespace WAYF;
 class ExceptionHandler {
     
     private $_errortype = array (
-        E_ERROR              => 'EERROR',
+        E_ERROR              => 'ERROR',
         E_WARNING            => 'WARNING',
         E_PARSE              => 'PARSING EROR',
         E_NOTICE             => 'NOTICE',
@@ -17,7 +17,10 @@ class ExceptionHandler {
         E_USER_WARNING       => 'User Warning',
         E_USER_NOTICE        => 'User Notice',
         E_STRICT             => 'Runtime Notice',
-        E_RECOVERABLE_ERROR  => 'Catchable Fatal Error'
+        E_RECOVERABLE_ERROR  => 'Catchable Fatal Error',
+        E_DEPRECATED         => 'Deprecated error',
+        E_USER_DEPRECATED    => 'User deprecated error',
+        E_ALL                => 'ALL'
     );
     
     private $_logger = null;

@@ -34,7 +34,12 @@ if ((isset($_SESSION['JAKOB.id']) && isset($_POST['token'])) && $_SESSION['JAKOB
         $silence = $request->getSilence();
         $consumerkey = $request->getConsumer();
     } catch(\WAYF\RequestException $re) {
-        $data = array('errortitle' => 'Request error', 'errormsg' => $re->getMessage());
+        $data = array(
+            'errortitle' => 'Request error',
+            'errormsg' => $re->getMessage(),
+            't' => $t,
+            'lang' => $_SESSION['lang']
+        );
         $template->setTemplate('error')->setData($data)->render();
     }
 }
@@ -71,7 +76,7 @@ try {
     );
     $_SESSION['JAKOB_Session'] = serialize($session);
     $_SESSION['JAKOB.id'] = \WAYF\Utilities::generateID();
-    $template->setTemplate('timeout')->setData(array('token' => $_SESSION['JAKOB.id']))->render();
+    $template->setTemplate('timeout')->setData(array('token' => $_SESSION['JAKOB.id'], 't' => $t, 'lang' => $_SESSION['lang']))->render();
 } catch(WAYF\Exceptions\FatalTimeoutException $e) {
     // fatal timeout, return what we have
     try {
@@ -82,7 +87,12 @@ try {
     $attributes = $attr_col->getAttributes();
 } catch(\Exception $e) {
     // Some unknown errro have happend
-    $data = array('errortitle' => 'An error has occured', 'errormsg' => $e->getMessage());
+    $data = array(
+        'errortitle' => 'An error has occured',
+        'errormsg' => $e->getMessage(),
+        't' => $t,
+        'lang' => $_SESSION['lang']
+    );
     $logger->log(JAKOB_ERROR, 'An error has occured' . var_export($e, true));
     $template->setTemplate('error')->setData($data)->render();
 }   
@@ -113,7 +123,12 @@ try {
     $consumer->load();
 } catch(\WAYF\ConsumerException $e) {
     // Consumer could not be found. Most likely a DB error
-    $data = array('errortitle' => 'Consumer could not be found', 'errormsg' => $e->getMessage());
+    $data = array(
+        'errortitle' => 'Consumer could not be found', 
+        'errormsg' => $e->getMessage(),
+        't' => $t,
+        'lang' => $_SESSION['lang']
+    );
     $logger->log(JAKOB_ERROR, 'Consumer could not be found' . var_export($e, true));
     $template->setTemplate('error')->setData($data)->render();
 }

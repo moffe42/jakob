@@ -54,4 +54,7 @@ $config = array(
 
     // Directory for pid files for start-stop-daemon
     'pid.directory' => '/var/jakob',
+
+    // Languages supported
+    'languages' => array('da', 'en'),
 );

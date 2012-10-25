@@ -76,3 +76,12 @@ function shutdown() {
 
 // Start session
 session_start();
+
+// Handle translation
+if (isset($_REQUEST['lang']) && in_array($_REQUEST['lang'], $config['languages'])) {
+    $_SESSION['lang'] = $_REQUEST['lang'];
+} else if (!isset($_SESSION['lang'])) {
+    $_SESSION['lang'] = 'da';
+}
+$t = new \WAYF\Translation($_SESSION['lang']);
+$template->setTranslator($t);

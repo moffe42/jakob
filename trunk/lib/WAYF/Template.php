@@ -8,12 +8,23 @@ class Template
     private $_templatepath = '';
     private $_template = null;
     private $_defaultheaders = true;
+    private $_translator;
 
     public $data = array();
 
     public function __construct()
     {
         $this->_templatepath = ROOT . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
+    }
+
+    public function setTranslator(\WAYF\Translator $trans)
+    {
+        $this->_translator = $trans;
+    }
+
+    public function t($term)
+    {
+       $this->_translator->t($term); 
     }
 
     public function setTemplate($template, $defaultheaders = true) 

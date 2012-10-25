@@ -17,7 +17,7 @@ class Template
         $this->_templatepath = ROOT . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
     }
 
-    public function setTranslator(\WAYF\Translator $trans)
+    public function setTranslator(\WAYF\Translation $trans)
     {
         $this->_translator = $trans;
     }

@@ -48,7 +48,7 @@ class ExceptionHandler {
 
         // Please note that relying on php_sapi_name() is not 100 % solid. 
         // Please see http://dk.php.net/manual/en/function.php-sapi-name.php#89858
-        if (php_sapi_name() != 'cli') {
+        if ((php_sapi_name() != 'cli') && (ini_get('display_errors') == 'on')) {
             $data = array(
                 'errortitle' => 'Unhandled error',
                 'errormsg' => $exception->getMessage(),    

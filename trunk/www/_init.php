@@ -16,6 +16,12 @@ ini_set('magic_quotes_gpc', 'off');
 ini_set('magic_quotes_runtime', 'off');
 ini_set('magic_quotes_sybase', 'off');
 
+// Error codes
+define('JAKOB_ERROR', 1);
+define('JAKOB_WARNING', 2);
+define('JAKOB_INFO', 3);
+define('JAKOB_DEBUG', 4);
+
 // Check what status we have
 switch (STATUS) {
     case 'production': {

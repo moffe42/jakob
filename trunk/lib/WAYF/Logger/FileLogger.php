@@ -34,6 +34,8 @@ class FileLogger implements Logger
 {
     private $_file;
 
+    private $_level = JAKOB_WARNING;
+
     private $_logLevelNames = array(
         JAKOB_ERROR => 'ERROR',
         JAKOB_WARNING => 'WARNING',
@@ -69,6 +71,10 @@ class FileLogger implements Logger
         } else {
             throw new \WAYF\LoggerException('Log file configuration not correct');
         }
+
+        if (isset($options['level'])) {
+            $this->_level = $options['level'];
+        }
     }
 
     /**
@@ -80,8 +86,9 @@ class FileLogger implements Logger
      */
     public function log($level, $message)
     {
-        $line = sprintf("%s - %s - %s \n", strftime("%b %d %H:%M:%S"), $this->_logLevelNames[$level], $message);
-
-        $this->_file->fwrite($line);
+        if ($level <= $this->_level) {
+            $line = sprintf("%s - %s - %s \n", strftime("%b %d %H:%M:%S"), $this->_logLevelNames[$level], $message);
+            $this->_file->fwrite($line);
+        }
     }
 }

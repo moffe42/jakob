@@ -40,7 +40,10 @@ $config = array(
     // Logger configuration
     'logger' => array(
         'type' => 'File',  
-        'options' => array('file' => 'jakob.log'),
+        'options' => array(
+            'file' => 'jakob.log',
+            'level' => JAKOB_INFO,
+        ),
     ),
     
     // Salt used when calculating jobhash values

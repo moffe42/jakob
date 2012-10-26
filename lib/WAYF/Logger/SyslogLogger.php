@@ -32,6 +32,8 @@ use WAYF\Logger;
  */
 class SyslogLogger implements Logger
 {
+    private $_level = JAKOB_WARNING;
+
     private $_logtosyslog = array(
         JAKOB_ERROR => LOG_ERR,
         JAKOB_WARNING => LOG_WARNING,
@@ -42,6 +44,9 @@ class SyslogLogger implements Logger
     public function __construct($config)
     {
         openlog('JAKOB', LOG_PID, LOG_LOCAL0);
+        if (isset($config['level'])) {
+           $this->_level = $config['level'] ;
+        }
     }
 
     /**
@@ -53,6 +58,8 @@ class SyslogLogger implements Logger
      */
     public function log($level, $message)
     {
-        syslog($this->_logtosyslog[$level], $message);
+        if ($level <= $this->_level) {
+            syslog($this->_logtosyslog[$level], $message);
+        }
     }
 }

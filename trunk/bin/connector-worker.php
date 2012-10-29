@@ -14,7 +14,7 @@ function sig_handler($signo)
     }
 }
 
-include dirname(__FILE__) . '../www/_init.php';
+  include dirname(__FILE__) . '/../www/_init.php';
 
 $stopwork = false;
 

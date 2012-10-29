@@ -13,7 +13,7 @@
 
 * [Connectors Connectors]
 
-  * [connectorRepo Connector repository]
+  * [ConnectorRepo Connector repository]
 
 * [ConfigurationFormat Configuration Format]
 

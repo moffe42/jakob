@@ -13,6 +13,8 @@
 
 * [Connectors Connectors]
 
+  * [connectorRepo Connector repository]
+
 * [ConfigurationFormat Configuration Format]
 
 === Operations ===
